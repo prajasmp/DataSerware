@@ -1,68 +1,100 @@
-# NOVEXHOST — Verified Environment Variables & Secrets Guide
+# NOVEXHOST — Complete Production Environment & Credentials Setup Guide
 
-This document reflects the **real, code-verified** environment variables across the NOVEXHOST repository.
-
----
-
-## 1. Actual Architecture & Deployment Target
-
-- **Frontend**: Single-Page Application (React 18 + Vite) located in `src/`, compiled to `dist/`.
-- **Backend API**: Serverless Functions located in `netlify/functions/*.js` and `netlify/functions/lib/*.js`.
-- **Local Development**: Vite server runs on port 3000 (`vite.config.js`). It includes a custom middleware (`netlifyFunctionsDevPlugin`) that executes the functions in `netlify/functions/` locally on `http://localhost:3000/api/*`.
-- **Deployment Options**:
-  1. **Netlify (Recommended for Full-Stack)**: `netlify.toml` automatically builds the frontend (`dist`) and deploys all serverless functions in `netlify/functions/`.
-  2. **Cloudflare Pages (Frontend Only) + Remote Functions**: Cloudflare Pages serves the static bundle (`dist`) with `_redirects` handling SPA routing. API calls route to the backend URL configured in `VITE_API_BASE_URL`.
+This document is the verified reference for all environment variables, security boundaries, and external integrations in the **NOVEXHOST** platform.
 
 ---
 
-## 2. Environment Variables Verification Table
+## 1. Architectural Reality & Deployment Boundaries
 
-| Variable Name | Purpose | Where to Obtain | Where to Enter | Secret or Public | Required or Optional | Verification Status |
-|---|---|---|---|---|---|---|
-| `NODE_ENV` | Sets execution mode (`development` or `production`). In production, strict HMAC and SSL are enforced. | Self-configured | Local `.env`, Hosting dashboard | Public | Optional (defaults to `development`) | **VERIFIED IN CODE** |
-| `PUBLIC_URL` | Base URL used to build customer order-tracking links in email receipts. | Domain registrar or host URL | Local `.env`, Hosting dashboard | Public | Optional (defaults to `http://localhost:3000`) | **VERIFIED IN CODE** |
-| `VITE_API_BASE_URL` | Base URL of backend API when frontend is hosted separately on Cloudflare Pages. | Backend deployment URL | Local `.env`, Cloudflare build vars | Public | Optional (defaults to relative `""`) | **VERIFIED IN CODE** |
-| `RAZORPAY_KEY_ID` | Public Razorpay key ID for initializing client checkout modal. | [Razorpay Dashboard > API Keys](https://dashboard.razorpay.com/app/keys) | Local `.env`, Hosting dashboard | Public | **Required for live payments** | **VERIFIED (TEST MODE PASSES)** |
-| `RAZORPAY_KEY_SECRET` | Secret key for backend order creation and HMAC-SHA256 signature verification. | [Razorpay Dashboard > API Keys](https://dashboard.razorpay.com/app/keys) | Local `.env` (server-side only), Secrets dashboard | **STRICT SECRET** | **Required for live payments** | **VERIFIED (TEST MODE PASSES)** |
-| `RAZORPAY_WEBHOOK_SECRET` | Secret for verifying incoming Razorpay webhooks (`x-razorpay-signature`). | [Razorpay Dashboard > Webhooks](https://dashboard.razorpay.com/app/webhooks) | Local `.env`, Secrets dashboard | **STRICT SECRET** | Optional in dev / **Required in prod** | **VERIFIED IN TESTS** |
-| `PTERODACTYL_PANEL_URL` | Base URL of Pterodactyl panel API. | Pterodactyl installation URL | Local `.env`, Hosting dashboard | Public | Optional (defaults to `https://panel.novexhost.com`) | **VERIFIED (FALLBACK ACTIVE)** |
-| `PTERODACTYL_APPLICATION_API_KEY` | Admin API key (`ptla_...`) to create users, servers, and node allocations. | Pterodactyl Admin > Application API | Local `.env`, Secrets dashboard | **STRICT SECRET** | Required for live Pterodactyl auto-provisioning | **VERIFIED (FALLBACK ACTIVE)** |
-| `PTERODACTYL_CLIENT_API_KEY` | User API key (`ptlc_...`) for console websockets and server power. | Pterodactyl Account > API Credentials | Local `.env`, Secrets dashboard | **STRICT SECRET** | Optional (falls back to Application Key) | **VERIFIED (FALLBACK ACTIVE)** |
-| `PTERODACTYL_NODE_ID` | Target server node ID in Pterodactyl. | Pterodactyl Admin > Nodes | Local `.env`, Hosting dashboard | Public | Optional (defaults to `1`) | **VERIFIED IN CODE** |
-| `PTERODACTYL_LOCATION_ID` | Target location ID in Pterodactyl. | Pterodactyl Admin > Locations | Local `.env`, Hosting dashboard | Public | Optional (defaults to `1`) | **VERIFIED IN CODE** |
-| `PTERODACTYL_NEST_ID` | Pterodactyl nest category ID. | Pterodactyl Admin > Nests | Local `.env`, Hosting dashboard | Public | Optional (defaults to `1`) | **VERIFIED IN CODE** |
-| `PTERODACTYL_MINECRAFT_EGG_ID` | Egg ID for Minecraft servers in Pterodactyl. | Pterodactyl Admin > Nests > Egg | Local `.env`, Hosting dashboard | Public | Optional (defaults to `3`) | **VERIFIED IN CODE** |
-| `WHM_HOST` | Hostname or IP of cPanel/WHM server. | Dedicated cPanel/WHM server | Local `.env`, Hosting dashboard | Public | Required for live cPanel auto-provisioning | **VERIFIED (QUEUE ACTIVE)** |
-| `WHM_USERNAME` | Administrator or reseller username in WHM. | WHM administrative account | Local `.env`, Hosting dashboard | Public | Optional (defaults to `root`) | **VERIFIED IN CODE** |
-| `WHM_API_TOKEN` | WHM Remote API v1 authorization token. | WHM > Manage API Tokens | Local `.env`, Secrets dashboard | **STRICT SECRET** | Required for live cPanel auto-provisioning | **VERIFIED (QUEUE ACTIVE)** |
-| `WHM_PORT` | Port for WHM SSL management API. | WHM server port configuration | Local `.env`, Hosting dashboard | Public | Optional (defaults to `2087`) | **VERIFIED IN CODE** |
-| `BARE_METAL_AUTO_PROVISION` | Enables automated bare-metal PXE/IPMI netboot deployment. | Datacenter NOC operations | Local `.env`, Hosting dashboard | Public | Optional (MUST remain `false` until verified) | **VERIFIED (SAFELY DISABLED)** |
-| `DEFAULT_DATACENTER` | Default datacenter label for physical VDS chassis. | Datacenter NOC agreement | Local `.env`, Hosting dashboard | Public | Optional (defaults to `Equinix Mumbai (BOM1)`) | **VERIFIED IN CODE** |
-| `SMTP_HOST` | Outgoing SMTP mail relay server. | Email provider (SendGrid, Postmark, Google) | Local `.env`, Hosting dashboard | Public | Optional (logs to console if absent) | **VERIFIED (FALLBACK ACTIVE)** |
-| `SMTP_PORT` | Port for SMTP mail submission. | Email provider documentation | Local `.env`, Hosting dashboard | Public | Optional (defaults to `587`) | **VERIFIED IN CODE** |
-| `SMTP_USER` | SMTP authentication username / email. | Email provider account | Local `.env`, Hosting dashboard | Public | Optional (logs to console if absent) | **VERIFIED (FALLBACK ACTIVE)** |
-| `SMTP_PASS` | SMTP authentication password or App Password. | Email provider security settings | Local `.env`, Secrets dashboard | **STRICT SECRET** | Optional (logs to console if absent) | **VERIFIED (FALLBACK ACTIVE)** |
-| `SMTP_FROM` | Sender display string for customer emails. | Brand specification | Local `.env`, Hosting dashboard | Public | Optional (defaults to NOVEXHOST Support) | **VERIFIED IN CODE** |
-| `SUPABASE_URL` / `VITE_SUPABASE_URL` | Supabase remote PostgreSQL database HTTPS endpoint. | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Local `.env`, Hosting dashboard | Public | Optional (in-memory cluster store used if absent) | **VERIFIED (FALLBACK ACTIVE)** |
-| `SUPABASE_SERVICE_ROLE_KEY` | Master service role key bypassing PostgreSQL RLS. | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Local `.env`, Secrets dashboard | **STRICT SECRET** | Optional (only required if remote Supabase used) | **VERIFIED (FALLBACK ACTIVE)** |
-| `VITE_SUPABASE_ANON_KEY` | Client-accessible Supabase anonymous key. | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Local `.env`, Vite build environment | Public | Optional | **VERIFIED (FALLBACK ACTIVE)** |
-| `VITE_FIREBASE_*` (8 vars) | Client-side Firebase configuration for Admin Console login. | [Firebase Console > Project Settings](https://console.firebase.google.com/) | Local `.env`, Vite build environment | Public | Optional (dev fallbacks hardcoded in `firebase.js`) | **VERIFIED (FALLBACK ACTIVE)** |
-| `FIREBASE_CLIENT_EMAIL` | Service account email for server-side token validation. | Firebase Console > Service Accounts | Local `.env`, Secrets dashboard | Public | Optional (client-token fallback active) | **VERIFIED (FALLBACK ACTIVE)** |
-| `FIREBASE_PRIVATE_KEY` | Service account RSA private key for server-side admin token validation. | Firebase Console > Service Accounts | Local `.env`, Secrets dashboard | **STRICT SECRET** | Optional (client-token fallback active) | **VERIFIED (FALLBACK ACTIVE)** |
-| `ADMIN_EMAILS` | Comma-separated list of authorized administrator email addresses. | Organization owners | Local `.env`, Hosting dashboard | Public | Optional (defaults to developer emails) | **VERIFIED IN CODE** |
-| `UPI_RECEIVER_ID` | Fallback UPI VPA for direct UPI intent requests. | UPI merchant account | Local `.env`, Hosting dashboard | Public | Optional (defaults to `billing@novexhost`) | **VERIFIED IN CODE** |
-| `UPI_RECEIVER_NAME` | Payee display name for direct UPI intent requests. | Business name | Local `.env`, Hosting dashboard | Public | Optional (defaults to `NOVEXHOST`) | **VERIFIED IN CODE** |
+- **Frontend (Client)**:
+  - React 18 Single Page Application (SPA) built with Vite 8 into `dist/`.
+  - Served via Cloudflare Pages or Netlify CDN.
+  - SPA routing is preserved across CDN edges via `public/_redirects` (`/* /index.html 200`).
+  - Cross-origin API calls are configured via `VITE_API_BASE_URL`.
+- **Backend (Serverless API)**:
+  - 17 Serverless Functions located in `netlify/functions/*.js` and `netlify/functions/lib/*.js`.
+  - Runs in Node.js ES Module runtime.
+  - In local development, `vite.config.js` executes these functions directly via `netlifyFunctionsDevPlugin` on `http://localhost:3000/api/*`.
+- **Zero Login Purchasing**:
+  - Customer ordering does **not** require customer registration or login.
+  - Orders are tracked via 64-character cryptographic tokens (`/track-order?id=...&token=...`).
+  - Admin authentication (`/admin`) is secured via Firebase Auth / Admin SDK with server-side role validation.
 
 ---
 
-## 3. Variables Confirmed Obsolete / Not Used in Repository
+## 2. Environment Variables Master Matrix
 
-The following variables often found in generic hosting checklists are **NOT referenced by the codebase**:
-- `CLOUDFLARE_ACCOUNT_ID`: Not used by application code (only used if running external CI/CD scripts).
-- `CLOUDFLARE_API_TOKEN`: Not used by application code.
-- `CLOUDFLARE_PAGES_PROJECT_NAME`: Not used by application code.
-- `DATABASE_URL`: Not used. All database calls route through `@supabase/supabase-js` or `devStore.js`.
-- `PORT` / `HOST`: Not used in production.
-- `JWT_SECRET` / `SESSION_SECRET`: Not used. Guest checkout requires zero login; admin auth uses Firebase tokens.
-- `CORS_ORIGIN`: Not used. Netlify serverless function handlers dynamically assign CORS headers.
-- `IPMI_DEFAULT_SUBNET`: Not queried as an environment variable.
+| Exact Variable Name | Req/Opt | Public / Secret | Providing Service | Where to Obtain | Environment | Dependent Application Feature | Safe Placeholder? | How to Verify It Works |
+|---|---|---|---|---|---|---|---|---|
+| `RAZORPAY_KEY_ID` | **Required** (Live) | Public | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Checkout modal initialization and backend order creation | Yes in dev (`rzp_test_...`) | Run test order checkout on `/checkout` |
+| `RAZORPAY_KEY_SECRET` | **Required** (Live) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Cryptographic HMAC-SHA256 signature verification | No in prod (must be real secret) | `node scratch/test_env_and_security.js` |
+| `RAZORPAY_WEBHOOK_SECRET` | **Required** (Prod) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > Webhooks](https://dashboard.razorpay.com/app/webhooks) | Both | Asynchronous payment capture and timing-safe webhook verification | Allowed only in dev mode | Trigger simulated webhook in test suite |
+| `PTERODACTYL_PANEL_URL` | Optional | Public | Pterodactyl | Pterodactyl Web Domain | Both | Game server & Cloud VPS provisioning API endpoint | Yes (`https://panel.novexhost.com`) | View nodes list in `/admin` |
+| `PTERODACTYL_APPLICATION_API_KEY` | **Required** (Auto-Ptero) | **STRICT SECRET** | Pterodactyl | Pterodactyl Admin > Application API | Both | Automated Minecraft & VPS server creation and user provisioning | Safe dev fallback to sandbox queue | Order a game server on `/checkout` |
+| `PTERODACTYL_CLIENT_API_KEY` | Optional | **STRICT SECRET** | Pterodactyl | Pterodactyl Account > API Credentials | Both | Console websockets and server power actions | Safe fallback to App Key | Test server power actions in admin |
+| `PTERODACTYL_NODE_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nodes | Both | Target server allocation node | Yes (defaults to `1`) | Node allocation in provisioning |
+| `PTERODACTYL_LOCATION_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Locations | Both | Target datacenter location | Yes (defaults to `1`) | Node allocation in provisioning |
+| `PTERODACTYL_NEST_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nests | Both | Server nest category | Yes (defaults to `1`) | Egg allocation in provisioning |
+| `PTERODACTYL_MINECRAFT_EGG_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nests > Egg | Both | Minecraft egg ID | Yes (defaults to `3`) | Server startup parameters |
+| `WHM_HOST` | **Required** (Auto-cPanel) | Public | cPanel/WHM | Dedicated WHM server IP/FQDN | Both | Linux shared hosting account creation (`createacct`) | Safe dev fallback to staging queue | Check account in WHM List Accounts |
+| `WHM_USERNAME` | Optional | Public | cPanel/WHM | WHM administrative login | Both | WHM API authentication user | Yes (defaults to `root`) | Account ownership in WHM |
+| `WHM_API_TOKEN` | **Required** (Auto-cPanel) | **STRICT SECRET** | cPanel/WHM | WHM > Manage API Tokens | Both | WHM Remote API v1 authentication header | Safe dev fallback to staging queue | Order cPanel hosting on `/checkout` |
+| `WHM_PORT` | Optional | Public | cPanel/WHM | WHM SSL port configuration | Both | Remote port for WHM SSL API | Yes (defaults to `2087`) | WHM ping connectivity |
+| `BARE_METAL_AUTO_PROVISION` | Optional | Public | Internal NOC | Set to `'false'` until datacenter hardware is verified | Both | Physical Bare-Metal VDS netboot deployment | **Must remain `false`** until verified | Staged in hardware allocation queue |
+| `DEFAULT_DATACENTER` | Optional | Public | Internal NOC | Datacenter NOC agreement | Both | Physical location label on VDS cards | Yes (`"Equinix Mumbai (BOM1)"`) | Visible in customer tracking card |
+| `SMTP_HOST` | Optional | Public | Email Provider | SendGrid, Postmark, Google Workspace | Both | Outgoing transactional email delivery | Safe (logs to console if unset) | Purchase server and check delivery |
+| `SMTP_PORT` | Optional | Public | Email Provider | Email provider documentation | Both | SMTP submission port | Yes (defaults to `587`) | Nodemailer handshake |
+| `SMTP_USER` | Optional | Public | Email Provider | Mail account username | Both | SMTP authentication user | Safe (logs to console if unset) | Outgoing mail authentication |
+| `SMTP_PASS` | Optional | **STRICT SECRET** | Email Provider | Mail account password / App Password | Both | SMTP authentication password | Safe (logs to console if unset) | Outgoing mail authentication |
+| `SMTP_FROM` | Optional | Public | Brand Spec | Brand configuration | Both | Customer-facing sender display header | Yes (`NOVEXHOST Support <notifications@...>`) | Header in delivered customer email |
+| `NODE_ENV` | Optional | Public | Node.js | Runtime environment | Both | Enforces strict HMAC validation and SSL checks | Yes (defaults to `development`) | Check `/api/admin/settings` |
+| `PUBLIC_URL` | Optional | Public | Custom Domain | DNS / Cloudflare domain | Both | Customer order tracking URLs in emails | Yes (defaults to `http://localhost:3000`) | Click tracking URL in confirmation email |
+| `VITE_API_BASE_URL` | Optional | Public | Hosting Provider | Backend Netlify domain (if separate from frontend) | Prod / Preview | Directs frontend API calls across origins | Yes (empty string for same-origin) | Network tab in browser DevTools |
+| `ADMIN_EMAILS` | Optional | Public | Platform Ops | Organization administrator emails | Both | Whitelist of accounts authorized for `/admin` | Yes (`admin@novexhost.com`) | Login with admin email at `/admin` |
+| `PRIMARY_ADMIN_EMAIL` | Optional | Public | Platform Ops | Owner email | Both | Designates owner role | Yes (`r26377269@gmail.com`) | Check owner badge in admin header |
+| `SUPABASE_URL` | Optional | Public | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Remote PostgreSQL persistence | Safe (`devStore.js` used if unset) | Query orders in Supabase table |
+| `SUPABASE_SERVICE_ROLE_KEY` | Optional | **STRICT SECRET** | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Master service_role database client | Safe (`devStore.js` used if unset) | Server-side database write test |
+| `VITE_SUPABASE_URL` | Optional | Public | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Client-side Supabase connection | Safe fallback | Client-side query |
+| `VITE_SUPABASE_ANON_KEY` | Optional | Public | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Public anon key subject to RLS | Safe fallback | Client-side query |
+| `VITE_FIREBASE_*` (8 vars) | Optional | Public | Firebase | [Firebase Console > Project Settings](https://console.firebase.google.com/) | Both | Client-side Google OAuth login | Safe fallback in `firebase.js` | Sign in with Google on `/admin` |
+| `FIREBASE_CLIENT_EMAIL` | Optional | Public | Firebase | Firebase Console > Service Accounts | Both | Server-side Admin SDK verification | Safe fallback | Verify token via Admin API |
+| `FIREBASE_PRIVATE_KEY` | Optional | **STRICT SECRET** | Firebase | Firebase Console > Service Accounts | Both | Server-side Admin SDK RSA signature | Safe fallback | Verify token via Admin API |
+| `UPI_RECEIVER_ID` | Optional | Public | Merchant Bank | Business UPI VPA | Both | Direct manual UPI intent QR code | Yes (`billing@novexhost`) | Test UPI QR code generation |
+| `UPI_RECEIVER_NAME` | Optional | Public | Merchant Bank | Payee display name | Both | Direct manual UPI intent payee name | Yes (`NOVEXHOST`) | Visible in UPI app intent |
+
+---
+
+## 3. Classification by Operational Requirement
+
+### A. Required for Application Startup
+- **None**: The application features zero crash-on-startup design. If all third-party environment variables are omitted, the platform initializes in full **development sandbox mode** using internal cluster storage (`devStore.js`), simulated hardware allocation, and test payment mocks.
+
+### B. Required for Customer Purchasing & Registration
+- **Zero Login Purchasing**: Customer registration is completely unauthenticated (zero login friction). Customers provide only server name, region/domain, customer name, email, and mobile number.
+- **`PUBLIC_URL`**: Required in production to ensure tracking URLs sent to customers point to `https://novexhost.com/track-order?id=...&token=...` instead of localhost.
+
+### C. Required for Razorpay Live Payments
+- **`RAZORPAY_KEY_ID`**: Public key for checkout modal.
+- **`RAZORPAY_KEY_SECRET`**: Private secret for backend order creation and HMAC verification.
+- **`RAZORPAY_WEBHOOK_SECRET`**: Required for verifying asynchronous webhooks from Razorpay.
+
+### D. Required for Automated Pterodactyl Provisioning (Minecraft, Game Servers, VPS)
+- **`PTERODACTYL_PANEL_URL`**: Base URL of your Pterodactyl panel.
+- **`PTERODACTYL_APPLICATION_API_KEY`**: Application API key (`ptla_...`) with write permissions for Users, Nodes, Allocations, and Servers.
+
+### E. Required for Automated cPanel / WHM Web Hosting
+- **`WHM_HOST`**: WHM server hostname or IP.
+- **`WHM_API_TOKEN`**: API token generated in WHM > Manage API Tokens with `createacct`, `suspendacct`, `unsuspendacct` permissions.
+
+### F. Required for Transactional Email (Receipts, Credentials)
+- **`SMTP_HOST`**, **`SMTP_USER`**, **`SMTP_PASS`**: SMTP credentials for outgoing mail. In local dev, emails are safely logged to console.
+
+### G. Required for VDS Machines / Bare-Metal Physical Provisioning
+- **`BARE_METAL_AUTO_PROVISION`**: Must remain `false` until physical chassis, IPMI controllers, and network drops are verified in the datacenter. Orders are safely held in the `hardware_allocation` NOC staging queue.
+
+### H. Variables Confirmed Obsolete / Unused
+- `DATABASE_URL`: Not used. Persistence utilizes REST API via `@supabase/supabase-js` or in-memory `devStore.js`.
+- `PORT` / `HOST`: Vite dev server manages port 3000 locally; production uses serverless functions.
+- `JWT_SECRET` / `SESSION_SECRET`: Not used. Ordering requires zero customer login; admin auth uses Firebase tokens.
+- `CORS_ORIGIN`: Built-in serverless handlers dynamically assign CORS headers.
+- `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_PAGES_PROJECT_NAME`: Not referenced by application code (only used if running custom CI/CD scripts).

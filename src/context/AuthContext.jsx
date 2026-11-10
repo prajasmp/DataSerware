@@ -13,7 +13,7 @@ import { syncUserWithBackend } from '../services/api';
 
 const AuthContext = createContext();
 
-const PRIMARY_ADMIN_EMAIL = 'r26377269@gmail.com';
+const PRIMARY_ADMIN_EMAIL = import.meta.env.VITE_PRIMARY_ADMIN_EMAIL || 'r26377269@gmail.com';
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {

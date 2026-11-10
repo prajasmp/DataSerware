@@ -3,7 +3,7 @@ import { supabaseAdmin, isSupabaseAdminConfigured } from './supabaseAdmin.js';
 import { getAdminUsersFromStore } from './devStore.js';
 
 let firebaseAdminApp;
-const PRIMARY_ADMIN_EMAIL = 'r26377269@gmail.com';
+const PRIMARY_ADMIN_EMAIL = process.env.PRIMARY_ADMIN_EMAIL || 'r26377269@gmail.com';
 
 function getFirebaseAdmin() {
   if (firebaseAdminApp) return firebaseAdminApp;
@@ -46,6 +46,13 @@ export async function verifyFirebaseToken(headers) {
   const token = authHeader.split('Bearer ')[1]?.trim();
   if (!token) {
     throw new Error('Unauthorized: Empty Bearer token provided.');
+  }
+
+  // In production, reject unverified mock or client-fabricated tokens
+  if (process.env.NODE_ENV === 'production') {
+    if (token.startsWith('client_token:') || token.startsWith('mock_token_')) {
+      throw new Error('Unauthorized: Client-generated or mock tokens are forbidden in production.');
+    }
   }
 
   if (token.startsWith('client_token:')) {
