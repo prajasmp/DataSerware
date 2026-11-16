@@ -66,13 +66,13 @@ export async function executeServerDeployment(orderId) {
     }
 
     const customerEmail = order.user_email || order.contact_email;
-    const customerName = order.user_name || 'NOVEX Customer';
+    const customerName = order.user_name || 'SERWARE Customer';
 
     // ----------------------------------------------------
     // BRANCH A: cPanel WEB HOSTING PROVISIONING
     // ----------------------------------------------------
     if (plan.type === 'web' || order.plan_id.startsWith('web-')) {
-      const domain = order.domain_name || order.server_name || `${customerName.replace(/[^a-z0-9]/gi, '').toLowerCase()}.novexhost.site`;
+      const domain = order.domain_name || order.server_name || `${customerName.replace(/[^a-z0-9]/gi, '').toLowerCase()}.dataserware.site`;
       console.log(`[Provisioning Web Hosting] Creating cPanel account for domain: ${domain}...`);
 
       const webAccount = await createWebHostingAccount({
@@ -142,7 +142,7 @@ export async function executeServerDeployment(orderId) {
       const bareMetalResult = await startBareMetalProvisioning({
         machine,
         os: order.os || 'Ubuntu 24.04 LTS',
-        hostname: order.server_name || `${machine.name.toLowerCase()}.novexhost.net`,
+        hostname: order.server_name || `${machine.name.toLowerCase()}.dataserware.net`,
         sshKey: order.ssh_key,
         customerEmail,
         orderId: order.id

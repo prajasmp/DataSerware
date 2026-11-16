@@ -70,7 +70,7 @@ export default function VdsMachines() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(6,182,212,0.25)] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(147, 51, 234,0.25)] backdrop-blur-md">
             <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
             Dedicated Bare-Metal Architecture
           </div>
@@ -93,7 +93,7 @@ export default function VdsMachines() {
                   onClick={() => setSelectedCycle(cycle.id)}
                   className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
                     active
-                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)]'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(147, 51, 234,0.4)]'
                       : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                   }`}
                 >
@@ -113,7 +113,7 @@ export default function VdsMachines() {
                   onClick={() => setSelectedFamily(fam.id)}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                     active
-                      ? 'bg-slate-800 text-cyan-300 border border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                      ? 'bg-slate-800 text-cyan-300 border border-cyan-500/50 shadow-[0_0_15px_rgba(147, 51, 234,0.2)]'
                       : 'bg-slate-900/50 text-slate-400 border border-slate-800 hover:text-white'
                   }`}
                 >
@@ -126,7 +126,7 @@ export default function VdsMachines() {
 
         {/* Flagship Banner if Ryzen 9 is shown */}
         {(selectedFamily === 'all' || selectedFamily === 'ryzen9') && (
-          <div className="relative rounded-3xl p-8 sm:p-10 mb-16 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/40 border-2 border-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.25)] overflow-hidden">
+          <div className="relative rounded-3xl p-8 sm:p-10 mb-16 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/40 border-2 border-cyan-400 shadow-[0_0_50px_rgba(147, 51, 234,0.25)] overflow-hidden">
             <div className="absolute top-0 right-0 px-6 py-1.5 rounded-bl-2xl bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-black text-xs uppercase tracking-widest shadow-md">
               Flagship Bare-Metal
             </div>
@@ -176,7 +176,7 @@ export default function VdsMachines() {
                 </div>
                 <Link
                   to={`/checkout/vds-ryzen9-9950x?cycle=${currentCycle.id}`}
-                  className="mt-6 w-full py-3.5 rounded-xl text-center font-bold text-sm bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all flex items-center justify-center gap-2"
+                  className="mt-6 w-full py-3.5 rounded-xl text-center font-bold text-sm bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(147, 51, 234,0.4)] hover:shadow-[0_0_30px_rgba(147, 51, 234,0.6)] transition-all flex items-center justify-center gap-2"
                 >
                   <span>Order Flagship Ryzen 9</span>
                   <ArrowRight className="w-4 h-4" />
@@ -197,7 +197,7 @@ export default function VdsMachines() {
                 key={plan.id}
                 className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 backdrop-blur-xl ${
                   isFlagship
-                    ? 'bg-gradient-to-b from-slate-900/90 via-cyan-950/20 to-slate-900/90 border-2 border-cyan-400 shadow-[0_0_35px_rgba(6,182,212,0.2)]'
+                    ? 'bg-gradient-to-b from-slate-900/90 via-cyan-950/20 to-slate-900/90 border-2 border-cyan-400 shadow-[0_0_35px_rgba(147, 51, 234,0.2)]'
                     : 'bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 shadow-xl'
                 }`}
               >

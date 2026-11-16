@@ -251,7 +251,7 @@ export default function Admin({ mode }) {
   if (authLoading) {
     return (
       <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <RefreshCw size={32} className="spin-loader" style={{ color: '#00f2fe' }} />
+        <RefreshCw size={32} className="spin-loader" style={{ color: '#c084fc' }} />
       </div>
     );
   }
@@ -265,7 +265,7 @@ export default function Admin({ mode }) {
           <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
             You must be an authorized Data Serware administrator to access this management dashboard.
           </p>
-          <Link to="/" style={{ padding: '0.8rem 1.5rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}>
+          <Link to="/" style={{ padding: '0.8rem 1.5rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}>
             Return to Homepage
           </Link>
         </div>
@@ -285,7 +285,7 @@ export default function Admin({ mode }) {
   });
 
   return (
-    <div style={{ minHeight: '90vh', padding: '2.5rem 1rem', background: '#030712' }}>
+    <div style={{ minHeight: '90vh', padding: '2.5rem 1rem', background: '#06020e' }}>
       <div className="container" style={{ maxWidth: '1240px', margin: '0 auto' }}>
 
         {/* Top Header */}
@@ -297,12 +297,12 @@ export default function Admin({ mode }) {
                 <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', margin: 0 }}>
                   Data Serware Admin Console
                 </h1>
-                <span style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid rgba(0, 242, 254, 0.4)', color: '#00f2fe', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
+                <span style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
                   v2.0
                 </span>
               </div>
               <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-                Signed in as <strong style={{ color: '#00f2fe' }}>{user.email}</strong>
+                Signed in as <strong style={{ color: '#c084fc' }}>{user.email}</strong>
               </span>
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function Admin({ mode }) {
           <button
             onClick={loadAdminData}
             disabled={loadingData}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(6, 182, 212, 0.12)', border: '1px solid rgba(6, 182, 212, 0.3)', color: '#00f2fe', padding: '0.6rem 1.1rem', borderRadius: '10px', cursor: 'pointer', fontWeight: 600, fontSize: '0.88rem' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(147, 51, 234, 0.12)', border: '1px solid rgba(147, 51, 234, 0.3)', color: '#c084fc', padding: '0.6rem 1.1rem', borderRadius: '10px', cursor: 'pointer', fontWeight: 600, fontSize: '0.88rem' }}
           >
             <RefreshCw size={14} className={loadingData ? 'spin-loader' : ''} />
             <span>Refresh Data</span>
@@ -332,7 +332,7 @@ export default function Admin({ mode }) {
         )}
 
         {/* Tabs Bar */}
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', paddingBottom: '12px', marginBottom: '2rem', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', paddingBottom: '12px', marginBottom: '2rem', overflowX: 'auto' }}>
           {[
             { id: 'dashboard', label: 'Dashboard Overview', icon: Activity },
             { id: 'orders', label: `Orders (${orders.length})`, icon: ShoppingBag },
@@ -356,9 +356,9 @@ export default function Admin({ mode }) {
                   gap: '8px',
                   padding: '0.65rem 1.2rem',
                   borderRadius: '10px',
-                  border: isActive ? '1px solid #00f2fe' : '1px solid transparent',
-                  background: isActive ? 'rgba(0, 242, 254, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                  color: isActive ? '#00f2fe' : '#94a3b8',
+                  border: isActive ? '1px solid #c084fc' : '1px solid transparent',
+                  background: isActive ? 'rgba(168, 85, 247, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+                  color: isActive ? '#c084fc' : '#94a3b8',
                   fontWeight: isActive ? 700 : 500,
                   fontSize: '0.9rem',
                   cursor: 'pointer',
@@ -378,15 +378,15 @@ export default function Admin({ mode }) {
           <div>
             {/* Metric KPI Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Revenue</span>
-                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#00f2fe', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
+                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#c084fc', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {formatINR(metrics?.totalRevenue || 0)}
                 </div>
                 <span style={{ fontSize: '0.8rem', color: '#34d399', marginTop: '4px', display: 'block' }}>Verified INR payments</span>
               </div>
 
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Orders</span>
                 <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {metrics?.totalOrders || orders.length}
@@ -410,12 +410,12 @@ export default function Admin({ mode }) {
                 <span style={{ fontSize: '0.8rem', color: '#facc15', marginTop: '4px', display: 'block' }}>Awaiting checkout</span>
               </div>
 
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Active Servers</span>
-                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#38bdf8', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
+                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#d8b4fe', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {metrics?.activeServers || servers.length}
                 </div>
-                <span style={{ fontSize: '0.8rem', color: '#38bdf8', marginTop: '4px', display: 'block' }}>Running on Pterodactyl</span>
+                <span style={{ fontSize: '0.8rem', color: '#d8b4fe', marginTop: '4px', display: 'block' }}>Running on Pterodactyl</span>
               </div>
 
               <div style={{ background: '#081426', border: '1px solid rgba(239, 68, 68, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
@@ -426,15 +426,15 @@ export default function Admin({ mode }) {
                 <span style={{ fontSize: '0.8rem', color: '#fca5a5', marginTop: '4px', display: 'block' }}>Retryable with 1-click</span>
               </div>
 
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>Web Hosting Accounts</span>
-                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#00f2fe', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
+                <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#c084fc', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {webAccounts.length}
                 </div>
-                <span style={{ fontSize: '0.8rem', color: '#38bdf8', marginTop: '4px', display: 'block' }}>cPanel Web Hosting</span>
+                <span style={{ fontSize: '0.8rem', color: '#d8b4fe', marginTop: '4px', display: 'block' }}>cPanel Web Hosting</span>
               </div>
 
-              <div style={{ background: '#081426', border: '2px solid rgba(0, 242, 254, 0.3)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '2px solid rgba(168, 85, 247, 0.3)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '1px' }}>VDS Bare-Metal Fleet</span>
                 <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {vdsMachines.length}
@@ -444,15 +444,15 @@ export default function Admin({ mode }) {
             </div>
 
             {/* Recent Transactions Table */}
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Activity size={18} style={{ color: '#00f2fe' }} /> Recent Transactions
+                <Activity size={18} style={{ color: '#c084fc' }} /> Recent Transactions
               </h3>
 
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '10px 12px' }}>Order ID</th>
                       <th style={{ padding: '10px 12px' }}>Customer</th>
                       <th style={{ padding: '10px 12px' }}>Plan</th>
@@ -465,7 +465,7 @@ export default function Admin({ mode }) {
                   <tbody>
                     {(metrics?.recentTransactions || orders.slice(0, 8)).map((tx) => (
                       <tr key={tx.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)', color: '#cbd5e1' }}>
-                        <td style={{ padding: '12px', fontFamily: 'monospace', color: '#00f2fe', fontWeight: 600 }}>{tx.id}</td>
+                        <td style={{ padding: '12px', fontFamily: 'monospace', color: '#c084fc', fontWeight: 600 }}>{tx.id}</td>
                         <td style={{ padding: '12px' }}>
                           <span style={{ color: '#fff', fontWeight: 600, display: 'block' }}>{tx.userName || 'Customer'}</span>
                           <span style={{ color: '#64748b', fontSize: '0.8rem' }}>{tx.userEmail}</span>
@@ -478,7 +478,7 @@ export default function Admin({ mode }) {
                           </span>
                         </td>
                         <td style={{ padding: '12px' }}>
-                          <span style={{ fontSize: '0.78rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: tx.provisioningStatus === 'active' ? 'rgba(0, 242, 254, 0.2)' : 'rgba(148, 163, 184, 0.2)', color: tx.provisioningStatus === 'active' ? '#00f2fe' : '#94a3b8' }}>
+                          <span style={{ fontSize: '0.78rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: tx.provisioningStatus === 'active' ? 'rgba(168, 85, 247, 0.2)' : 'rgba(148, 163, 184, 0.2)', color: tx.provisioningStatus === 'active' ? '#c084fc' : '#94a3b8' }}>
                             {tx.provisioningStatus}
                           </span>
                         </td>
@@ -507,14 +507,14 @@ export default function Admin({ mode }) {
                     value={orderSearchQuery}
                     onChange={(e) => setOrderSearchQuery(e.target.value)}
                     placeholder="Search by ID, name, email..."
-                    style={{ width: '100%', padding: '0.65rem 0.75rem 0.65rem 36px', background: '#081426', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.65rem 0.75rem 0.65rem 36px', background: '#081426', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
                   />
                 </div>
 
                 <select
                   value={orderStatusFilter}
                   onChange={(e) => setOrderStatusFilter(e.target.value)}
-                  style={{ padding: '0.65rem 1rem', background: '#081426', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
+                  style={{ padding: '0.65rem 1rem', background: '#081426', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
                 >
                   <option value="all">All Orders</option>
                   <option value="paid">Paid Only</option>
@@ -529,11 +529,11 @@ export default function Admin({ mode }) {
             </div>
 
             {/* Orders Table */}
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Order Ref</th>
                       <th style={{ padding: '12px 14px' }}>Customer Contact</th>
                       <th style={{ padding: '12px 14px' }}>Plan</th>
@@ -553,7 +553,7 @@ export default function Admin({ mode }) {
                     ) : (
                       filteredOrders.map(order => (
                         <tr key={order.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                          <td style={{ padding: '14px', fontFamily: 'monospace', color: '#00f2fe', fontWeight: 600 }}>
+                          <td style={{ padding: '14px', fontFamily: 'monospace', color: '#c084fc', fontWeight: 600 }}>
                             {order.id}
                             <span style={{ display: 'block', fontSize: '0.75rem', color: '#64748b', fontFamily: 'sans-serif' }}>
                               {order.server_name || 'Standard'}
@@ -591,11 +591,11 @@ export default function Admin({ mode }) {
                           </td>
 
                           <td style={{ padding: '14px' }}>
-                            <span style={{ fontSize: '0.78rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: order.provisioning_status === 'active' ? 'rgba(0, 242, 254, 0.2)' : order.provisioning_status === 'failed' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(148, 163, 184, 0.2)', color: order.provisioning_status === 'active' ? '#00f2fe' : order.provisioning_status === 'failed' ? '#fca5a5' : '#94a3b8' }}>
+                            <span style={{ fontSize: '0.78rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: order.provisioning_status === 'active' ? 'rgba(168, 85, 247, 0.2)' : order.provisioning_status === 'failed' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(148, 163, 184, 0.2)', color: order.provisioning_status === 'active' ? '#c084fc' : order.provisioning_status === 'failed' ? '#fca5a5' : '#94a3b8' }}>
                               {order.provisioning_status?.toUpperCase() || 'QUEUED'}
                             </span>
                             {order.panel_server_id && (
-                              <span style={{ display: 'block', fontSize: '0.75rem', color: '#00f2fe', fontFamily: 'monospace', marginTop: '2px' }}>
+                              <span style={{ display: 'block', fontSize: '0.75rem', color: '#c084fc', fontFamily: 'monospace', marginTop: '2px' }}>
                                 Panel ID: #{order.panel_server_id}
                               </span>
                             )}
@@ -614,7 +614,7 @@ export default function Admin({ mode }) {
                                   type="button"
                                   onClick={() => handleRetryDeployment(order.id)}
                                   disabled={actionInProgress === `retry_${order.id}`}
-                                  style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid #00f2fe', color: '#00f2fe', padding: '5px 10px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                                  style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid #c084fc', color: '#c084fc', padding: '5px 10px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                                   title="Retry automated Pterodactyl deployment without charging customer"
                                 >
                                   <RefreshCw size={12} className={actionInProgress === `retry_${order.id}` ? 'spin-loader' : ''} />
@@ -648,7 +648,7 @@ export default function Admin({ mode }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Globe size={20} style={{ color: '#00f2fe' }} /> cPanel / WHM Web Hosting Management
+                  <Globe size={20} style={{ color: '#c084fc' }} /> cPanel / WHM Web Hosting Management
                 </h3>
                 <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>
                   Manage provisioned cPanel accounts, suspend/unsuspend sites, and verify WHM cluster connection.
@@ -671,11 +671,11 @@ export default function Admin({ mode }) {
               </div>
             </div>
 
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Domain Name</th>
                       <th style={{ padding: '12px 14px' }}>cPanel User</th>
                       <th style={{ padding: '12px 14px' }}>Package Tier</th>
@@ -694,14 +694,14 @@ export default function Admin({ mode }) {
                     ) : (
                       webAccounts.map(acc => (
                         <tr key={acc.id || acc.domain} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                          <td style={{ padding: '14px', color: '#00f2fe', fontWeight: 600, fontFamily: 'monospace' }}>
+                          <td style={{ padding: '14px', color: '#c084fc', fontWeight: 600, fontFamily: 'monospace' }}>
                             {acc.domain}
                           </td>
                           <td style={{ padding: '14px', color: '#fff', fontFamily: 'monospace' }}>
                             {acc.username}
                           </td>
                           <td style={{ padding: '14px', color: '#cbd5e1' }}>
-                            <span style={{ background: 'rgba(6, 182, 212, 0.1)', color: '#00f2fe', padding: '3px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
+                            <span style={{ background: 'rgba(147, 51, 234, 0.1)', color: '#c084fc', padding: '3px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
                               {acc.package || 'SERWARE_SOLO'}
                             </span>
                           </td>
@@ -744,9 +744,9 @@ export default function Admin({ mode }) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{
-                                  background: 'rgba(0, 242, 254, 0.1)',
-                                  border: '1px solid rgba(0, 242, 254, 0.3)',
-                                  color: '#00f2fe',
+                                  background: 'rgba(168, 85, 247, 0.1)',
+                                  border: '1px solid rgba(168, 85, 247, 0.3)',
+                                  color: '#c084fc',
                                   padding: '5px 10px',
                                   borderRadius: '6px',
                                   fontSize: '0.78rem',
@@ -778,7 +778,7 @@ export default function Admin({ mode }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Cpu size={20} style={{ color: '#00f2fe' }} /> Dedicated Physical Bare-Metal Fleet (VDS)
+                  <Cpu size={20} style={{ color: '#c084fc' }} /> Dedicated Physical Bare-Metal Fleet (VDS)
                 </h3>
                 <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>
                   Physical bare-metal machine inventory across flagship AMD Ryzen 9 9950X, Ryzen 7, and Intel Xeon hardware.
@@ -786,7 +786,7 @@ export default function Admin({ mode }) {
               </div>
 
               <div style={{ display: 'flex', gap: '10px' }}>
-                <span style={{ background: 'rgba(6, 182, 212, 0.1)', color: '#00f2fe', padding: '4px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 700, border: '1px solid rgba(6, 182, 212, 0.25)' }}>
+                <span style={{ background: 'rgba(147, 51, 234, 0.1)', color: '#c084fc', padding: '4px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 700, border: '1px solid rgba(147, 51, 234, 0.25)' }}>
                   Total Nodes: {vdsMachines.length}
                 </span>
                 <span style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#34d399', padding: '4px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: 700, border: '1px solid rgba(16, 185, 129, 0.25)' }}>
@@ -796,11 +796,11 @@ export default function Admin({ mode }) {
             </div>
 
             {/* Physical Machines Table */}
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Machine Identifier</th>
                       <th style={{ padding: '12px 14px' }}>Processor &amp; Cores</th>
                       <th style={{ padding: '12px 14px' }}>RAM / Storage</th>
@@ -816,7 +816,7 @@ export default function Admin({ mode }) {
                         <td style={{ padding: '14px', color: '#fff', fontWeight: 700, fontFamily: 'monospace' }}>
                           {m.name || m.id}
                         </td>
-                        <td style={{ padding: '14px', color: '#00f2fe' }}>
+                        <td style={{ padding: '14px', color: '#c084fc' }}>
                           {m.processor}
                         </td>
                         <td style={{ padding: '14px', color: '#cbd5e1' }}>
@@ -825,7 +825,7 @@ export default function Admin({ mode }) {
                         <td style={{ padding: '14px', color: '#94a3b8' }}>
                           {m.location} ({m.rack})
                         </td>
-                        <td style={{ padding: '14px', color: '#38bdf8', fontFamily: 'monospace' }}>
+                        <td style={{ padding: '14px', color: '#d8b4fe', fontFamily: 'monospace' }}>
                           {(m.ipPool && m.ipPool[0]) ? m.ipPool[0] : 'Pool Staged'}
                         </td>
                         <td style={{ padding: '14px' }}>
@@ -834,8 +834,8 @@ export default function Admin({ mode }) {
                             borderRadius: '6px',
                             fontSize: '0.75rem',
                             fontWeight: 700,
-                            background: m.status === 'available' ? 'rgba(16, 185, 129, 0.15)' : m.status === 'allocated' ? 'rgba(6, 182, 212, 0.15)' : 'rgba(234, 179, 8, 0.15)',
-                            color: m.status === 'available' ? '#34d399' : m.status === 'allocated' ? '#00f2fe' : '#facc15'
+                            background: m.status === 'available' ? 'rgba(16, 185, 129, 0.15)' : m.status === 'allocated' ? 'rgba(147, 51, 234, 0.15)' : 'rgba(234, 179, 8, 0.15)',
+                            color: m.status === 'available' ? '#34d399' : m.status === 'allocated' ? '#c084fc' : '#facc15'
                           }}>
                             {m.status?.toUpperCase()}
                           </span>
@@ -847,8 +847,8 @@ export default function Admin({ mode }) {
                             disabled={actionInProgress?.startsWith(`vds_${m.id}`)}
                             style={{
                               padding: '5px 8px',
-                              background: '#030712',
-                              border: '1px solid rgba(6, 182, 212, 0.3)',
+                              background: '#06020e',
+                              border: '1px solid rgba(147, 51, 234, 0.3)',
                               borderRadius: '6px',
                               color: '#fff',
                               fontSize: '0.8rem',
@@ -889,16 +889,16 @@ export default function Admin({ mode }) {
                   value={productSearchQuery}
                   onChange={(e) => setProductSearchQuery(e.target.value)}
                   placeholder="Filter plans..."
-                  style={{ width: '100%', padding: '0.65rem 0.75rem 0.65rem 36px', background: '#081426', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.65rem 0.75rem 0.65rem 36px', background: '#081426', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.88rem', outline: 'none' }}
                 />
               </div>
             </div>
 
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Product Plan</th>
                       <th style={{ padding: '12px 14px' }}>Category</th>
                       <th style={{ padding: '12px 14px' }}>Memory / Compute</th>
@@ -917,7 +917,7 @@ export default function Admin({ mode }) {
                             <strong style={{ color: '#fff', display: 'block' }}>{plan.name}</strong>
                             <code style={{ fontSize: '0.75rem', color: '#64748b' }}>{plan.id}</code>
                           </td>
-                          <td style={{ padding: '12px 14px', textTransform: 'uppercase', fontSize: '0.8rem', color: '#00f2fe' }}>
+                          <td style={{ padding: '12px 14px', textTransform: 'uppercase', fontSize: '0.8rem', color: '#c084fc' }}>
                             {plan.category}
                           </td>
                           <td style={{ padding: '12px 14px', color: '#cbd5e1' }}>
@@ -930,7 +930,7 @@ export default function Admin({ mode }) {
                             {formatINR(plan.originalPrice)}
                           </td>
                           <td style={{ padding: '12px 14px' }}>
-                            <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#00f2fe', fontFamily: 'Outfit, sans-serif' }}>
+                            <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#c084fc', fontFamily: 'Outfit, sans-serif' }}>
                               {formatINR(plan.price)}
                             </span>
                             {plan.isCustomPrice && (
@@ -944,7 +944,7 @@ export default function Admin({ mode }) {
                                 setEditingPlan(plan);
                                 setNewPlanPrice(String(plan.price));
                               }}
-                              style={{ background: 'rgba(6, 182, 212, 0.12)', border: '1px solid rgba(6, 182, 212, 0.3)', color: '#00f2fe', padding: '5px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
+                              style={{ background: 'rgba(147, 51, 234, 0.12)', border: '1px solid rgba(147, 51, 234, 0.3)', color: '#c084fc', padding: '5px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
                             >
                               Edit Price
                             </button>
@@ -959,7 +959,7 @@ export default function Admin({ mode }) {
             {/* Edit Price Modal */}
             {editingPlan && (
               <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-                <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.4)', borderRadius: '16px', padding: '2rem', maxWidth: '420px', width: '100%', boxShadow: '0 0 40px rgba(0, 242, 254, 0.2)' }}>
+                <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.4)', borderRadius: '16px', padding: '2rem', maxWidth: '420px', width: '100%', boxShadow: '0 0 40px rgba(168, 85, 247, 0.2)' }}>
                   <h3 style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '0.5rem' }}>
                     Edit Plan Price
                   </h3>
@@ -977,7 +977,7 @@ export default function Admin({ mode }) {
                         required
                         value={newPlanPrice}
                         onChange={(e) => setNewPlanPrice(e.target.value)}
-                        style={{ width: '100%', padding: '0.8rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none' }}
+                        style={{ width: '100%', padding: '0.8rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none' }}
                       />
                     </div>
 
@@ -992,7 +992,7 @@ export default function Admin({ mode }) {
                       <button
                         type="submit"
                         disabled={actionInProgress?.startsWith('save_price')}
-                        style={{ background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', border: 'none', color: '#030712', fontWeight: 700, padding: '0.6rem 1.4rem', borderRadius: '8px', cursor: 'pointer' }}
+                        style={{ background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', border: 'none', color: '#06020e', fontWeight: 700, padding: '0.6rem 1.4rem', borderRadius: '8px', cursor: 'pointer' }}
                       >
                         Save Price
                       </button>
@@ -1016,11 +1016,11 @@ export default function Admin({ mode }) {
               </span>
             </div>
 
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Server Name</th>
                       <th style={{ padding: '12px 14px' }}>Panel ID</th>
                       <th style={{ padding: '12px 14px' }}>Node / IP</th>
@@ -1044,11 +1044,11 @@ export default function Admin({ mode }) {
                             <strong style={{ color: '#fff', display: 'block' }}>{srv.server_name}</strong>
                             <code style={{ fontSize: '0.75rem', color: '#64748b' }}>{srv.id}</code>
                           </td>
-                          <td style={{ padding: '14px', fontFamily: 'monospace', color: '#00f2fe' }}>
+                          <td style={{ padding: '14px', fontFamily: 'monospace', color: '#c084fc' }}>
                             #{srv.panel_server_id}
                           </td>
                           <td style={{ padding: '14px' }}>
-                            <code style={{ background: '#030712', padding: '3px 6px', borderRadius: '4px', color: '#fff' }}>
+                            <code style={{ background: '#06020e', padding: '3px 6px', borderRadius: '4px', color: '#fff' }}>
                               {srv.ip}:{srv.port}
                             </code>
                             <span style={{ display: 'block', fontSize: '0.75rem', color: '#64748b' }}>Node {srv.node_id || 1}</span>
@@ -1077,7 +1077,7 @@ export default function Admin({ mode }) {
                               <button
                                 type="button"
                                 onClick={() => handleServerAction(srv.panel_server_id, 'restart')}
-                                style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid #00f2fe', color: '#00f2fe', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                                style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid #c084fc', color: '#c084fc', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}
                                 title="Restart"
                               >
                                 <RotateCw size={12} />
@@ -1114,11 +1114,11 @@ export default function Admin({ mode }) {
               </span>
             </div>
 
-            <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+            <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
-                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', color: '#94a3b8' }}>
+                    <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
                       <th style={{ padding: '12px 14px' }}>Razorpay Payment ID</th>
                       <th style={{ padding: '12px 14px' }}>Order Reference</th>
                       <th style={{ padding: '12px 14px' }}>Customer</th>
@@ -1139,7 +1139,7 @@ export default function Admin({ mode }) {
                         .filter(o => o.payment_status === 'PAID' || o.razorpay_payment_id)
                         .map(o => (
                           <tr key={o.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                            <td style={{ padding: '14px', fontFamily: 'monospace', color: '#00f2fe' }}>
+                            <td style={{ padding: '14px', fontFamily: 'monospace', color: '#c084fc' }}>
                               {o.razorpay_payment_id || 'Captured'}
                             </td>
                             <td style={{ padding: '14px', fontFamily: 'monospace', color: '#fff' }}>
@@ -1179,17 +1179,17 @@ export default function Admin({ mode }) {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
               {/* Razorpay Integration Health */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                   <h4 style={{ color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CreditCard size={18} style={{ color: '#00f2fe' }} /> Razorpay Gateway
+                    <CreditCard size={18} style={{ color: '#c084fc' }} /> Razorpay Gateway
                   </h4>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: settings?.razorpay?.isConfigured ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: settings?.razorpay?.isConfigured ? '#34d399' : '#facc15' }}>
                     {settings?.razorpay?.isConfigured ? 'LIVE CONFIGURED' : 'TEST / SANDBOX'}
                   </span>
                 </div>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Key ID:</strong> <code style={{ color: '#00f2fe' }}>{settings?.razorpay?.keyId || 'rzp_test_placeholder'}</code></div>
+                  <div><strong>Key ID:</strong> <code style={{ color: '#c084fc' }}>{settings?.razorpay?.keyId || 'rzp_test_placeholder'}</code></div>
                   <div><strong>Key Secret:</strong> <span style={{ color: settings?.razorpay?.hasSecret ? '#34d399' : '#ef4444' }}>{settings?.razorpay?.hasSecret ? 'Protected & Verified' : 'Missing'}</span></div>
                   <div><strong>Webhook Secret:</strong> <span style={{ color: settings?.razorpay?.hasWebhookSecret ? '#34d399' : '#facc15' }}>{settings?.razorpay?.hasWebhookSecret ? 'Active' : 'Optional in Dev'}</span></div>
                   <div><strong>Webhook URL:</strong> <code style={{ color: '#94a3b8' }}>/api/payments/webhook</code></div>
@@ -1197,17 +1197,17 @@ export default function Admin({ mode }) {
               </div>
 
               {/* Pterodactyl Integration Health */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                   <h4 style={{ color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Server size={18} style={{ color: '#00f2fe' }} /> Pterodactyl Panel API
+                    <Server size={18} style={{ color: '#c084fc' }} /> Pterodactyl Panel API
                   </h4>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: settings?.pterodactyl?.hasApplicationKey ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: settings?.pterodactyl?.hasApplicationKey ? '#34d399' : '#facc15' }}>
                     {settings?.pterodactyl?.hasApplicationKey ? 'CONNECTED' : 'SANDBOX SIMULATION'}
                   </span>
                 </div>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Panel URL:</strong> <code style={{ color: '#00f2fe' }}>{settings?.pterodactyl?.panelUrl || 'https://panel.dataserware.com'}</code></div>
+                  <div><strong>Panel URL:</strong> <code style={{ color: '#c084fc' }}>{settings?.pterodactyl?.panelUrl || 'https://panel.dataserware.com'}</code></div>
                   <div><strong>Application API Key:</strong> <span style={{ color: settings?.pterodactyl?.hasApplicationKey ? '#34d399' : '#ef4444' }}>{settings?.pterodactyl?.hasApplicationKey ? 'Loaded (Never Exposed)' : 'Missing'}</span></div>
                   <div><strong>Target Node ID:</strong> {settings?.pterodactyl?.nodeId || 1}</div>
                   <div><strong>Location / Egg ID:</strong> Loc {settings?.pterodactyl?.locationId || 1} &bull; Egg {settings?.pterodactyl?.eggId || 3}</div>
@@ -1215,10 +1215,10 @@ export default function Admin({ mode }) {
               </div>
 
               {/* SMTP Email Health */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                   <h4 style={{ color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Mail size={18} style={{ color: '#00f2fe' }} /> SMTP Email Delivery
+                    <Mail size={18} style={{ color: '#c084fc' }} /> SMTP Email Delivery
                   </h4>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: settings?.smtp?.isConfigured ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: settings?.smtp?.isConfigured ? '#34d399' : '#facc15' }}>
                     {settings?.smtp?.isConfigured ? 'SMTP ACTIVE' : 'CONSOLE SIMULATION'}
@@ -1233,12 +1233,12 @@ export default function Admin({ mode }) {
               </div>
 
               {/* Branding Overview */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <h4 style={{ color: '#fff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Globe size={18} style={{ color: '#00f2fe' }} /> Brand Identity
+                  <Globe size={18} style={{ color: '#c084fc' }} /> Brand Identity
                 </h4>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Brand Name:</strong> <strong style={{ color: '#00f2fe' }}>Data Serware</strong></div>
+                  <div><strong>Brand Name:</strong> <strong style={{ color: '#c084fc' }}>Data Serware</strong></div>
                   <div><strong>Theme:</strong> Premium Aqua &amp; Cyan Cyber UI</div>
                   <div><strong>Default Currency:</strong> Indian Rupee (INR ₹)</div>
                   <div><strong>Customer Login Requirement:</strong> <span style={{ color: '#34d399' }}>Disabled (Guest Purchases)</span></div>
@@ -1253,9 +1253,9 @@ export default function Admin({ mode }) {
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
               {/* Add Admin Form */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <UserPlus size={18} style={{ color: '#00f2fe' }} /> Grant Admin Access
+                  <UserPlus size={18} style={{ color: '#c084fc' }} /> Grant Admin Access
                 </h3>
                 <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
                   Admins can manage orders, restart servers, update prices, and process deployment retries.
@@ -1272,14 +1272,14 @@ export default function Admin({ mode }) {
                       value={newAdminEmail}
                       onChange={(e) => setNewAdminEmail(e.target.value)}
                       placeholder="team-member@gmail.com"
-                      style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                      style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={addingAdmin}
-                    style={{ width: '100%', padding: '0.85rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 700, borderRadius: '10px', border: 'none', cursor: 'pointer' }}
+                    style={{ width: '100%', padding: '0.85rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 700, borderRadius: '10px', border: 'none', cursor: 'pointer' }}
                   >
                     {addingAdmin ? 'Adding Admin...' : 'Authorize Admin'}
                   </button>
@@ -1287,7 +1287,7 @@ export default function Admin({ mode }) {
               </div>
 
               {/* Admin Users List */}
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1rem' }}>
                   Authorized Administrators
                 </h3>
@@ -1300,7 +1300,7 @@ export default function Admin({ mode }) {
                     >
                       <div>
                         <strong style={{ color: '#fff', fontSize: '0.92rem', display: 'block' }}>{admin.email}</strong>
-                        <span style={{ fontSize: '0.75rem', color: admin.role === 'owner' ? '#00f2fe' : '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.75rem', color: admin.role === 'owner' ? '#c084fc' : '#94a3b8', textTransform: 'uppercase', fontWeight: 600 }}>
                           Role: {admin.role || 'Admin'}
                         </span>
                       </div>

@@ -51,16 +51,16 @@ function getAquaEmailWrapper(title, contentHtml) {
 <body>
   <div class="container">
     <div class="header">
-      <h1 class="logo-text">NOVEX<span class="logo-accent">HOST</span></h1>
+      <h1 class="logo-text">DATA <span class="logo-accent">SERWARE</span></h1>
       <div class="tagline">Next-Generation Cloud &amp; VPS Hosting</div>
     </div>
     <div class="body-content">
       ${contentHtml}
     </div>
     <div class="footer">
-      <p>&copy; ${new Date().getFullYear()} NOVEXHOST Inc. All rights reserved.</p>
+      <p>&copy; ${new Date().getFullYear()} Data Serware Inc. All rights reserved.</p>
       <p>High Performance Game Servers &bull; NVMe Cloud VPS &bull; Enterprise DDoS Protection</p>
-      <p><a href="https://novexhost.com/track-order">Track Orders</a> &bull; <a href="https://novexhost.com/terms">Terms of Service</a> &bull; <a href="https://novexhost.com/contact">24/7 Support</a></p>
+      <p><a href="https://dataserware.com/track-order">Track Orders</a> &bull; <a href="https://dataserware.com/terms">Terms of Service</a> &bull; <a href="https://dataserware.com/contact">24/7 Support</a></p>
     </div>
   </div>
 </body>
@@ -69,12 +69,12 @@ function getAquaEmailWrapper(title, contentHtml) {
 }
 
 export async function sendEmail({ to, subject, html }) {
-  const from = process.env.SMTP_FROM || 'NOVEXHOST Support <notifications@novexhost.com>';
+  const from = process.env.SMTP_FROM || 'Data Serware Support <notifications@dataserware.com>';
 
   const mailOptions = {
     from,
     to,
-    subject: `[NOVEXHOST] ${subject}`,
+    subject: `[Data Serware] ${subject}`,
     html
   };
 
@@ -100,7 +100,7 @@ export async function sendOrderConfirmationEmail(order) {
   const html = getAquaEmailWrapper('Order Placed Successfully', `
     <h2 style="color: #ffffff; margin-top: 0;">Order Received: <span style="color: #00f2fe;">${order.id}</span></h2>
     <p>Hello <strong>${order.user_name || 'Customer'}</strong>,</p>
-    <p>Thank you for choosing NOVEXHOST. Your hosting package configuration has been reserved.</p>
+    <p>Thank you for choosing Data Serware. Your hosting package configuration has been reserved.</p>
     <div class="highlight-card">
       <div class="stat-row"><span class="stat-label">Plan</span><span class="stat-value">${order.plan_name}</span></div>
       <div class="stat-row"><span class="stat-label">Amount</span><span class="stat-value">₹${order.amount} INR</span></div>
@@ -159,7 +159,7 @@ export async function sendDeploymentStartedEmail(order) {
 
 // 4. Server Successfully Deployed (Auto-detects Game, Web Hosting, or VDS Bare-Metal)
 export async function sendServerReadyEmail(order, serverDetails) {
-  const panelUrl = process.env.PTERODACTYL_PANEL_URL || 'https://panel.novexhost.com';
+  const panelUrl = process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com';
   const trackingUrl = `${process.env.PUBLIC_URL || 'http://localhost:3000'}/track-order?id=${order.id}&token=${order.tracking_token}`;
 
   // If Web Hosting
@@ -167,15 +167,15 @@ export async function sendServerReadyEmail(order, serverDetails) {
     const html = getAquaEmailWrapper('Your Web Hosting Account is Active!', `
       <h2 style="color: #ffffff; margin-top: 0;">🌐 Web Hosting is Live &amp; Ready!</h2>
       <p>Hello <strong>${order.user_name || 'Customer'}</strong>,</p>
-      <p>Your NOVEXHOST cPanel Web Hosting environment has been provisioned and is active.</p>
+      <p>Your Data Serware cPanel Web Hosting environment has been provisioned and is active.</p>
       <div class="highlight-card">
         <div class="stat-row"><span class="stat-label">Domain</span><span class="stat-value" style="color: #00f2fe; font-family: monospace;">${serverDetails.domain || order.domain_name}</span></div>
         <div class="stat-row"><span class="stat-label">cPanel Username</span><span class="stat-value">${serverDetails.username}</span></div>
         <div class="stat-row"><span class="stat-label">cPanel URL</span><span class="stat-value"><a href="${serverDetails.cpanelUrl}" style="color: #38bdf8;">${serverDetails.cpanelUrl}</a></span></div>
-        <div class="stat-row"><span class="stat-label">Nameservers</span><span class="stat-value">ns1.novexhost.com / ns2.novexhost.com</span></div>
+        <div class="stat-row"><span class="stat-label">Nameservers</span><span class="stat-value">ns1.dataserware.com / ns2.dataserware.com</span></div>
         <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value" style="color: #34d399; font-weight: 700;">ACTIVE</span></div>
       </div>
-      <p>Point your domain's nameservers to NOVEXHOST to connect your website, or login to cPanel to upload files, setup databases, and configure email accounts.</p>
+      <p>Point your domain's nameservers to Data Serware to connect your website, or login to cPanel to upload files, setup databases, and configure email accounts.</p>
       <div style="text-align: center; margin: 25px 0;">
         <a href="${serverDetails.cpanelUrl}" class="btn" style="margin-right: 12px;">Login to cPanel &rarr;</a>
         <a href="${trackingUrl}" style="color: #38bdf8; font-size: 13px; font-weight: 600; text-decoration: underline; margin-left: 10px;">View Order Tracking</a>
@@ -212,7 +212,7 @@ export async function sendServerReadyEmail(order, serverDetails) {
   const html = getAquaEmailWrapper('Your Server Is Live!', `
     <h2 style="color: #ffffff; margin-top: 0;">🚀 Your Server is Active &amp; Ready!</h2>
     <p>Hello <strong>${order.user_name || 'Customer'}</strong>,</p>
-    <p>Your NOVEXHOST server environment has finished deploying and is online.</p>
+    <p>Your Data Serware server environment has finished deploying and is online.</p>
     <div class="highlight-card">
       <div class="stat-row"><span class="stat-label">Server Name</span><span class="stat-value">${serverDetails.server_name || order.server_name}</span></div>
       <div class="stat-row"><span class="stat-label">Connection IP</span><span class="stat-value" style="color: #00f2fe; font-family: monospace;">${serverDetails.ip || 'Assigned'}:${serverDetails.port || ''}</span></div>
@@ -220,7 +220,7 @@ export async function sendServerReadyEmail(order, serverDetails) {
       <div class="stat-row"><span class="stat-label">Allocated RAM</span><span class="stat-value">${serverDetails.memory_mb ? (serverDetails.memory_mb / 1024) + ' GB' : 'Configured'}</span></div>
       <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value" style="color: #34d399; font-weight: 700;">ONLINE (ACTIVE)</span></div>
     </div>
-    <p>You can manage files, view console logs, install plugins, and reboot your server anytime through the NOVEXHOST Control Panel.</p>
+    <p>You can manage files, view console logs, install plugins, and reboot your server anytime through the Data Serware Control Panel.</p>
     <div style="text-align: center; margin: 25px 0;">
       <a href="${panelUrl}" class="btn" style="margin-right: 12px;">Open Control Panel &rarr;</a>
       <a href="${trackingUrl}" style="color: #38bdf8; font-size: 13px; font-weight: 600; text-decoration: underline; margin-left: 10px;">View Tracking Details</a>

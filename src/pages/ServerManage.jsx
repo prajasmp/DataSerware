@@ -387,7 +387,7 @@ export default function ServerManage() {
       <div className="container">
 
         <div style={{ marginBottom: '1.25rem' }}>
-          <Link to="/panel" style={{ color: '#38bdf8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: 600 }}>
+          <Link to="/panel" style={{ color: '#d8b4fe', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: 600 }}>
             <ArrowLeft size={16} /> Back to My Servers
           </Link>
         </div>
@@ -401,7 +401,7 @@ export default function ServerManage() {
               <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#f8fafc', marginTop: '0.2rem' }}>
                 {server.server_name}
               </h1>
-              <div style={{ color: '#38bdf8', fontWeight: 700, fontSize: '0.95rem', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ color: '#d8b4fe', fontWeight: 700, fontSize: '0.95rem', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <code>{server.ip || '103.195.100.42'}:{server.port || 25565}</code>
               </div>
             </div>
@@ -497,7 +497,7 @@ export default function ServerManage() {
                   disabled={Boolean(actionInProgress)}
                   onClick={() => handlePowerAction('restart')}
                   className="primary-btn small glow-btn"
-                  style={{ background: 'rgba(56, 189, 248, 0.25)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.5)', padding: '0.6rem 1.25rem' }}
+                  style={{ background: 'rgba(192, 132, 252, 0.25)', color: '#d8b4fe', borderColor: 'rgba(192, 132, 252, 0.5)', padding: '0.6rem 1.25rem' }}
                 >
                   <RotateCw size={16} /> Restart
                 </button>
@@ -528,7 +528,7 @@ export default function ServerManage() {
                   <span>CPU Load</span>
                   <Cpu size={18} className="text-cyan" />
                 </div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#38bdf8' }}>
+                <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#d8b4fe' }}>
                   {cpuPercent.toFixed(1)}%
                 </div>
                 <p style={{ color: '#64748b', fontSize: '0.78rem', marginTop: '0.4rem' }}>
@@ -606,12 +606,12 @@ export default function ServerManage() {
               </div>
             )}
 
-            <div style={{ background: '#020617', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '8px', padding: '1rem', height: '380px', overflowY: 'auto', fontFamily: 'monospace', fontSize: '0.88rem', color: '#e2e8f0', lineHeight: '1.5' }}>
+            <div style={{ background: '#020617', border: '1px solid rgba(192, 132, 252, 0.2)', borderRadius: '8px', padding: '1rem', height: '380px', overflowY: 'auto', fontFamily: 'monospace', fontSize: '0.88rem', color: '#e2e8f0', lineHeight: '1.5' }}>
               {consoleLogs.length === 0 ? (
                 <div style={{ color: '#64748b', fontStyle: 'italic' }}>Console log buffer empty...</div>
               ) : (
                 consoleLogs.map((log, idx) => (
-                  <div key={idx} style={{ color: log.startsWith('>') ? '#38bdf8' : log.includes('ERROR') || log.includes('Error') ? '#f87171' : log.includes('WARN') ? '#fbbf24' : log.includes('INFO') ? '#94a3b8' : '#e2e8f0', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
+                  <div key={idx} style={{ color: log.startsWith('>') ? '#d8b4fe' : log.includes('ERROR') || log.includes('Error') ? '#f87171' : log.includes('WARN') ? '#fbbf24' : log.includes('INFO') ? '#94a3b8' : '#e2e8f0', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
                     {log}
                   </div>
                 ))
@@ -640,7 +640,7 @@ export default function ServerManage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ color: '#64748b', fontSize: '0.85rem' }}>Current Directory:</span>
-                <code style={{ color: '#38bdf8', fontSize: '0.95rem', fontWeight: 800 }}>{currentDir}</code>
+                <code style={{ color: '#d8b4fe', fontSize: '0.95rem', fontWeight: 800 }}>{currentDir}</code>
               </div>
 
               <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
@@ -688,9 +688,9 @@ export default function ServerManage() {
                           <button
                             type="button"
                             onClick={() => handleOpenFile(item)}
-                            style={{ background: 'none', border: 'none', color: item.isFile ? '#f8fafc' : '#38bdf8', fontWeight: item.isFile ? 400 : 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                            style={{ background: 'none', border: 'none', color: item.isFile ? '#f8fafc' : '#d8b4fe', fontWeight: item.isFile ? 400 : 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
                           >
-                            {item.isFile ? <FileText size={16} className="text-cyan" /> : <Folder size={16} style={{ color: '#38bdf8' }} />}
+                            {item.isFile ? <FileText size={16} className="text-cyan" /> : <Folder size={16} style={{ color: '#d8b4fe' }} />}
                             {item.name}
                           </button>
                         </td>
@@ -736,7 +736,7 @@ export default function ServerManage() {
               <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Manage Minecraft server plugins located in the <code>/plugins</code> folder.</p>
             </div>
 
-            <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.2)', padding: '0.85rem 1.15rem', borderRadius: '8px', fontSize: '0.85rem', color: '#e2e8f0' }}>
+            <div style={{ background: 'rgba(192, 132, 252, 0.08)', border: '1px solid rgba(192, 132, 252, 0.2)', padding: '0.85rem 1.15rem', borderRadius: '8px', fontSize: '0.85rem', color: '#e2e8f0' }}>
               💡 <strong>Notice:</strong> Plugin files (<code>.jar</code>) require server software supporting plugins (Paper, Spigot, Purpur). After uploading or deleting plugins, <strong>restart your server</strong> to apply changes.
             </div>
 
@@ -790,7 +790,7 @@ export default function ServerManage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', background: 'rgba(0,0,0,0.25)', padding: '1.25rem', borderRadius: '10px' }}>
               <div>
                 <span style={{ color: '#64748b', fontSize: '0.75rem', display: 'block' }}>Primary IP Address:</span>
-                <strong style={{ color: '#38bdf8', fontSize: '1.1rem' }}>{server.ip || '103.195.100.42'}</strong>
+                <strong style={{ color: '#d8b4fe', fontSize: '1.1rem' }}>{server.ip || '103.195.100.42'}</strong>
               </div>
               <div>
                 <span style={{ color: '#64748b', fontSize: '0.75rem', display: 'block' }}>Primary Port:</span>
@@ -855,7 +855,7 @@ export default function ServerManage() {
                 <textarea
                   value={fileContent}
                   onChange={e => setFileContent(e.target.value)}
-                  style={{ flex: 1, minHeight: '320px', background: '#020617', color: '#38bdf8', fontFamily: 'monospace', fontSize: '0.88rem', padding: '1rem', border: '1px solid rgba(56, 189, 248, 0.3)', borderRadius: '8px', resize: 'vertical' }}
+                  style={{ flex: 1, minHeight: '320px', background: '#020617', color: '#d8b4fe', fontFamily: 'monospace', fontSize: '0.88rem', padding: '1rem', border: '1px solid rgba(192, 132, 252, 0.3)', borderRadius: '8px', resize: 'vertical' }}
                 />
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
                   <button type="button" onClick={handleSaveFile} className="primary-btn glow-btn small">Save File</button>

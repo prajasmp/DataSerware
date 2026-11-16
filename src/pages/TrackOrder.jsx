@@ -84,7 +84,7 @@ export default function TrackOrder() {
     }
     if (s === 'REFUNDED') {
       return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.35)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(192, 132, 252, 0.15)', color: '#d8b4fe', border: '1px solid rgba(192, 132, 252, 0.35)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
           <RefreshCw size={15} /> REFUNDED
         </span>
       );
@@ -100,14 +100,14 @@ export default function TrackOrder() {
     const s = String(status || 'WAITING_PAYMENT').toLowerCase();
     if (s === 'active' || s === 'provisioned') {
       return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(0, 242, 254, 0.15)', color: '#00f2fe', border: '1px solid rgba(0, 242, 254, 0.4)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.4)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
           <Zap size={15} /> ACTIVE &bull; ONLINE
         </span>
       );
     }
     if (s === 'provisioning' || s === 'installing' || s === 'queued') {
       return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.35)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(192, 132, 252, 0.15)', color: '#d8b4fe', border: '1px solid rgba(192, 132, 252, 0.35)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.85rem' }}>
           <RefreshCw size={15} className="spin-loader" /> PROVISIONING
         </span>
       );
@@ -132,7 +132,7 @@ export default function TrackOrder() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(0, 242, 254, 0.1)', border: '1px solid rgba(0, 242, 254, 0.3)', borderRadius: '999px', padding: '6px 16px', color: '#00f2fe', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.75rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '999px', padding: '6px 16px', color: '#c084fc', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.75rem' }}>
             <ShieldCheck size={16} /> Instant Order Tracking &bull; No Login Required
           </div>
           <h1 style={{ fontSize: '2.4rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', marginBottom: '0.5rem' }}>
@@ -144,7 +144,7 @@ export default function TrackOrder() {
         </div>
 
         {/* Search Box */}
-        <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '18px', padding: '2rem', marginBottom: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+        <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '18px', padding: '2rem', marginBottom: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
           <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
               <div>
@@ -156,7 +156,7 @@ export default function TrackOrder() {
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
                   placeholder="ORD-NVX-..."
-                  style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                 />
               </div>
 
@@ -169,7 +169,7 @@ export default function TrackOrder() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your-email@example.com"
-                  style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                  style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                 />
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function TrackOrder() {
             <button
               type="submit"
               disabled={loading}
-              style={{ width: '100%', padding: '0.95rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 800, fontSize: '1rem', border: 'none', borderRadius: '12px', cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(0, 242, 254, 0.35)', opacity: loading ? 0.7 : 1 }}
+              style={{ width: '100%', padding: '0.95rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 800, fontSize: '1rem', border: 'none', borderRadius: '12px', cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(168, 85, 247, 0.35)', opacity: loading ? 0.7 : 1 }}
             >
               {loading ? (
                 <>
@@ -209,7 +209,7 @@ export default function TrackOrder() {
               return (
                 <div
                   key={order.id}
-                  style={{ background: '#060e1e', border: '1px solid rgba(6, 182, 212, 0.35)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}
+                  style={{ background: '#060e1e', border: '1px solid rgba(147, 51, 234, 0.35)', borderRadius: '18px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}
                 >
                   {/* Top Bar */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1.25rem' }}>
@@ -245,7 +245,7 @@ export default function TrackOrder() {
 
                     <div>
                       <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Amount Paid</span>
-                      <strong style={{ color: '#00f2fe', fontSize: '1.1rem' }}>{formatINR(order.amount)}</strong>
+                      <strong style={{ color: '#c084fc', fontSize: '1.1rem' }}>{formatINR(order.amount)}</strong>
                     </div>
 
                     <div>
@@ -261,9 +261,9 @@ export default function TrackOrder() {
 
                   {/* Server / Service Connection Information (Only once provisioned) */}
                   {isProvisioned && order.serverDetails && (
-                    <div style={{ background: 'rgba(0, 242, 254, 0.05)', border: '1px solid rgba(0, 242, 254, 0.3)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div style={{ background: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '14px', padding: '1.5rem', marginBottom: '1.5rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <h4 style={{ color: '#00f2fe', fontSize: '1rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h4 style={{ color: '#c084fc', fontSize: '1rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <Server size={18} /> {order.serverDetails.type === 'web' ? 'cPanel Web Hosting Credentials' : order.serverDetails.type === 'bare-metal' ? 'Bare-Metal Machine Connection' : 'Live Server Connection Details'}
                         </h4>
                         <span style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '6px' }}>
@@ -276,7 +276,7 @@ export default function TrackOrder() {
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Hosted Domain</span>
-                            <span style={{ color: '#00f2fe', fontWeight: 700, fontFamily: 'monospace', fontSize: '0.95rem' }}>{order.serverDetails.domain}</span>
+                            <span style={{ color: '#c084fc', fontWeight: 700, fontFamily: 'monospace', fontSize: '0.95rem' }}>{order.serverDetails.domain}</span>
                           </div>
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>cPanel Username</span>
@@ -292,7 +292,7 @@ export default function TrackOrder() {
                               href={order.serverDetails.cpanelUrl || 'https://cpanel.dataserware.com:2083'}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#00f2fe', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'underline' }}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#c084fc', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'underline' }}
                             >
                               <span>Open cPanel</span>
                               <ExternalLink size={14} />
@@ -307,7 +307,7 @@ export default function TrackOrder() {
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Public Dedicated IPv4</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <code style={{ background: '#030712', padding: '4px 8px', borderRadius: '6px', color: '#00f2fe', fontSize: '0.95rem', fontWeight: 700 }}>
+                              <code style={{ background: '#06020e', padding: '4px 8px', borderRadius: '6px', color: '#c084fc', fontSize: '0.95rem', fontWeight: 700 }}>
                                 {order.serverDetails.ip}
                               </code>
                               <button
@@ -321,7 +321,7 @@ export default function TrackOrder() {
                           </div>
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>SSH Command</span>
-                            <code style={{ background: '#030712', padding: '4px 8px', borderRadius: '6px', color: '#38bdf8', fontSize: '0.85rem' }}>
+                            <code style={{ background: '#06020e', padding: '4px 8px', borderRadius: '6px', color: '#d8b4fe', fontSize: '0.85rem' }}>
                               ssh root@{order.serverDetails.ip}
                             </code>
                           </div>
@@ -342,7 +342,7 @@ export default function TrackOrder() {
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Connection Address</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <code style={{ background: '#030712', padding: '4px 8px', borderRadius: '6px', color: '#fff', fontSize: '0.95rem', fontWeight: 600 }}>
+                              <code style={{ background: '#06020e', padding: '4px 8px', borderRadius: '6px', color: '#fff', fontSize: '0.95rem', fontWeight: 600 }}>
                                 {order.serverDetails.ip}:{order.serverDetails.port}
                               </code>
                               <button
@@ -367,7 +367,7 @@ export default function TrackOrder() {
                               href={order.serverDetails.panelUrl || '/panel'}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#00f2fe', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'underline' }}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#c084fc', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'underline' }}
                             >
                               <span>Open Control Panel</span>
                               <ExternalLink size={14} />
@@ -389,7 +389,7 @@ export default function TrackOrder() {
                   {/* Support Footer */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.06)', fontSize: '0.85rem', color: '#94a3b8' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <Headphones size={15} style={{ color: '#00f2fe' }} />
+                      <Headphones size={15} style={{ color: '#c084fc' }} />
                       <span>Need help? Our engineers are on 24/7 Discord support.</span>
                     </div>
 
@@ -397,7 +397,7 @@ export default function TrackOrder() {
                       href="https://discord.gg/dataserware"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: '#00f2fe', fontWeight: 600, textDecoration: 'none' }}
+                      style={{ color: '#c084fc', fontWeight: 600, textDecoration: 'none' }}
                     >
                       Join Support Discord &rarr;
                     </a>

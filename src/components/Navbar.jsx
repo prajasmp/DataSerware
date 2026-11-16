@@ -44,7 +44,7 @@ export default function Navbar() {
   };
 
   const defaultAvatar = (name) =>
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Admin')}&background=06b6d4&color=020711&bold=true`;
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'Admin')}&background=a855f7&color=06020e&bold=true`;
 
   return (
     <header className="nav-wrap-design6">
@@ -85,22 +85,22 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
             className={({ isActive }) => `portal-nav-link client-portal-btn ${isActive ? 'active' : ''}`}
             style={{
-              color: '#38bdf8',
+              color: '#c084fc',
               fontWeight: 700,
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px'
             }}
           >
-            <CreditCard size={14} style={{ color: '#00f2fe' }} />
+            <CreditCard size={14} style={{ color: '#c084fc' }} />
             <span>Client Area</span>
             <span style={{
               fontSize: '9px',
               padding: '1px 5px',
               borderRadius: '4px',
-              background: 'rgba(56, 189, 248, 0.15)',
-              border: '1px solid rgba(56, 189, 248, 0.35)',
-              color: '#38bdf8'
+              background: 'rgba(168, 85, 247, 0.2)',
+              border: '1px solid rgba(168, 85, 247, 0.4)',
+              color: '#d8b4fe'
             }}>
               Billing
             </span>
@@ -112,29 +112,29 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
             className={({ isActive }) => `portal-nav-link panel-portal-btn ${isActive ? 'active' : ''}`}
             style={{
-              color: '#34d399',
+              color: '#a855f7',
               fontWeight: 700,
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px'
             }}
           >
-            <Terminal size={14} style={{ color: '#10b981' }} />
+            <Terminal size={14} style={{ color: '#c084fc' }} />
             <span>Control Panel</span>
             <span style={{
               fontSize: '9px',
               padding: '1px 5px',
               borderRadius: '4px',
-              background: 'rgba(16, 185, 129, 0.15)',
-              border: '1px solid rgba(16, 185, 129, 0.35)',
-              color: '#34d399'
+              background: 'rgba(147, 51, 234, 0.2)',
+              border: '1px solid rgba(147, 51, 234, 0.4)',
+              color: '#e9d5ff'
             }}>
               Live
             </span>
           </NavLink>
 
           <NavLink to="/track-order" onClick={() => setMobileOpen(false)} className={({ isActive }) => `track-order-link ${isActive ? 'active' : ''}`}>
-            <PackageCheck size={14} style={{ display: 'inline', marginRight: '5px', color: '#00f2fe' }} />
+            <PackageCheck size={14} style={{ display: 'inline', marginRight: '5px', color: '#c084fc' }} />
             Track Order
           </NavLink>
 

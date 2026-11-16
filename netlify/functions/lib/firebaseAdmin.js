@@ -8,7 +8,7 @@ const PRIMARY_ADMIN_EMAIL = process.env.PRIMARY_ADMIN_EMAIL || 'r26377269@gmail.
 function getFirebaseAdmin() {
   if (firebaseAdminApp) return firebaseAdminApp;
 
-  const projectId = process.env.FIREBASE_PROJECT_ID || 'ag-cloud-a4a6d';
+  const projectId = process.env.FIREBASE_PROJECT_ID || 'dataserware-cloud';
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   let privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
@@ -151,7 +151,7 @@ export async function getUserRole(authUser) {
     return devAdmin.role === 'owner' ? 'owner' : 'admin';
   }
 
-  const envAdminEmails = (process.env.ADMIN_EMAILS || 'admin@novexhost.com')
+  const envAdminEmails = (process.env.ADMIN_EMAILS || 'admin@dataserware.com')
     .split(',')
     .map(e => e.trim().toLowerCase());
 

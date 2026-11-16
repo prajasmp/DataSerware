@@ -40,7 +40,7 @@ export default function Home() {
       dx: (Math.random() - 0.5) * 0.4,
       dy: -Math.random() * 0.5 - 0.2,
       alpha: Math.random() * 0.7 + 0.2,
-      color: Math.random() > 0.3 ? '#00f2fe' : '#38bdf8'
+      color: Math.random() > 0.3 ? '#c084fc' : '#d8b4fe'
     }));
 
     const render = () => {
@@ -286,12 +286,12 @@ export default function Home() {
 
         <canvas ref={canvasRef} className="ag-hero-canvas" />
 
-        <div className="ag-ambient-glow cyan" />
+        <div className="ag-ambient-glow purple" />
         <div className="ag-ambient-glow blue" />
 
         <div className="ag-hero-art-layer">
           <img
-            src="/assets/novexhost_hero_cinematic.png"
+            src="/assets/dataserware_hero_cinematic.png"
             alt="Data Serware Futuristic Cloud Infrastructure"
             className="ag-cinematic-bg-img"
           />
@@ -301,7 +301,7 @@ export default function Home() {
             <span className="ag-art-line">DEPLOY</span>
             <span className="ag-art-line">SCALE</span>
             <span className="ag-art-line">PROTECT</span>
-            <span className="ag-art-line cyan-highlight">DATA SERWARE</span>
+            <span className="ag-art-line purple-highlight">DATA SERWARE</span>
           </div>
 
           <div className="ag-artwork-text-right">
@@ -431,7 +431,7 @@ export default function Home() {
                 <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.78rem', color: '#cbd5e1' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span>CPU Boost:</span>
-                    <span style={{ color: '#00f2fe' }}>5.7 GHz Ryzen 9</span>
+                    <span style={{ color: '#c084fc' }}>5.7 GHz Ryzen 9</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span>DDoS Mitigation:</span>
@@ -439,7 +439,7 @@ export default function Home() {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span>Provisioning:</span>
-                    <span style={{ color: '#38bdf8' }}>Automated Pterodactyl</span>
+                    <span style={{ color: '#d8b4fe' }}>Automated Pterodactyl</span>
                   </div>
                 </div>
               </div>
@@ -471,7 +471,7 @@ export default function Home() {
                   key={svc.id}
                   style={{
                     background: 'linear-gradient(135deg, rgba(8, 20, 38, 0.9) 0%, rgba(3, 8, 20, 0.95) 100%)',
-                    border: '1px solid rgba(0, 242, 254, 0.2)',
+                    border: '1px solid rgba(168, 85, 247, 0.2)',
                     borderRadius: '20px',
                     padding: '2rem',
                     display: 'flex',
@@ -483,13 +483,13 @@ export default function Home() {
                 >
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(0, 242, 254, 0.1)', border: '1px solid rgba(0, 242, 254, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00f2fe' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c084fc' }}>
                         <Icon size={24} />
                       </div>
                       <span style={{
                         background: 'rgba(56, 189, 248, 0.15)',
                         border: '1px solid rgba(56, 189, 248, 0.4)',
-                        color: '#38bdf8',
+                        color: '#d8b4fe',
                         fontSize: '0.68rem',
                         fontWeight: 800,
                         padding: '3px 8px',
@@ -509,7 +509,7 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '0.85rem', marginBottom: '1.25rem', fontSize: '0.78rem', color: '#38bdf8', fontFamily: 'JetBrains Mono, monospace' }}>
+                    <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '0.85rem', marginBottom: '1.25rem', fontSize: '0.78rem', color: '#d8b4fe', fontFamily: 'JetBrains Mono, monospace' }}>
                       {svc.specs}
                     </div>
 
@@ -524,9 +524,9 @@ export default function Home() {
                         width: '100%',
                         padding: '10px 16px',
                         borderRadius: '10px',
-                        background: 'rgba(0, 242, 254, 0.12)',
-                        border: '1px solid rgba(0, 242, 254, 0.3)',
-                        color: '#00f2fe',
+                        background: 'rgba(168, 85, 247, 0.12)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        color: '#c084fc',
                         fontWeight: 700,
                         fontSize: '0.88rem',
                         textDecoration: 'none',
@@ -550,8 +550,8 @@ export default function Home() {
 
           {/* Promotional Discount Callout */}
           <div style={{
-            background: 'linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, rgba(37, 99, 235, 0.18) 100%)',
-            border: '1px solid rgba(0, 242, 254, 0.4)',
+            background: 'linear-gradient(90deg, rgba(147, 51, 234, 0.18) 0%, rgba(124, 58, 237, 0.18) 100%)',
+            border: '1px solid rgba(168, 85, 247, 0.4)',
             borderRadius: '16px',
             padding: '1.25rem 2rem',
             display: 'flex',
@@ -560,10 +560,10 @@ export default function Home() {
             flexWrap: 'wrap',
             gap: '1rem',
             marginBottom: '3rem',
-            boxShadow: '0 0 30px rgba(0, 242, 254, 0.15)'
+            boxShadow: '0 0 30px rgba(168, 85, 247, 0.15)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#00f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#030712' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#c084fc', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#030712' }}>
                 <Sparkles size={22} />
               </div>
               <div>
@@ -571,7 +571,7 @@ export default function Home() {
                   Launch Special: Save 20% on Your First Order!
                 </strong>
                 <span style={{ color: '#cbd5e1', fontSize: '0.88rem' }}>
-                  Use coupon code <code style={{ color: '#00f2fe', background: '#020611', padding: '2px 8px', borderRadius: '4px', fontWeight: 800 }}>SERWARE20</code> during checkout in the Client Area.
+                  Use coupon code <code style={{ color: '#c084fc', background: '#070213', padding: '2px 8px', borderRadius: '4px', fontWeight: 800 }}>SERWARE20</code> during checkout in the Client Area.
                 </span>
               </div>
             </div>
@@ -579,8 +579,8 @@ export default function Home() {
             <Link
               to="/billing"
               style={{
-                background: '#00f2fe',
-                color: '#020611',
+                background: '#c084fc',
+                color: '#070213',
                 padding: '9px 18px',
                 borderRadius: '8px',
                 fontWeight: 800,
@@ -606,15 +606,15 @@ export default function Home() {
             </p>
 
             {/* Category Switcher Tabs */}
-            <div style={{ display: 'inline-flex', background: '#040d1f', border: '1px solid rgba(0, 242, 254, 0.2)', padding: '4px', borderRadius: '12px', marginTop: '1.5rem', gap: '6px' }}>
+            <div style={{ display: 'inline-flex', background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', padding: '4px', borderRadius: '12px', marginTop: '1.5rem', gap: '6px' }}>
               <button
                 onClick={() => setPricingCategory('game')}
                 style={{
                   padding: '8px 20px',
                   borderRadius: '8px',
                   border: 'none',
-                  background: pricingCategory === 'game' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
-                  color: pricingCategory === 'game' ? '#020611' : '#94a3b8',
+                  background: pricingCategory === 'game' ? 'linear-gradient(135deg, #c084fc, #a855f7)' : 'transparent',
+                  color: pricingCategory === 'game' ? '#070213' : '#94a3b8',
                   fontWeight: 800,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -629,8 +629,8 @@ export default function Home() {
                   padding: '8px 20px',
                   borderRadius: '8px',
                   border: 'none',
-                  background: pricingCategory === 'vps' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
-                  color: pricingCategory === 'vps' ? '#020611' : '#94a3b8',
+                  background: pricingCategory === 'vps' ? 'linear-gradient(135deg, #c084fc, #a855f7)' : 'transparent',
+                  color: pricingCategory === 'vps' ? '#070213' : '#94a3b8',
                   fontWeight: 800,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -645,8 +645,8 @@ export default function Home() {
                   padding: '8px 20px',
                   borderRadius: '8px',
                   border: 'none',
-                  background: pricingCategory === 'web' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
-                  color: pricingCategory === 'web' ? '#020611' : '#94a3b8',
+                  background: pricingCategory === 'web' ? 'linear-gradient(135deg, #c084fc, #a855f7)' : 'transparent',
+                  color: pricingCategory === 'web' ? '#070213' : '#94a3b8',
                   fontWeight: 800,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -664,14 +664,14 @@ export default function Home() {
                 key={plan.id}
                 style={{
                   background: 'linear-gradient(180deg, #081a33 0%, #030a16 100%)',
-                  border: plan.badge ? '2px solid rgba(0, 242, 254, 0.5)' : '1px solid rgba(0, 242, 254, 0.18)',
+                  border: plan.badge ? '2px solid rgba(168, 85, 247, 0.5)' : '1px solid rgba(168, 85, 247, 0.18)',
                   borderRadius: '20px',
                   padding: '2rem',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   position: 'relative',
-                  boxShadow: plan.badge ? '0 0 35px rgba(0, 242, 254, 0.2)' : '0 8px 32px rgba(0,0,0,0.4)'
+                  boxShadow: plan.badge ? '0 0 35px rgba(168, 85, 247, 0.2)' : '0 8px 32px rgba(0,0,0,0.4)'
                 }}
               >
                 {plan.badge && (
@@ -679,7 +679,7 @@ export default function Home() {
                     position: 'absolute',
                     top: '16px',
                     right: '16px',
-                    background: 'linear-gradient(135deg, #00f2fe, #38bdf8)',
+                    background: 'linear-gradient(135deg, #c084fc, #d8b4fe)',
                     color: '#030712',
                     fontSize: '0.7rem',
                     fontWeight: 800,
@@ -692,7 +692,7 @@ export default function Home() {
                 )}
 
                 <div>
-                  <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     {plan.category}
                   </span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', margin: '6px 0 1rem' }}>
@@ -709,20 +709,20 @@ export default function Home() {
                   <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '1.25rem', marginBottom: '1.5rem' }}>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1' }}>
                       <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff', fontWeight: 600 }}>
-                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <Check size={16} style={{ color: '#c084fc' }} />
                         <span>{plan.ram}</span>
                       </li>
                       <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <Check size={16} style={{ color: '#c084fc' }} />
                         <span>{plan.cpu}</span>
                       </li>
                       <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <Check size={16} style={{ color: '#c084fc' }} />
                         <span>{plan.storage}</span>
                       </li>
                       {plan.features.map((f, i) => (
                         <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8' }}>
-                          <Check size={16} style={{ color: '#38bdf8' }} />
+                          <Check size={16} style={{ color: '#d8b4fe' }} />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -734,8 +734,8 @@ export default function Home() {
                 <Link
                   to={`/billing?plan=${plan.id}`}
                   style={{
-                    background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)',
-                    color: '#020611',
+                    background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)',
+                    color: '#070213',
                     textDecoration: 'none',
                     padding: '12px 20px',
                     borderRadius: '12px',
@@ -745,7 +745,7 @@ export default function Home() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    boxShadow: '0 0 20px rgba(0, 242, 254, 0.35)',
+                    boxShadow: '0 0 20px rgba(168, 85, 247, 0.35)',
                     transition: 'transform 0.2s'
                   }}
                 >
@@ -778,7 +778,7 @@ export default function Home() {
                 key={loc.id}
                 style={{
                   background: '#071529',
-                  border: '1px solid rgba(0, 242, 254, 0.2)',
+                  border: '1px solid rgba(168, 85, 247, 0.2)',
                   borderRadius: '16px',
                   padding: '1.5rem',
                   display: 'flex',
@@ -803,7 +803,7 @@ export default function Home() {
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
                   {loc.name}
                 </h3>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#00f2fe', fontSize: '0.85rem', fontWeight: 700, fontFamily: 'monospace' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#c084fc', fontSize: '0.85rem', fontWeight: 700, fontFamily: 'monospace' }}>
                   <Zap size={14} />
                   <span>Latency: {loc.ping}</span>
                 </div>
@@ -852,7 +852,7 @@ export default function Home() {
       <section className="ag-section bottom-cta-sec">
         <div className="container">
           <ScrollReveal animation="fade-up">
-            <div className="ag-bottom-cta-box" style={{ background: 'linear-gradient(135deg, #071e3d 0%, #030c1c 100%)', border: '1px solid rgba(0, 242, 254, 0.35)', borderRadius: '24px', padding: '3rem 2rem' }}>
+            <div className="ag-bottom-cta-box" style={{ background: 'linear-gradient(135deg, #1a0b36 0%, #0c041a 100%)', border: '1px solid rgba(168, 85, 247, 0.35)', borderRadius: '24px', padding: '3rem 2rem' }}>
               <div className="cta-info">
                 <span className="ag-section-badge">DATA SERWARE CLOUD ECOSYSTEM</span>
                 <h2>Deploy Your Infrastructure Today</h2>

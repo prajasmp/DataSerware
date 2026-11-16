@@ -34,13 +34,13 @@ export async function handler(event, context) {
     const hasRazorpaySecret = Boolean(process.env.RAZORPAY_KEY_SECRET && !process.env.RAZORPAY_KEY_SECRET.includes('your_'));
     const hasWebhookSecret = Boolean(process.env.RAZORPAY_WEBHOOK_SECRET && !process.env.RAZORPAY_WEBHOOK_SECRET.includes('your_'));
 
-    const panelUrl = process.env.PTERODACTYL_PANEL_URL || 'https://panel.novexhost.com';
+    const panelUrl = process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com';
     const hasPteroAppKey = Boolean(process.env.PTERODACTYL_APPLICATION_API_KEY && !process.env.PTERODACTYL_APPLICATION_API_KEY.includes('your_'));
     const hasPteroClientKey = Boolean(process.env.PTERODACTYL_CLIENT_API_KEY && !process.env.PTERODACTYL_CLIENT_API_KEY.includes('your_'));
 
     const smtpHost = process.env.SMTP_HOST || '';
     const smtpPort = process.env.SMTP_PORT || '587';
-    const smtpFrom = process.env.SMTP_FROM || 'NOVEXHOST Support <notifications@novexhost.com>';
+    const smtpFrom = process.env.SMTP_FROM || 'Data Serware Support <notifications@dataserware.com>';
     const hasSmtpAuth = Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
 
     return {
@@ -52,10 +52,10 @@ export async function handler(event, context) {
       body: JSON.stringify({
         settings: {
           brand: {
-            name: 'NOVEXHOST',
-            company: 'NOVEXHOST Hosting Platform',
+            name: 'Data Serware',
+            company: 'Data Serware Hosting Platform',
             currency: 'INR',
-            website: 'https://novexhost.com',
+            website: 'https://dataserware.com',
             theme: 'Aqua Cyber UI'
           },
           razorpay: {

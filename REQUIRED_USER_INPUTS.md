@@ -1,6 +1,6 @@
-# NOVEXHOST — Required User Inputs & Setup Checklist
+# Data Serware — Required User Inputs & Setup Checklist
 
-This document provides a clean, easy-to-follow checklist of every value, credential, and setting you must provide to launch **NOVEXHOST** into production.
+This document provides a clean, easy-to-follow checklist of every value, credential, and setting you must provide to launch **Data Serware** into production.
 
 ---
 
@@ -8,8 +8,8 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 
 | Item | Description | Where to Set It | Safe Default |
 |---|---|---|---|
-| **Public Base URL** | Your production website URL (e.g. `https://novexhost.com`). Used to construct customer tracking links in emails. | `PUBLIC_URL` in `.env` / Hosting env | `http://localhost:3000` |
-| **Admin Email Whitelist** | Comma-separated email addresses authorized to access the `/admin` dashboard. | `ADMIN_EMAILS` in `.env` / Hosting env | `admin@novexhost.com` |
+| **Public Base URL** | Your production website URL (e.g. `https://dataserware.com`). Used to construct customer tracking links in emails. | `PUBLIC_URL` in `.env` / Hosting env | `http://localhost:3000` |
+| **Admin Email Whitelist** | Comma-separated email addresses authorized to access the `/admin` dashboard. | `ADMIN_EMAILS` in `.env` / Hosting env | `admin@dataserware.com` |
 | **Primary Owner Email** | The primary administrator designated with full owner privileges. | `PRIMARY_ADMIN_EMAIL` in `.env` | `r26377269@gmail.com` |
 | **Default Datacenter Label** | Physical facility name shown on VDS machine cards. | `DEFAULT_DATACENTER` in `.env` | `"Equinix Mumbai (BOM1)"` |
 
@@ -46,7 +46,7 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 *Required for automatic server provisioning of Minecraft, Palworld, Rust, GTA V, and VPS plans.*
 
 1. **`PTERODACTYL_PANEL_URL`**:
-   - **Where to Obtain**: The domain where your Pterodactyl panel runs (e.g. `https://panel.novexhost.com`).
+   - **Where to Obtain**: The domain where your Pterodactyl panel runs (e.g. `https://panel.dataserware.com`).
 2. **`PTERODACTYL_APPLICATION_API_KEY`**:
    - **Where to Obtain**: Pterodactyl Admin Panel > Application API.
    - **Instructions**: Click **Create New**. Grant read and write permissions to `Users`, `Nodes`, `Allocations`, and `Servers`. Copy the `ptla_...` token.
@@ -59,15 +59,15 @@ This document provides a clean, easy-to-follow checklist of every value, credent
    - `PTERODACTYL_MINECRAFT_EGG_ID`: ID of the Minecraft egg (defaults to `3`).
 
 ### B. cPanel / WHM (Web Hosting Provisioning)
-*Required for automatic cPanel account creation for NOVEX SOLO, PREMIUM, and BUSINESS plans.*
+*Required for automatic cPanel account creation for SERWARE SOLO, PREMIUM, and BUSINESS plans.*
 
 1. **`WHM_HOST`**:
-   - **Where to Obtain**: Your cPanel/WHM server domain or IP (e.g. `https://cpanel.novexhost.com`).
+   - **Where to Obtain**: Your cPanel/WHM server domain or IP (e.g. `https://cpanel.dataserware.com`).
 2. **`WHM_USERNAME`**:
    - **Where to Obtain**: WHM root or reseller username (defaults to `root`).
 3. **`WHM_API_TOKEN`**:
    - **Where to Obtain**: Log in to WHM (`https://your-server-ip:2087`) > In search box, type **Manage API Tokens** > Click **Generate Token**.
-   - **Instructions**: Name it `NOVEXHOST-Billing`. Under Privileges, enable `createacct`, `suspendacct`, `unsuspendacct`, and Package Management. Copy the token.
+   - **Instructions**: Name it `Data Serware-Billing`. Under Privileges, enable `createacct`, `suspendacct`, `unsuspendacct`, and Package Management. Copy the token.
    - **Where to Enter**: Netlify Secrets Dashboard.
    - **Secret?**: **STRICT SECRET**.
 4. **`WHM_PORT`**: Port for WHM SSL (defaults to `2087`).
@@ -75,12 +75,12 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 ### C. SMTP Transactional Mail Server
 *Required for customer order receipts, invoices, and server credential delivery.*
 
-1. **`SMTP_HOST`**: Outgoing mail server (e.g. `smtp.gmail.com` or `mail.novexhost.com`).
+1. **`SMTP_HOST`**: Outgoing mail server (e.g. `smtp.gmail.com` or `mail.dataserware.com`).
 2. **`SMTP_PORT`**: Submission port (defaults to `587` or `465`).
-3. **`SMTP_USER`**: Email address used for sending (e.g. `notifications@novexhost.com`).
+3. **`SMTP_USER`**: Email address used for sending (e.g. `notifications@dataserware.com`).
 4. **`SMTP_PASS`**: Account password or Google Workspace App Password ([https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)).
    - **Secret?**: **STRICT SECRET**.
-5. **`SMTP_FROM`**: Formatted sender header (e.g. `"NOVEXHOST Support <notifications@novexhost.com>"`).
+5. **`SMTP_FROM`**: Formatted sender header (e.g. `"Data Serware Support <notifications@dataserware.com>"`).
 
 ---
 
@@ -88,19 +88,19 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 
 ### A. Cloudflare Pages Frontend Deployment
 1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/) > **Compute (Workers & Pages)** > **Create application** > **Pages** > **Connect to Git**.
-2. Select repository: `prajasmp/novexhost`.
+2. Select repository: `prajasmp/dataserware`.
 3. Set Build Settings:
    - **Framework preset**: `Vite`
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
 4. Set Build Environment Variables:
    - `NODE_VERSION` = `20`
-   - `VITE_API_BASE_URL` = `https://<your-netlify-backend-subdomain>.netlify.app` *(or your custom API domain e.g. `https://api.novexhost.com`)*.
+   - `VITE_API_BASE_URL` = `https://<your-netlify-backend-subdomain>.netlify.app` *(or your custom API domain e.g. `https://api.dataserware.com`)*.
 5. Deploy. SPA routing is automatically maintained via `public/_redirects`.
 
 ### B. Custom Domain & DNS
-1. Point your root domain `novexhost.com` and `www.novexhost.com` to Cloudflare Pages.
-2. Point your API subdomain `api.novexhost.com` (or Netlify backend) to your Netlify site.
+1. Point your root domain `dataserware.com` and `www.dataserware.com` to Cloudflare Pages.
+2. Point your API subdomain `api.dataserware.com` (or Netlify backend) to your Netlify site.
 3. Ensure SSL/TLS encryption is set to **Full (strict)** in Cloudflare.
 
 ---
@@ -112,7 +112,7 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 - **`SUPABASE_URL`**: [Supabase Dashboard > Settings > API](https://supabase.com/dashboard).
 - **`SUPABASE_SERVICE_ROLE_KEY`**: Master key (Server-side Secret).
 - **`VITE_SUPABASE_ANON_KEY`**: Public client key.
-- **Migration**: Run `supabase_novexhost_migration.sql` in the Supabase SQL Editor.
+- **Migration**: Run `supabase_dataserware_migration.sql` in the Supabase SQL Editor.
 
 ### B. Firebase (Custom Admin Authentication Project)
 *When omitted, client and server fallbacks allow Google OAuth login using existing configuration.*

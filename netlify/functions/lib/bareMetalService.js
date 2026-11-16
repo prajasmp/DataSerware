@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 /**
- * Standard Hardware Inventory for NOVEXHOST Physical Bare-Metal Machines
+ * Standard Hardware Inventory for Data Serware Physical Bare-Metal Machines
  * Managed by NOC / Datacenter engineers and automated provisioning workflows.
  */
 export const DEFAULT_PHYSICAL_INVENTORY = [
@@ -11,7 +11,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-RYZ9-01',
     planId: 'vds-ryzen9-9950x',
-    name: 'NOVEX-BM-RYZ9-01',
+    name: 'SERWARE-BM-RYZ9-01',
     rack: 'RACK-B04-U12',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -27,7 +27,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-RYZ9-02',
     planId: 'vds-ryzen9-9950x',
-    name: 'NOVEX-BM-RYZ9-02',
+    name: 'SERWARE-BM-RYZ9-02',
     rack: 'RACK-B04-U14',
     datacenter: 'Frankfurt DC-2 (Interxion FRA)',
     location: 'Frankfurt, Germany',
@@ -44,7 +44,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-RYZ7-5700G-01',
     planId: 'vds-ryzen7-5700g',
-    name: 'NOVEX-BM-RYZ7-57G-01',
+    name: 'SERWARE-BM-RYZ7-57G-01',
     rack: 'RACK-A02-U08',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -61,7 +61,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-RYZ7-5800X-01',
     planId: 'vds-ryzen7-5800x',
-    name: 'NOVEX-BM-RYZ7-58X-01',
+    name: 'SERWARE-BM-RYZ7-58X-01',
     rack: 'RACK-A02-U10',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -78,7 +78,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-XEON-2699V4-01',
     planId: 'vds-xeon-2699v4',
-    name: 'NOVEX-BM-XEON-99-01',
+    name: 'SERWARE-BM-XEON-99-01',
     rack: 'RACK-C01-U20',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -95,7 +95,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-XEON-2680V4-01',
     planId: 'vds-xeon-2680v4',
-    name: 'NOVEX-BM-XEON-80-01',
+    name: 'SERWARE-BM-XEON-80-01',
     rack: 'RACK-C01-U22',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -112,7 +112,7 @@ export const DEFAULT_PHYSICAL_INVENTORY = [
   {
     id: 'BM-XEON-2670V4-01',
     planId: 'vds-xeon-2670v4',
-    name: 'NOVEX-BM-XEON-70-01',
+    name: 'SERWARE-BM-XEON-70-01',
     rack: 'RACK-C01-U24',
     datacenter: 'Mumbai DC-1 (Equinix MBX)',
     location: 'Mumbai, India',
@@ -160,7 +160,7 @@ export async function allocatePhysicalMachine({ planId, location, orderId, store
     machine = {
       id: `BM-NVX-${randId}`,
       planId,
-      name: `NOVEX-BM-${randId}`,
+      name: `SERWARE-BM-${randId}`,
       rack: 'RACK-EXP-AUTO',
       datacenter: location || 'Mumbai DC-1 (Equinix MBX)',
       location: location || 'Mumbai, India',
@@ -183,7 +183,7 @@ export async function allocatePhysicalMachine({ planId, location, orderId, store
  */
 export async function startBareMetalProvisioning({ machine, os, hostname, sshKey, customerEmail, orderId }) {
   const chosenOs = os || 'Ubuntu 24.04 LTS';
-  const chosenHost = hostname || `${machine.name.toLowerCase()}.novexhost.net`;
+  const chosenHost = hostname || `${machine.name.toLowerCase()}.dataserware.net`;
   const assignedIp = (machine.ipPool && machine.ipPool[0]) ? machine.ipPool[0] : '103.195.102.10';
   const rootPassword = `NvxRoot!${crypto.randomBytes(6).toString('base64url')}#`;
 

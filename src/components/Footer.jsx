@@ -15,10 +15,10 @@ export default function Footer() {
             Enterprise cloud and game server ecosystem. High-performance AMD Ryzen™ 9 7950X bare metal, Gen4 NVMe Cloud VPS, and automated deployment with 1.2 Tbps DDoS protection.
           </p>
           <div className="footer-security-badges" style={{ display: 'flex', gap: '10px', marginTop: '1rem', flexWrap: 'wrap' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', color: '#00f2fe', background: 'rgba(6, 182, 212, 0.1)', padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(6, 182, 212, 0.25)' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', color: '#c084fc', background: 'rgba(168, 85, 247, 0.1)', padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(168, 85, 247, 0.25)' }}>
               <Lock size={12} /> Enterprise Encryption
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.75rem', color: '#d8b4fe', background: 'rgba(192, 132, 252, 0.1)', padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(192, 132, 252, 0.25)' }}>
               <Zap size={12} /> Instant 60s Provisioning
             </span>
           </div>
@@ -26,8 +26,8 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Hosting Solutions</h4>
-          <Link to="/web-hosting" style={{ color: '#00f2fe', fontWeight: 600 }}>cPanel Web Hosting</Link>
-          <Link to="/vds-machines" style={{ color: '#00f2fe', fontWeight: 600 }}>VDS Bare-Metal Machines</Link>
+          <Link to="/web-hosting" style={{ color: '#c084fc', fontWeight: 600 }}>cPanel Web Hosting</Link>
+          <Link to="/vds-machines" style={{ color: '#c084fc', fontWeight: 600 }}>VDS Bare-Metal Machines</Link>
           <Link to="/plans">Minecraft Game Servers</Link>
           <Link to="/plans">AMD Ryzen Ultra VPS</Link>
           <Link to="/plans">Discord Bot Hosting</Link>
@@ -37,18 +37,18 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Connected Portals</h4>
           <Link to="/" style={{ color: '#cbd5e1' }}>
-            <Globe size={13} style={{ display: 'inline', marginRight: '6px', color: '#00f2fe' }} />
+            <Globe size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
             Main Website (dataserware.com)
           </Link>
-          <Link to="/billing" style={{ color: '#38bdf8', fontWeight: 600 }}>
-            <CreditCard size={13} style={{ display: 'inline', marginRight: '6px', color: '#38bdf8' }} />
+          <Link to="/billing" style={{ color: '#c084fc', fontWeight: 600 }}>
+            <CreditCard size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
             Client Area &amp; Billing Portal
           </Link>
-          <Link to="/panel" style={{ color: '#34d399', fontWeight: 600 }}>
-            <Terminal size={13} style={{ display: 'inline', marginRight: '6px', color: '#10b981' }} />
+          <Link to="/panel" style={{ color: '#a855f7', fontWeight: 600 }}>
+            <Terminal size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
             Game &amp; Server Control Panel
           </Link>
-          <Link to="/track-order" style={{ color: '#00f2fe' }}>
+          <Link to="/track-order" style={{ color: '#c084fc' }}>
             <PackageCheck size={13} style={{ display: 'inline', marginRight: '6px' }} />
             Track Order Status
           </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="copyright container" style={{ borderTop: '1px solid rgba(6, 182, 212, 0.12)', paddingTop: '1.5rem', marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', color: '#64748b', fontSize: '0.85rem' }}>
+      <div className="copyright container" style={{ borderTop: '1px solid rgba(168, 85, 247, 0.15)', paddingTop: '1.5rem', marginTop: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', color: '#64748b', fontSize: '0.85rem' }}>
         <div>
           &copy; {new Date().getFullYear()} Data Serware. All rights reserved. Enterprise Cloud Infrastructure.
         </div>

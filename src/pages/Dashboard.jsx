@@ -128,7 +128,7 @@ export default function Dashboard() {
                 <div className="server-details-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', background: 'rgba(0,0,0,0.25)', padding: '1rem', borderRadius: '8px' }}>
                   <div>
                     <span style={{ color: '#64748b', fontSize: '0.75rem', display: 'block' }}>Server Connection IP:</span>
-                    <code style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '0.9rem' }}>
+                    <code style={{ color: '#d8b4fe', fontWeight: 'bold', fontSize: '0.9rem' }}>
                       {server.ip || '103.195.100.42'}:{server.port || 25565}
                     </code>
                   </div>

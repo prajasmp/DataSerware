@@ -18,7 +18,7 @@ const PRIMARY_ADMIN_EMAIL = import.meta.env.VITE_PRIMARY_ADMIN_EMAIL || 'r263772
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     try {
-      const savedUser = localStorage.getItem('dataserware_user') || localStorage.getItem('novexhost_user') || localStorage.getItem('ag_cloud_user');
+      const savedUser = localStorage.getItem('dataserware_user');
       return savedUser ? JSON.parse(savedUser) : null;
     } catch (e) {
       return null;
@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
   const [authLoading, setAuthLoading] = useState(false);
   const [userRole, setUserRole] = useState(() => {
     try {
-      const savedRole = localStorage.getItem('dataserware_user_role') || localStorage.getItem('novexhost_user_role') || localStorage.getItem('ag_cloud_user_role');
+      const savedRole = localStorage.getItem('dataserware_user_role');
       if (savedRole) return savedRole;
     } catch (e) {}
     if (user?.email && user.email.toLowerCase() === PRIMARY_ADMIN_EMAIL.toLowerCase()) {
@@ -42,29 +42,24 @@ export function AuthProvider({ children }) {
     if (!userObj) return;
 
     localStorage.setItem('dataserware_user', JSON.stringify(userObj));
-    localStorage.setItem('novexhost_user', JSON.stringify(userObj));
 
     try {
       const res = await syncUserWithBackend(userObj);
       if (res && res.role) {
         setUserRole(res.role);
         localStorage.setItem('dataserware_user_role', res.role);
-        localStorage.setItem('novexhost_user_role', res.role);
       } else if (userObj.email && (
         userObj.email.toLowerCase() === PRIMARY_ADMIN_EMAIL.toLowerCase() ||
-        userObj.email.toLowerCase() === 'admin@dataserware.com' ||
-        userObj.email.toLowerCase() === 'admin@novexhost.com'
+        userObj.email.toLowerCase() === 'admin@dataserware.com'
       )) {
         setUserRole('owner');
         localStorage.setItem('dataserware_user_role', 'owner');
-        localStorage.setItem('novexhost_user_role', 'owner');
       }
     } catch (err) {
       console.warn('User database sync warning:', err.message || err);
       if (userObj.email && userObj.email.toLowerCase() === PRIMARY_ADMIN_EMAIL.toLowerCase()) {
         setUserRole('owner');
         localStorage.setItem('dataserware_user_role', 'owner');
-        localStorage.setItem('novexhost_user_role', 'owner');
       }
     }
   };
@@ -128,10 +123,6 @@ export function AuthProvider({ children }) {
     setUserRole('customer');
     localStorage.removeItem('dataserware_user');
     localStorage.removeItem('dataserware_user_role');
-    localStorage.removeItem('novexhost_user');
-    localStorage.removeItem('novexhost_user_role');
-    localStorage.removeItem('ag_cloud_user');
-    localStorage.removeItem('ag_cloud_user_role');
   };
 
   const isPrimaryOwner = Boolean(
@@ -144,7 +135,7 @@ export function AuthProvider({ children }) {
     userRole === 'admin' ||
     (user?.email && (
       user.email.toLowerCase() === 'admin@dataserware.com' ||
-      user.email.toLowerCase() === 'admin@novexhost.com' ||
+      user.email.toLowerCase() === 'r26377269@gmail.com' ||
       user.email.toLowerCase() === 'notxlaksly@gmail.com' ||
       user.email.toLowerCase() === 'dexomine2000@gmail.com'
     ))

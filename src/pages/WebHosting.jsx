@@ -58,7 +58,7 @@ export default function WebHosting() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(6,182,212,0.25)] backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(147, 51, 234,0.25)] backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
             High-Performance NVMe Cloud
           </div>
@@ -81,7 +81,7 @@ export default function WebHosting() {
                   onClick={() => setSelectedCycle(cycle.id)}
                   className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
                     active
-                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)]'
+                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(147, 51, 234,0.4)]'
                       : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                   }`}
                 >
@@ -103,7 +103,7 @@ export default function WebHosting() {
                 key={plan.id}
                 className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 backdrop-blur-xl ${
                   isPopular
-                    ? 'bg-gradient-to-b from-slate-900/90 via-cyan-950/20 to-slate-900/90 border-2 border-cyan-400 shadow-[0_0_40px_rgba(6,182,212,0.25)] scale-105 z-20'
+                    ? 'bg-gradient-to-b from-slate-900/90 via-cyan-950/20 to-slate-900/90 border-2 border-cyan-400 shadow-[0_0_40px_rgba(147, 51, 234,0.25)] scale-105 z-20'
                     : 'bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 shadow-xl'
                 }`}
               >
@@ -187,7 +187,7 @@ export default function WebHosting() {
                   to={`/checkout/${plan.id}?cycle=${currentCycle.id}`}
                   className={`w-full py-4 rounded-xl text-center font-bold text-sm tracking-wide transition-all duration-300 flex items-center justify-center gap-2 ${
                     isPopular
-                      ? 'bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 text-slate-950 shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:shadow-[0_0_35px_rgba(6,182,212,0.6)]'
+                      ? 'bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 text-slate-950 shadow-[0_0_25px_rgba(147, 51, 234,0.4)] hover:shadow-[0_0_35px_rgba(147, 51, 234,0.6)]'
                       : 'bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 hover:border-cyan-400'
                   }`}
                 >
@@ -315,7 +315,7 @@ export default function WebHosting() {
             </div>
           </div>
 
-          <div className="relative rounded-3xl p-6 bg-gradient-to-tr from-slate-950 via-slate-900 to-cyan-950/30 border border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.15)]">
+          <div className="relative rounded-3xl p-6 bg-gradient-to-tr from-slate-950 via-slate-900 to-cyan-950/30 border border-cyan-500/30 shadow-[0_0_50px_rgba(147, 51, 234,0.15)]">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-rose-500" />

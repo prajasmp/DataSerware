@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-// Memory store backed by scratch/novexhost_store.json file for persistence across server restarts
+// Memory store backed by scratch/dataserware_store.json file for persistence across server restarts
 const STORE_DIR = path.resolve(process.cwd(), 'scratch');
-const STORE_FILE = path.join(STORE_DIR, 'novexhost_store.json');
+const STORE_FILE = path.join(STORE_DIR, 'dataserware_store.json');
 
 function ensureStoreDir() {
   try {
@@ -31,15 +31,15 @@ function savePersistedData() {
   try {
     ensureStoreDir();
     const data = {
-      orders: globalThis.__novexhost_orders_store__ || [],
-      servers: globalThis.__novexhost_servers_store__ || [],
-      adminUsers: globalThis.__novexhost_admin_users_store__ || [],
-      webhookEvents: globalThis.__novexhost_webhook_events_store__ || [],
-      invoices: globalThis.__novexhost_invoices_store__ || [],
-      productOverrides: globalThis.__novexhost_product_overrides_store__ || {},
-      webHostingAccounts: globalThis.__novexhost_webhosting_store__ || [],
-      physicalMachines: globalThis.__novexhost_machines_store__ || [],
-      vdsRecords: globalThis.__novexhost_vds_records_store__ || []
+      orders: globalThis.__dataserware_orders_store__ || [],
+      servers: globalThis.__dataserware_servers_store__ || [],
+      adminUsers: globalThis.__dataserware_admin_users_store__ || [],
+      webhookEvents: globalThis.__dataserware_webhook_events_store__ || [],
+      invoices: globalThis.__dataserware_invoices_store__ || [],
+      productOverrides: globalThis.__dataserware_product_overrides_store__ || {},
+      webHostingAccounts: globalThis.__dataserware_webhosting_store__ || [],
+      physicalMachines: globalThis.__dataserware_machines_store__ || [],
+      vdsRecords: globalThis.__dataserware_vds_records_store__ || []
     };
     fs.writeFileSync(STORE_FILE, JSON.stringify(data, null, 2), 'utf8');
   } catch (err) {
@@ -49,23 +49,23 @@ function savePersistedData() {
 
 const persisted = loadPersistedData();
 
-if (!globalThis.__novexhost_orders_store__) {
-  globalThis.__novexhost_orders_store__ = persisted?.orders || [];
+if (!globalThis.__dataserware_orders_store__) {
+  globalThis.__dataserware_orders_store__ = persisted?.orders || [];
 }
-if (!globalThis.__novexhost_servers_store__) {
-  globalThis.__novexhost_servers_store__ = persisted?.servers || [];
+if (!globalThis.__dataserware_servers_store__) {
+  globalThis.__dataserware_servers_store__ = persisted?.servers || [];
 }
-if (!globalThis.__novexhost_webhosting_store__) {
-  globalThis.__novexhost_webhosting_store__ = persisted?.webHostingAccounts || [];
+if (!globalThis.__dataserware_webhosting_store__) {
+  globalThis.__dataserware_webhosting_store__ = persisted?.webHostingAccounts || [];
 }
-if (!globalThis.__novexhost_machines_store__) {
-  globalThis.__novexhost_machines_store__ = persisted?.physicalMachines || [];
+if (!globalThis.__dataserware_machines_store__) {
+  globalThis.__dataserware_machines_store__ = persisted?.physicalMachines || [];
 }
-if (!globalThis.__novexhost_vds_records_store__) {
-  globalThis.__novexhost_vds_records_store__ = persisted?.vdsRecords || [];
+if (!globalThis.__dataserware_vds_records_store__) {
+  globalThis.__dataserware_vds_records_store__ = persisted?.vdsRecords || [];
 }
-if (!globalThis.__novexhost_admin_users_store__) {
-  globalThis.__novexhost_admin_users_store__ = persisted?.adminUsers || [
+if (!globalThis.__dataserware_admin_users_store__) {
+  globalThis.__dataserware_admin_users_store__ = persisted?.adminUsers || [
     {
       id: 'adm_primary_owner',
       email: 'notxlaksly@gmail.com',
@@ -84,25 +84,25 @@ if (!globalThis.__novexhost_admin_users_store__) {
     }
   ];
 }
-if (!globalThis.__novexhost_webhook_events_store__) {
-  globalThis.__novexhost_webhook_events_store__ = persisted?.webhookEvents || [];
+if (!globalThis.__dataserware_webhook_events_store__) {
+  globalThis.__dataserware_webhook_events_store__ = persisted?.webhookEvents || [];
 }
-if (!globalThis.__novexhost_invoices_store__) {
-  globalThis.__novexhost_invoices_store__ = persisted?.invoices || [];
+if (!globalThis.__dataserware_invoices_store__) {
+  globalThis.__dataserware_invoices_store__ = persisted?.invoices || [];
 }
-if (!globalThis.__novexhost_product_overrides_store__) {
-  globalThis.__novexhost_product_overrides_store__ = persisted?.productOverrides || {};
+if (!globalThis.__dataserware_product_overrides_store__) {
+  globalThis.__dataserware_product_overrides_store__ = persisted?.productOverrides || {};
 }
 
-const ordersStore = globalThis.__novexhost_orders_store__;
-const serversStore = globalThis.__novexhost_servers_store__;
-const adminUsersStore = globalThis.__novexhost_admin_users_store__;
-const webhookEventsStore = globalThis.__novexhost_webhook_events_store__;
-const invoicesStore = globalThis.__novexhost_invoices_store__;
-const productOverridesStore = globalThis.__novexhost_product_overrides_store__;
-const webHostingStore = globalThis.__novexhost_webhosting_store__;
-const physicalMachinesStore = globalThis.__novexhost_machines_store__;
-const vdsRecordsStore = globalThis.__novexhost_vds_records_store__;
+const ordersStore = globalThis.__dataserware_orders_store__;
+const serversStore = globalThis.__dataserware_servers_store__;
+const adminUsersStore = globalThis.__dataserware_admin_users_store__;
+const webhookEventsStore = globalThis.__dataserware_webhook_events_store__;
+const invoicesStore = globalThis.__dataserware_invoices_store__;
+const productOverridesStore = globalThis.__dataserware_product_overrides_store__;
+const webHostingStore = globalThis.__dataserware_webhosting_store__;
+const physicalMachinesStore = globalThis.__dataserware_machines_store__;
+const vdsRecordsStore = globalThis.__dataserware_vds_records_store__;
 
 // ================= ORDERS =================
 export function addOrderToStore(order) {

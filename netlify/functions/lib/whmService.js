@@ -89,13 +89,13 @@ export async function createWebHostingAccount({ domain, customerEmail, planId, p
 
   const password = customPassword || `Nvx!${crypto.randomBytes(6).toString('base64url')}9#`;
 
-  // Package mapping based on NOVEXHOST plans
+  // Package mapping based on Data Serware plans
   const packageMap = {
-    'web-solo': 'NOVEX_SOLO',
-    'web-premium': 'NOVEX_PREMIUM',
-    'web-business': 'NOVEX_BUSINESS'
+    'web-solo': 'SERWARE_SOLO',
+    'web-premium': 'SERWARE_PREMIUM',
+    'web-business': 'SERWARE_BUSINESS'
   };
-  const pkg = packageMap[planId] || 'NOVEX_SOLO';
+  const pkg = packageMap[planId] || 'SERWARE_SOLO';
 
   // If WHM credentials are configured, execute live WHM createacct call
   if (isWhmConfigured()) {
@@ -122,7 +122,7 @@ export async function createWebHostingAccount({ domain, customerEmail, planId, p
         domain: cleanDomain,
         package: pkg,
         cpanelUrl: `https://${cleanDomain}:2083`,
-        nameservers: ['ns1.novexhost.com', 'ns2.novexhost.com'],
+        nameservers: ['ns1.dataserware.com', 'ns2.dataserware.com'],
         credentials: {
           username,
           password,
@@ -144,14 +144,14 @@ export async function createWebHostingAccount({ domain, customerEmail, planId, p
     username,
     domain: cleanDomain,
     package: pkg,
-    cpanelUrl: `https://cpanel.novexhost.com:2083`,
-    nameservers: ['ns1.novexhost.com', 'ns2.novexhost.com'],
+    cpanelUrl: `https://cpanel.dataserware.com:2083`,
+    nameservers: ['ns1.dataserware.com', 'ns2.dataserware.com'],
     credentials: {
       username,
       password,
-      cpanelUrl: `https://cpanel.novexhost.com:2083`
+      cpanelUrl: `https://cpanel.dataserware.com:2083`
     },
-    notes: 'Account staged in NOVEXHOST Web Hosting cluster. Credentials delivered securely.'
+    notes: 'Account staged in Data Serware Web Hosting cluster. Credentials delivered securely.'
   };
 }
 

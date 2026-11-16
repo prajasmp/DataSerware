@@ -11,7 +11,7 @@ async function getAuthToken() {
   }
 
   try {
-    const savedUserStr = localStorage.getItem('dataserware_user') || localStorage.getItem('novexhost_user') || localStorage.getItem('ag_cloud_user');
+    const savedUserStr = localStorage.getItem('dataserware_user');
     if (savedUserStr) {
       const savedUser = JSON.parse(savedUserStr);
       if (savedUser && savedUser.uid) {

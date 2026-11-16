@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { Globe, CreditCard, Terminal, ExternalLink, Sparkles, ChevronRight, Server } from 'lucide-react';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Globe, CreditCard, Terminal, Sparkles } from 'lucide-react';
 
 export default function PortalSwitcherBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
 
   const path = location.pathname;
 
@@ -22,7 +21,7 @@ export default function PortalSwitcherBar() {
       subdomain: 'dataserware.com',
       path: '/',
       icon: Globe,
-      color: '#00f2fe',
+      color: '#c084fc',
       active: isMain,
       description: 'Plans, specs, locations & hardware highlights'
     },
@@ -33,7 +32,7 @@ export default function PortalSwitcherBar() {
       subdomain: 'client.dataserware.com',
       path: '/billing',
       icon: CreditCard,
-      color: '#38bdf8',
+      color: '#a855f7',
       active: isBilling,
       description: 'Storefront, cart, invoices & support tickets'
     },
@@ -44,7 +43,7 @@ export default function PortalSwitcherBar() {
       subdomain: 'panel.dataserware.com',
       path: '/panel',
       icon: Terminal,
-      color: '#10b981',
+      color: '#34d399',
       active: isPanel,
       description: 'Pterodactyl-style live console, power & files'
     }

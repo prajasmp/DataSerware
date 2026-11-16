@@ -1,5 +1,5 @@
 /**
- * NOVEXHOST Centralized Backend Plan Configuration
+ * Data Serware Centralized Backend Plan Configuration
  * Applied 10% price increase: New Price = Math.round(originalPrice * 1.10)
  * Stores both originalPrice and price for transparent auditing and verification.
  */
@@ -156,7 +156,7 @@ DOMAINS_DATA.forEach(dom => {
 const WEB_HOSTING_DATA = [
   {
     id: 'web-solo',
-    name: 'NOVEX SOLO',
+    name: 'SERWARE SOLO',
     websites: 1,
     storageGb: 10,
     databases: 2,
@@ -168,7 +168,7 @@ const WEB_HOSTING_DATA = [
   },
   {
     id: 'web-premium',
-    name: 'NOVEX PREMIUM',
+    name: 'SERWARE PREMIUM',
     websites: 3,
     storageGb: 20,
     databases: 10,
@@ -180,7 +180,7 @@ const WEB_HOSTING_DATA = [
   },
   {
     id: 'web-business',
-    name: 'NOVEX BUSINESS',
+    name: 'SERWARE BUSINESS',
     websites: 10,
     storageGb: 50,
     databases: 100,

@@ -338,7 +338,7 @@ async-chunks:
               style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#cbd5e1', fontSize: '0.82rem', textDecoration: 'none' }}
               title="Switch to Main Marketing Site"
             >
-              <Globe size={13} style={{ color: '#00f2fe' }} />
+              <Globe size={13} style={{ color: '#c084fc' }} />
               <span>Main Website</span>
             </Link>
             <span style={{ color: '#334155' }}>|</span>
@@ -348,9 +348,9 @@ async-chunks:
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                background: 'rgba(56, 189, 248, 0.15)',
-                border: '1px solid rgba(56, 189, 248, 0.35)',
-                color: '#38bdf8',
+                background: 'rgba(192, 132, 252, 0.15)',
+                border: '1px solid rgba(192, 132, 252, 0.35)',
+                color: '#d8b4fe',
                 fontSize: '0.82rem',
                 fontWeight: 700,
                 padding: '4px 10px',
@@ -388,8 +388,8 @@ async-chunks:
               onChange={(e) => setSelectedServerId(e.target.value)}
               style={{
                 background: '#040e1e',
-                border: '1px solid rgba(0, 242, 254, 0.3)',
-                color: '#00f2fe',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+                color: '#c084fc',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 padding: '6px 12px',
@@ -412,8 +412,8 @@ async-chunks:
 
         {/* Server Status Header Card */}
         <div style={{
-          background: 'linear-gradient(135deg, #071529 0%, #030c1b 100%)',
-          border: '1px solid rgba(0, 242, 254, 0.25)',
+          background: 'linear-gradient(135deg, #110626 0%, #030c1b 100%)',
+          border: '1px solid rgba(168, 85, 247, 0.25)',
           borderRadius: '20px',
           padding: '1.75rem',
           marginBottom: '1.5rem',
@@ -430,9 +430,9 @@ async-chunks:
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '0.82rem', color: '#94a3b8', flexWrap: 'wrap' }}>
                 <span>Type: <strong style={{ color: '#fff' }}>{activeServer.game}</strong></span>
                 <span>&bull;</span>
-                <span>Node: <strong style={{ color: '#00f2fe' }}>{activeServer.node}</strong></span>
+                <span>Node: <strong style={{ color: '#c084fc' }}>{activeServer.node}</strong></span>
                 <span>&bull;</span>
-                <span>Address: <strong style={{ color: '#38bdf8', fontFamily: 'monospace' }}>{activeServer.ip}:{activeServer.port}</strong></span>
+                <span>Address: <strong style={{ color: '#d8b4fe', fontFamily: 'monospace' }}>{activeServer.ip}:{activeServer.port}</strong></span>
                 <span>&bull;</span>
                 <span>Uptime: <strong style={{ color: '#34d399' }}>{activeServer.uptime}</strong></span>
               </div>
@@ -531,22 +531,22 @@ async-chunks:
             {/* CPU Metric */}
             <div style={{ background: '#030a16', borderRadius: '12px', padding: '12px 16px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '6px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><Cpu size={13} style={{ color: '#00f2fe' }} /> CPU Load</span>
-                <strong style={{ color: '#00f2fe' }}>{liveCpu}% / {activeServer.cpuMax}%</strong>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><Cpu size={13} style={{ color: '#c084fc' }} /> CPU Load</span>
+                <strong style={{ color: '#c084fc' }}>{liveCpu}% / {activeServer.cpuMax}%</strong>
               </div>
               <div style={{ width: '100%', height: '6px', background: '#1e293b', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ width: `${Math.min(100, (liveCpu / activeServer.cpuMax) * 100 * 2.5)}%`, height: '100%', background: 'linear-gradient(90deg, #00f2fe, #38bdf8)', transition: 'width 0.5s' }} />
+                <div style={{ width: `${Math.min(100, (liveCpu / activeServer.cpuMax) * 100 * 2.5)}%`, height: '100%', background: 'linear-gradient(90deg, #c084fc, #d8b4fe)', transition: 'width 0.5s' }} />
               </div>
             </div>
 
             {/* RAM Metric */}
             <div style={{ background: '#030a16', borderRadius: '12px', padding: '12px 16px', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: '#94a3b8', marginBottom: '6px' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><Zap size={13} style={{ color: '#38bdf8' }} /> Memory (RAM)</span>
-                <strong style={{ color: '#38bdf8' }}>{(liveRam / 1024).toFixed(1)} GB / {(activeServer.memoryMax / 1024)} GB</strong>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}><Zap size={13} style={{ color: '#d8b4fe' }} /> Memory (RAM)</span>
+                <strong style={{ color: '#d8b4fe' }}>{(liveRam / 1024).toFixed(1)} GB / {(activeServer.memoryMax / 1024)} GB</strong>
               </div>
               <div style={{ width: '100%', height: '6px', background: '#1e293b', borderRadius: '3px', overflow: 'hidden' }}>
-                <div style={{ width: `${(liveRam / activeServer.memoryMax) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #38bdf8, #818cf8)', transition: 'width 0.5s' }} />
+                <div style={{ width: `${(liveRam / activeServer.memoryMax) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #d8b4fe, #818cf8)', transition: 'width 0.5s' }} />
               </div>
             </div>
 
@@ -596,9 +596,9 @@ async-chunks:
                   gap: '7px',
                   padding: '9px 16px',
                   border: 'none',
-                  background: active ? 'rgba(0, 242, 254, 0.15)' : 'transparent',
-                  color: active ? '#00f2fe' : '#94a3b8',
-                  borderBottom: active ? '2px solid #00f2fe' : '2px solid transparent',
+                  background: active ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
+                  color: active ? '#c084fc' : '#94a3b8',
+                  borderBottom: active ? '2px solid #c084fc' : '2px solid transparent',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
@@ -618,13 +618,13 @@ async-chunks:
           <div>
             <div style={{
               background: '#01050e',
-              border: '1px solid rgba(0, 242, 254, 0.25)',
+              border: '1px solid rgba(168, 85, 247, 0.25)',
               borderRadius: '16px',
               overflow: 'hidden',
               boxShadow: '0 8px 32px rgba(0,0,0,0.6)'
             }}>
               {/* Terminal Title Bar */}
-              <div style={{ background: '#051021', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ background: '#0d051f', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444' }} />
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f59e0b' }} />
@@ -650,10 +650,10 @@ async-chunks:
               }}>
                 {consoleLogs.map((log, index) => {
                   let color = '#cbd5e1';
-                  if (log.startsWith('> ')) color = '#00f2fe';
+                  if (log.startsWith('> ')) color = '#c084fc';
                   else if (log.includes('ERROR')) color = '#f87171';
                   else if (log.includes('WARN')) color = '#fbbf24';
-                  else if (log.includes('DataSerware')) color = '#38bdf8';
+                  else if (log.includes('DataSerware')) color = '#d8b4fe';
                   else if (log.includes('ONLINE') || log.includes('Done')) color = '#34d399';
 
                   return (
@@ -667,7 +667,7 @@ async-chunks:
 
               {/* Command Input Bar */}
               <form onSubmit={handleSendCommand} style={{ display: 'flex', borderTop: '1px solid rgba(255, 255, 255, 0.08)', background: '#030a16' }}>
-                <span style={{ padding: '12px 14px', color: '#00f2fe', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>&gt;</span>
+                <span style={{ padding: '12px 14px', color: '#c084fc', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>&gt;</span>
                 <input
                   type="text"
                   value={commandInput}
@@ -687,9 +687,9 @@ async-chunks:
                 <button
                   type="submit"
                   style={{
-                    background: 'rgba(0, 242, 254, 0.15)',
+                    background: 'rgba(168, 85, 247, 0.15)',
                     border: 'none',
-                    color: '#00f2fe',
+                    color: '#c084fc',
                     padding: '0 20px',
                     cursor: 'pointer',
                     display: 'flex',
@@ -711,13 +711,13 @@ async-chunks:
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#94a3b8', fontFamily: 'JetBrains Mono, monospace' }}>
-                <Folder size={16} style={{ color: '#00f2fe' }} />
+                <Folder size={16} style={{ color: '#c084fc' }} />
                 <span>/home/container/</span>
               </div>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
                   onClick={() => handleOpenFile('server.properties')}
-                  style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid #00f2fe', color: '#00f2fe', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
+                  style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid #c084fc', color: '#c084fc', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
                 >
                   + Create File
                 </button>
@@ -730,10 +730,10 @@ async-chunks:
               </div>
             </div>
 
-            <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
+            <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                 <thead>
-                  <tr style={{ background: '#020611', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+                  <tr style={{ background: '#070213', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
                     <th style={{ padding: '12px 16px' }}>Name</th>
                     <th style={{ padding: '12px 16px' }}>Size</th>
                     <th style={{ padding: '12px 16px' }}>Last Modified</th>
@@ -746,9 +746,9 @@ async-chunks:
                       <td style={{ padding: '12px 16px' }}>
                         <button
                           onClick={() => file.type === 'file' ? handleOpenFile(file.name) : alert(`Opened folder ${file.name}`)}
-                          style={{ background: 'transparent', border: 'none', color: file.type === 'dir' ? '#38bdf8' : '#fff', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                          style={{ background: 'transparent', border: 'none', color: file.type === 'dir' ? '#d8b4fe' : '#fff', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                         >
-                          {file.type === 'dir' ? <Folder size={15} style={{ color: '#00f2fe' }} /> : <FileText size={15} style={{ color: '#94a3b8' }} />}
+                          {file.type === 'dir' ? <Folder size={15} style={{ color: '#c084fc' }} /> : <FileText size={15} style={{ color: '#94a3b8' }} />}
                           <span>{file.name}</span>
                         </button>
                       </td>
@@ -758,7 +758,7 @@ async-chunks:
                         {file.type === 'file' && (
                           <button
                             onClick={() => handleOpenFile(file.name)}
-                            style={{ background: 'transparent', border: 'none', color: '#00f2fe', cursor: 'pointer', marginRight: '10px' }}
+                            style={{ background: 'transparent', border: 'none', color: '#c084fc', cursor: 'pointer', marginRight: '10px' }}
                             title="Edit file"
                           >
                             <Edit size={14} />
@@ -781,10 +781,10 @@ async-chunks:
             {/* In-Panel Code/Config Editor Modal */}
             {editingFile && (
               <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1.5rem' }}>
-                <div style={{ background: '#051021', border: '1px solid rgba(0, 242, 254, 0.35)', borderRadius: '20px', maxWidth: '750px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ background: '#0d051f', border: '1px solid rgba(168, 85, 247, 0.35)', borderRadius: '20px', maxWidth: '750px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <FileText size={18} style={{ color: '#00f2fe' }} />
+                      <FileText size={18} style={{ color: '#c084fc' }} />
                       <strong style={{ color: '#fff', fontSize: '1rem' }}>Editing {editingFile}</strong>
                     </div>
                     <button
@@ -803,7 +803,7 @@ async-chunks:
                       style={{
                         width: '100%',
                         background: '#01050e',
-                        border: '1px solid rgba(0, 242, 254, 0.2)',
+                        border: '1px solid rgba(168, 85, 247, 0.2)',
                         borderRadius: '8px',
                         padding: '12px',
                         color: '#a5f3fc',
@@ -827,7 +827,7 @@ async-chunks:
                         alert(`Changes saved to ${editingFile}!`);
                         setEditingFile(null);
                       }}
-                      style={{ background: 'linear-gradient(135deg, #00f2fe, #06b6d4)', color: '#020611', border: 'none', padding: '8px 20px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}
+                      style={{ background: 'linear-gradient(135deg, #c084fc, #a855f7)', color: '#070213', border: 'none', padding: '8px 20px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}
                     >
                       Save Changes
                     </button>
@@ -848,7 +848,7 @@ async-chunks:
               </div>
               <button
                 onClick={() => setNewDbModal(true)}
-                style={{ background: '#00f2fe', color: '#020611', border: 'none', padding: '8px 16px', borderRadius: '8px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer' }}
+                style={{ background: '#c084fc', color: '#070213', border: 'none', padding: '8px 16px', borderRadius: '8px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer' }}
               >
                 + New Database
               </button>
@@ -856,15 +856,15 @@ async-chunks:
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
               {databases.map(db => (
-                <div key={db.id} style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '14px', padding: '1.25rem' }}>
+                <div key={db.id} style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '14px', padding: '1.25rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                    <Database size={20} style={{ color: '#00f2fe' }} />
+                    <Database size={20} style={{ color: '#c084fc' }} />
                     <strong style={{ fontSize: '1.05rem', color: '#fff' }}>{db.name}</strong>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.82rem', color: '#cbd5e1' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ color: '#94a3b8' }}>Endpoint Host:</span>
-                      <span style={{ fontFamily: 'monospace', color: '#00f2fe' }}>{db.host}</span>
+                      <span style={{ fontFamily: 'monospace', color: '#c084fc' }}>{db.host}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ color: '#94a3b8' }}>Username:</span>
@@ -876,7 +876,7 @@ async-chunks:
                         <span style={{ fontFamily: 'monospace' }}>{db.showPass ? db.pass : '••••••••••••'}</span>
                         <button
                           onClick={() => setDatabases(databases.map(d => d.id === db.id ? { ...d, showPass: !d.showPass } : d))}
-                          style={{ background: 'transparent', border: 'none', color: '#38bdf8', fontSize: '0.75rem', cursor: 'pointer', textDecoration: 'underline' }}
+                          style={{ background: 'transparent', border: 'none', color: '#d8b4fe', fontSize: '0.75rem', cursor: 'pointer', textDecoration: 'underline' }}
                         >
                           {db.showPass ? 'Hide' : 'Reveal'}
                         </button>
@@ -890,7 +890,7 @@ async-chunks:
             {/* New Database Modal */}
             {newDbModal && (
               <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }}>
-                <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.3)', borderRadius: '16px', padding: '1.75rem', maxWidth: '420px', width: '100%' }}>
+                <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '16px', padding: '1.75rem', maxWidth: '420px', width: '100%' }}>
                   <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', marginTop: 0 }}>Create New Database</h3>
                   <div style={{ marginBottom: '1.25rem' }}>
                     <label style={{ display: 'block', fontSize: '0.82rem', color: '#cbd5e1', marginBottom: '6px' }}>Database Name</label>
@@ -899,7 +899,7 @@ async-chunks:
                       value={newDbName}
                       onChange={(e) => setNewDbName(e.target.value)}
                       placeholder="e.g. smp_inventory"
-                      style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
+                      style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
                     />
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
@@ -924,7 +924,7 @@ async-chunks:
                         setNewDbModal(false);
                         setNewDbName('');
                       }}
-                      style={{ background: '#00f2fe', color: '#020611', border: 'none', padding: '6px 16px', borderRadius: '6px', fontWeight: 800, cursor: 'pointer' }}
+                      style={{ background: '#c084fc', color: '#070213', border: 'none', padding: '6px 16px', borderRadius: '6px', fontWeight: 800, cursor: 'pointer' }}
                     >
                       Create
                     </button>
@@ -955,7 +955,7 @@ async-chunks:
                   setBackups([newBk, ...backups]);
                   alert('Snapshot created successfully!');
                 }}
-                style={{ background: '#00f2fe', color: '#020611', border: 'none', padding: '8px 16px', borderRadius: '8px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer' }}
+                style={{ background: '#c084fc', color: '#070213', border: 'none', padding: '8px 16px', borderRadius: '8px', fontWeight: 800, fontSize: '0.82rem', cursor: 'pointer' }}
               >
                 + Create Snapshot Now
               </button>
@@ -963,7 +963,7 @@ async-chunks:
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {backups.map(bk => (
-                <div key={bk.id} style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '12px', padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                <div key={bk.id} style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '12px', padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <HardDrive size={22} style={{ color: '#22c55e' }} />
                     <div>
@@ -980,7 +980,7 @@ async-chunks:
                     </button>
                     <button
                       onClick={() => alert(`Restoring backup ${bk.name}...`)}
-                      style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', padding: '6px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ background: 'rgba(192, 132, 252, 0.15)', border: '1px solid rgba(192, 132, 252, 0.4)', color: '#d8b4fe', padding: '6px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer' }}
                     >
                       Restore
                     </button>
@@ -999,10 +999,10 @@ async-chunks:
               <p style={{ color: '#94a3b8', fontSize: '0.85rem', margin: '4px 0 0' }}>Allocated IP addresses and forwarded ports for webmaps, proxies, and voice servers.</p>
             </div>
 
-            <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
+            <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                 <thead>
-                  <tr style={{ background: '#020611', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+                  <tr style={{ background: '#070213', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
                     <th style={{ padding: '12px 16px' }}>IP Address</th>
                     <th style={{ padding: '12px 16px' }}>Port</th>
                     <th style={{ padding: '12px 16px' }}>Assignment</th>
@@ -1012,14 +1012,14 @@ async-chunks:
                 <tbody>
                   {allocations.map(alloc => (
                     <tr key={alloc.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                      <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: '#00f2fe' }}>{alloc.ip}</td>
+                      <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: '#c084fc' }}>{alloc.ip}</td>
                       <td style={{ padding: '12px 16px', fontFamily: 'monospace', color: '#fff', fontWeight: 700 }}>{alloc.port}</td>
                       <td style={{ padding: '12px 16px', color: '#cbd5e1' }}>{alloc.notes}</td>
                       <td style={{ padding: '12px 16px', textAlign: 'right' }}>
                         {alloc.isPrimary ? (
                           <span style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 800 }}>PRIMARY</span>
                         ) : (
-                          <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem' }}>SECONDARY</span>
+                          <span style={{ background: 'rgba(192, 132, 252, 0.15)', color: '#d8b4fe', padding: '2px 8px', borderRadius: '4px', fontSize: '0.72rem' }}>SECONDARY</span>
                         )}
                       </td>
                     </tr>
@@ -1032,7 +1032,7 @@ async-chunks:
 
         {/* TAB 6: STARTUP & SETTINGS */}
         {activeTab === 'settings' && (
-          <div style={{ maxWidth: '640px', background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '16px', padding: '2rem' }}>
+          <div style={{ maxWidth: '640px', background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '16px', padding: '2rem' }}>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#fff', marginTop: 0 }}>Startup Configuration</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div>
@@ -1042,7 +1042,7 @@ async-chunks:
                 <select
                   value={selectedJava}
                   onChange={(e) => setSelectedJava(e.target.value)}
-                  style={{ width: '100%', background: '#020611', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
+                  style={{ width: '100%', background: '#070213', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
                 >
                   <option>Java 21 LTS (Temurin)</option>
                   <option>Java 17 LTS (Amazon Corretto)</option>
@@ -1059,11 +1059,11 @@ async-chunks:
                   type="text"
                   readOnly
                   value="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions"
-                  style={{ width: '100%', background: '#020611', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', padding: '10px 14px', color: '#94a3b8', fontFamily: 'monospace', fontSize: '0.8rem' }}
+                  style={{ width: '100%', background: '#070213', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '8px', padding: '10px 14px', color: '#94a3b8', fontFamily: 'monospace', fontSize: '0.8rem' }}
                 />
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: '#020611', borderRadius: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: '#070213', borderRadius: '10px' }}>
                 <div>
                   <strong style={{ color: '#fff', fontSize: '0.9rem', display: 'block' }}>Auto-Restart on Crash</strong>
                   <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}>Automatically trigger container restart if server crashes</span>

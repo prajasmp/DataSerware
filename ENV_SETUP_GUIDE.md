@@ -1,6 +1,6 @@
-# NOVEXHOST — Complete Production Environment & Credentials Setup Guide
+# Data Serware — Complete Production Environment & Credentials Setup Guide
 
-This document is the verified reference for all environment variables, security boundaries, and external integrations in the **NOVEXHOST** platform.
+This document is the verified reference for all environment variables, security boundaries, and external integrations in the **Data Serware** platform.
 
 ---
 
@@ -29,7 +29,7 @@ This document is the verified reference for all environment variables, security 
 | `RAZORPAY_KEY_ID` | **Required** (Live) | Public | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Checkout modal initialization and backend order creation | Yes in dev (`rzp_test_...`) | Run test order checkout on `/checkout` |
 | `RAZORPAY_KEY_SECRET` | **Required** (Live) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Cryptographic HMAC-SHA256 signature verification | No in prod (must be real secret) | `node scratch/test_env_and_security.js` |
 | `RAZORPAY_WEBHOOK_SECRET` | **Required** (Prod) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > Webhooks](https://dashboard.razorpay.com/app/webhooks) | Both | Asynchronous payment capture and timing-safe webhook verification | Allowed only in dev mode | Trigger simulated webhook in test suite |
-| `PTERODACTYL_PANEL_URL` | Optional | Public | Pterodactyl | Pterodactyl Web Domain | Both | Game server & Cloud VPS provisioning API endpoint | Yes (`https://panel.novexhost.com`) | View nodes list in `/admin` |
+| `PTERODACTYL_PANEL_URL` | Optional | Public | Pterodactyl | Pterodactyl Web Domain | Both | Game server & Cloud VPS provisioning API endpoint | Yes (`https://panel.dataserware.com`) | View nodes list in `/admin` |
 | `PTERODACTYL_APPLICATION_API_KEY` | **Required** (Auto-Ptero) | **STRICT SECRET** | Pterodactyl | Pterodactyl Admin > Application API | Both | Automated Minecraft & VPS server creation and user provisioning | Safe dev fallback to sandbox queue | Order a game server on `/checkout` |
 | `PTERODACTYL_CLIENT_API_KEY` | Optional | **STRICT SECRET** | Pterodactyl | Pterodactyl Account > API Credentials | Both | Console websockets and server power actions | Safe fallback to App Key | Test server power actions in admin |
 | `PTERODACTYL_NODE_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nodes | Both | Target server allocation node | Yes (defaults to `1`) | Node allocation in provisioning |
@@ -46,11 +46,11 @@ This document is the verified reference for all environment variables, security 
 | `SMTP_PORT` | Optional | Public | Email Provider | Email provider documentation | Both | SMTP submission port | Yes (defaults to `587`) | Nodemailer handshake |
 | `SMTP_USER` | Optional | Public | Email Provider | Mail account username | Both | SMTP authentication user | Safe (logs to console if unset) | Outgoing mail authentication |
 | `SMTP_PASS` | Optional | **STRICT SECRET** | Email Provider | Mail account password / App Password | Both | SMTP authentication password | Safe (logs to console if unset) | Outgoing mail authentication |
-| `SMTP_FROM` | Optional | Public | Brand Spec | Brand configuration | Both | Customer-facing sender display header | Yes (`NOVEXHOST Support <notifications@...>`) | Header in delivered customer email |
+| `SMTP_FROM` | Optional | Public | Brand Spec | Brand configuration | Both | Customer-facing sender display header | Yes (`Data Serware Support <notifications@...>`) | Header in delivered customer email |
 | `NODE_ENV` | Optional | Public | Node.js | Runtime environment | Both | Enforces strict HMAC validation and SSL checks | Yes (defaults to `development`) | Check `/api/admin/settings` |
 | `PUBLIC_URL` | Optional | Public | Custom Domain | DNS / Cloudflare domain | Both | Customer order tracking URLs in emails | Yes (defaults to `http://localhost:3000`) | Click tracking URL in confirmation email |
 | `VITE_API_BASE_URL` | Optional | Public | Hosting Provider | Backend Netlify domain (if separate from frontend) | Prod / Preview | Directs frontend API calls across origins | Yes (empty string for same-origin) | Network tab in browser DevTools |
-| `ADMIN_EMAILS` | Optional | Public | Platform Ops | Organization administrator emails | Both | Whitelist of accounts authorized for `/admin` | Yes (`admin@novexhost.com`) | Login with admin email at `/admin` |
+| `ADMIN_EMAILS` | Optional | Public | Platform Ops | Organization administrator emails | Both | Whitelist of accounts authorized for `/admin` | Yes (`admin@dataserware.com`) | Login with admin email at `/admin` |
 | `PRIMARY_ADMIN_EMAIL` | Optional | Public | Platform Ops | Owner email | Both | Designates owner role | Yes (`r26377269@gmail.com`) | Check owner badge in admin header |
 | `SUPABASE_URL` | Optional | Public | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Remote PostgreSQL persistence | Safe (`devStore.js` used if unset) | Query orders in Supabase table |
 | `SUPABASE_SERVICE_ROLE_KEY` | Optional | **STRICT SECRET** | Supabase | [Supabase Dashboard > Settings > API](https://supabase.com/dashboard) | Both | Master service_role database client | Safe (`devStore.js` used if unset) | Server-side database write test |
@@ -59,8 +59,8 @@ This document is the verified reference for all environment variables, security 
 | `VITE_FIREBASE_*` (8 vars) | Optional | Public | Firebase | [Firebase Console > Project Settings](https://console.firebase.google.com/) | Both | Client-side Google OAuth login | Safe fallback in `firebase.js` | Sign in with Google on `/admin` |
 | `FIREBASE_CLIENT_EMAIL` | Optional | Public | Firebase | Firebase Console > Service Accounts | Both | Server-side Admin SDK verification | Safe fallback | Verify token via Admin API |
 | `FIREBASE_PRIVATE_KEY` | Optional | **STRICT SECRET** | Firebase | Firebase Console > Service Accounts | Both | Server-side Admin SDK RSA signature | Safe fallback | Verify token via Admin API |
-| `UPI_RECEIVER_ID` | Optional | Public | Merchant Bank | Business UPI VPA | Both | Direct manual UPI intent QR code | Yes (`billing@novexhost`) | Test UPI QR code generation |
-| `UPI_RECEIVER_NAME` | Optional | Public | Merchant Bank | Payee display name | Both | Direct manual UPI intent payee name | Yes (`NOVEXHOST`) | Visible in UPI app intent |
+| `UPI_RECEIVER_ID` | Optional | Public | Merchant Bank | Business UPI VPA | Both | Direct manual UPI intent QR code | Yes (`billing@dataserware`) | Test UPI QR code generation |
+| `UPI_RECEIVER_NAME` | Optional | Public | Merchant Bank | Payee display name | Both | Direct manual UPI intent payee name | Yes (`Data Serware`) | Visible in UPI app intent |
 
 ---
 
@@ -71,7 +71,7 @@ This document is the verified reference for all environment variables, security 
 
 ### B. Required for Customer Purchasing & Registration
 - **Zero Login Purchasing**: Customer registration is completely unauthenticated (zero login friction). Customers provide only server name, region/domain, customer name, email, and mobile number.
-- **`PUBLIC_URL`**: Required in production to ensure tracking URLs sent to customers point to `https://novexhost.com/track-order?id=...&token=...` instead of localhost.
+- **`PUBLIC_URL`**: Required in production to ensure tracking URLs sent to customers point to `https://dataserware.com/track-order?id=...&token=...` instead of localhost.
 
 ### C. Required for Razorpay Live Payments
 - **`RAZORPAY_KEY_ID`**: Public key for checkout modal.

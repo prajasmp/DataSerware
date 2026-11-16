@@ -12,7 +12,7 @@ export default function ElectricNodeDiagram() {
       icon: Gamepad2,
       side: 'left',
       yOffset: 40,
-      color: '#00f2fe'
+      color: '#c084fc'
     },
     {
       id: 'vps',
@@ -21,7 +21,7 @@ export default function ElectricNodeDiagram() {
       icon: Server,
       side: 'left',
       yOffset: 180,
-      color: '#06b6d4'
+      color: '#a855f7'
     },
     {
       id: 'bot',
@@ -30,7 +30,7 @@ export default function ElectricNodeDiagram() {
       icon: Bot,
       side: 'left',
       yOffset: 320,
-      color: '#38bdf8'
+      color: '#818cf8'
     },
     {
       id: 'ddos',
@@ -39,7 +39,7 @@ export default function ElectricNodeDiagram() {
       icon: Shield,
       side: 'right',
       yOffset: 40,
-      color: '#10b981'
+      color: '#34d399'
     },
     {
       id: 'latency',
@@ -48,7 +48,7 @@ export default function ElectricNodeDiagram() {
       icon: Zap,
       side: 'right',
       yOffset: 180,
-      color: '#00f2fe'
+      color: '#c084fc'
     },
     {
       id: 'dns',
@@ -57,7 +57,7 @@ export default function ElectricNodeDiagram() {
       icon: Globe,
       side: 'right',
       yOffset: 320,
-      color: '#06b6d4'
+      color: '#a855f7'
     }
   ];
 
@@ -74,9 +74,9 @@ export default function ElectricNodeDiagram() {
         <svg className="circuit-svg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="cyanElectric" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#00f2fe" stopOpacity="1" />
-              <stop offset="50%" stopColor="#06b6d4" stopOpacity="1" />
-              <stop offset="100%" stopColor="#0284c7" stopOpacity="1" />
+              <stop offset="0%" stopColor="#c084fc" stopOpacity="1" />
+              <stop offset="50%" stopColor="#a855f7" stopOpacity="1" />
+              <stop offset="100%" stopColor="#6366f1" stopOpacity="1" />
             </linearGradient>
 
             <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">

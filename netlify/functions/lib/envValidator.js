@@ -1,5 +1,5 @@
 /**
- * NOVEXHOST - Environment Configuration Validator
+ * Data Serware - Environment Configuration Validator
  * Validates required and optional configuration keys without leaking secrets in logs or responses.
  */
 
@@ -52,7 +52,7 @@ export function validateEnvironment() {
       category: 'Pterodactyl Provisioning',
       required: false,
       present: Boolean(process.env.PTERODACTYL_PANEL_URL),
-      description: 'URL of the Pterodactyl panel (e.g. https://panel.novexhost.com)'
+      description: 'URL of the Pterodactyl panel (e.g. https://panel.dataserware.com)'
     },
     {
       key: 'PTERODACTYL_APPLICATION_API_KEY',
@@ -68,7 +68,7 @@ export function validateEnvironment() {
       category: 'Web Hosting (WHM)',
       required: false,
       present: Boolean(process.env.WHM_HOST),
-      description: 'WHM host domain or IP (e.g. https://cpanel.novexhost.com)'
+      description: 'WHM host domain or IP (e.g. https://cpanel.dataserware.com)'
     },
     {
       key: 'WHM_USERNAME',
@@ -91,7 +91,7 @@ export function validateEnvironment() {
       category: 'Email Delivery',
       required: false,
       present: Boolean(process.env.SMTP_HOST),
-      description: 'SMTP host (e.g. smtp.gmail.com or mail.novexhost.com)'
+      description: 'SMTP host (e.g. smtp.gmail.com or mail.dataserware.com)'
     },
     {
       key: 'SMTP_USER',

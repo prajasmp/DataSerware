@@ -51,7 +51,7 @@ export default function Checkout() {
   useEffect(() => {
     // If an existing guest user stored details in localStorage, autofill for convenience
     try {
-      const saved = localStorage.getItem('dataserware_guest_info') || localStorage.getItem('novexhost_guest_info');
+      const saved = localStorage.getItem('dataserware_guest_info');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.name) setFullName(parsed.name);
@@ -173,7 +173,7 @@ export default function Checkout() {
           serverName: serverName.trim() || domainName.trim()
         },
         theme: {
-          color: '#00f2fe'
+          color: '#c084fc'
         },
         modal: {
           ondismiss: function () {
@@ -262,11 +262,11 @@ export default function Checkout() {
         {/* Header Breadcrumb */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <Link to="/plans" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#00f2fe', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+            <Link to="/plans" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#c084fc', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
               <ArrowLeft size={16} /> Back to Hosting Plans
             </Link>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', fontFamily: 'Outfit, sans-serif' }}>
-              Checkout &bull; <span style={{ color: '#00f2fe' }}>No Registration Required</span>
+              Checkout &bull; <span style={{ color: '#c084fc' }}>No Registration Required</span>
             </h1>
             <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
               Instant automated deployment right after Razorpay payment verification.
@@ -275,15 +275,15 @@ export default function Checkout() {
 
           {/* Stepper indicator */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 1 ? '#00f2fe' : '#34d399', fontWeight: 700, fontSize: '0.9rem' }}>
-              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 1 ? 'rgba(0, 242, 254, 0.2)' : '#10b981', border: `1px solid ${activeStep === 1 ? '#00f2fe' : '#10b981'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 1 ? '#c084fc' : '#34d399', fontWeight: 700, fontSize: '0.9rem' }}>
+              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 1 ? 'rgba(168, 85, 247, 0.2)' : '#10b981', border: `1px solid ${activeStep === 1 ? '#c084fc' : '#10b981'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
                 {activeStep > 1 ? <Check size={14} /> : '1'}
               </span>
               <span>Details</span>
             </div>
             <span style={{ width: '24px', height: '2px', background: 'rgba(255, 255, 255, 0.15)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 2 ? '#00f2fe' : '#64748b', fontWeight: 700, fontSize: '0.9rem' }}>
-              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 2 ? 'rgba(0, 242, 254, 0.2)' : 'rgba(255, 255, 255, 0.05)', border: `1px solid ${activeStep === 2 ? '#00f2fe' : 'rgba(255, 255, 255, 0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: activeStep === 2 ? '#00f2fe' : '#64748b' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 2 ? '#c084fc' : '#64748b', fontWeight: 700, fontSize: '0.9rem' }}>
+              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 2 ? 'rgba(168, 85, 247, 0.2)' : 'rgba(255, 255, 255, 0.05)', border: `1px solid ${activeStep === 2 ? '#c084fc' : 'rgba(255, 255, 255, 0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: activeStep === 2 ? '#c084fc' : '#64748b' }}>
                 2
               </span>
               <span>Payment &amp; Deploy</span>
@@ -303,9 +303,9 @@ export default function Checkout() {
           {/* LEFT COLUMN: Customer Form or Payment Action */}
           <div>
             {activeStep === 1 && (
-              <form onSubmit={handleProceedToReview} style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <form onSubmit={handleProceedToReview} style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <User size={18} style={{ color: '#00f2fe' }} /> Customer Information
+                  <User size={18} style={{ color: '#c084fc' }} /> Customer Information
                 </h2>
 
                 <div style={{ marginBottom: '1.25rem' }}>
@@ -318,7 +318,7 @@ export default function Checkout() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Alex Johnson"
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                   />
                 </div>
 
@@ -332,7 +332,7 @@ export default function Checkout() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="alex@gmail.com"
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                   />
                   <span style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px', display: 'block' }}>
                     Your server credentials, panel link, and Razorpay receipt will be delivered here.
@@ -344,7 +344,7 @@ export default function Checkout() {
                     Mobile Number (10 Digits) <span style={{ color: '#ef4444' }}>*</span>
                   </label>
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    <span style={{ background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', padding: '0.8rem 0.9rem', color: '#94a3b8', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
+                    <span style={{ background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', padding: '0.8rem 0.9rem', color: '#94a3b8', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
                       +91
                     </span>
                     <input
@@ -354,13 +354,13 @@ export default function Checkout() {
                       value={mobileNumber}
                       onChange={(e) => setMobileNumber(e.target.value)}
                       placeholder="9876543210"
-                      style={{ flex: 1, padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                      style={{ flex: 1, padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                     />
                   </div>
                 </div>
 
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Calendar size={18} style={{ color: '#00f2fe' }} /> Billing Cycle &amp; Term
+                  <Calendar size={18} style={{ color: '#c084fc' }} /> Billing Cycle &amp; Term
                 </h2>
 
                 <div style={{ marginBottom: '1.5rem' }}>
@@ -380,16 +380,16 @@ export default function Checkout() {
                             padding: '12px 14px',
                             borderRadius: '10px',
                             textAlign: 'left',
-                            background: isSel ? 'rgba(6, 182, 212, 0.15)' : '#030712',
-                            border: isSel ? '2px solid #00f2fe' : '1px solid rgba(255, 255, 255, 0.08)',
+                            background: isSel ? 'rgba(147, 51, 234, 0.15)' : '#06020e',
+                            border: isSel ? '2px solid #c084fc' : '1px solid rgba(255, 255, 255, 0.08)',
                             color: '#fff',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease'
                           }}
                         >
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: isSel ? '#00f2fe' : '#e2e8f0' }}>{c.duration}</span>
-                            {isSel && <CheckCircle2 size={14} style={{ color: '#00f2fe' }} />}
+                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: isSel ? '#c084fc' : '#e2e8f0' }}>{c.duration}</span>
+                            {isSel && <CheckCircle2 size={14} style={{ color: '#c084fc' }} />}
                           </div>
                           <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block' }}>{formatINR(cPrice)}</span>
                         </button>
@@ -399,7 +399,7 @@ export default function Checkout() {
                 </div>
 
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Server size={18} style={{ color: '#00f2fe' }} /> {isWebHosting ? 'Web Hosting Configuration' : isBareMetalVds ? 'Physical Machine Configuration' : 'Server Configuration'}
+                  <Server size={18} style={{ color: '#c084fc' }} /> {isWebHosting ? 'Web Hosting Configuration' : isBareMetalVds ? 'Physical Machine Configuration' : 'Server Configuration'}
                 </h2>
 
                 {/* If Web Hosting: Prompt for Primary Domain */}
@@ -414,7 +414,7 @@ export default function Checkout() {
                       value={domainName}
                       onChange={(e) => setDomainName(e.target.value)}
                       placeholder="e.g. mycompany.com or brandname.in"
-                      style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                      style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                     />
                     <span style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px', display: 'block' }}>
                       Your website files and cPanel root directory will be created for this domain.
@@ -432,7 +432,7 @@ export default function Checkout() {
                       <select
                         value={operatingSystem}
                         onChange={(e) => setOperatingSystem(e.target.value)}
-                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                       >
                         {SUPPORTED_VDS_OS.map(osItem => (
                           <option key={osItem.id} value={osItem.name}>
@@ -451,7 +451,7 @@ export default function Checkout() {
                         value={sshKey}
                         onChange={(e) => setSshKey(e.target.value)}
                         placeholder="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... (or leave blank for generated root password)"
-                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.85rem', outline: 'none', fontFamily: 'monospace' }}
+                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.85rem', outline: 'none', fontFamily: 'monospace' }}
                       />
                     </div>
                   </>
@@ -466,7 +466,7 @@ export default function Checkout() {
                     value={serverName}
                     onChange={(e) => setServerName(e.target.value)}
                     placeholder={isWebHosting ? 'my-web-site' : 'my-baremetal-node'}
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                   />
                 </div>
 
@@ -477,7 +477,7 @@ export default function Checkout() {
                   <select
                     value={serverRegion}
                     onChange={(e) => setServerRegion(e.target.value)}
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#030712', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                   >
                     {SERVER_LOCATIONS.map(loc => (
                       <option key={loc.id} value={loc.name}>
@@ -489,7 +489,7 @@ export default function Checkout() {
 
                 <button
                   type="submit"
-                  style={{ width: '100%', padding: '1rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 800, fontSize: '1rem', border: 'none', borderRadius: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(0, 242, 254, 0.4)' }}
+                  style={{ width: '100%', padding: '1rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 800, fontSize: '1rem', border: 'none', borderRadius: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(168, 85, 247, 0.4)' }}
                 >
                   <span>Review &amp; Proceed to Payment</span>
                   <ArrowRight size={18} />
@@ -498,15 +498,15 @@ export default function Checkout() {
             )}
 
             {activeStep === 2 && (
-              <div style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Lock size={18} style={{ color: '#00f2fe' }} /> Secure Razorpay Checkout
+                  <Lock size={18} style={{ color: '#c084fc' }} /> Secure Razorpay Checkout
                 </h2>
                 <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
                   Pay via UPI (GPay, PhonePe, Paytm), Credit/Debit Card, NetBanking, or Wallets in INR.
                 </p>
 
-                <div style={{ background: 'rgba(6, 182, 212, 0.08)', border: '1px solid rgba(6, 182, 212, 0.2)', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                <div style={{ background: 'rgba(147, 51, 234, 0.08)', border: '1px solid rgba(147, 51, 234, 0.2)', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.5rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                     <span style={{ color: '#94a3b8' }}>Customer:</span>
                     <span style={{ color: '#ffffff', fontWeight: 600 }}>{fullName}</span>
@@ -521,12 +521,12 @@ export default function Checkout() {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                     <span style={{ color: '#94a3b8' }}>Term / Duration:</span>
-                    <span style={{ color: '#00f2fe', fontWeight: 600 }}>{currentCycle.duration}</span>
+                    <span style={{ color: '#c084fc', fontWeight: 600 }}>{currentCycle.duration}</span>
                   </div>
                   {isWebHosting && domainName && (
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                       <span style={{ color: '#94a3b8' }}>Primary Domain:</span>
-                      <span style={{ color: '#00f2fe', fontWeight: 600, fontFamily: 'monospace' }}>{domainName}</span>
+                      <span style={{ color: '#c084fc', fontWeight: 600, fontFamily: 'monospace' }}>{domainName}</span>
                     </div>
                   )}
                   {isBareMetalVds && (
@@ -543,7 +543,7 @@ export default function Checkout() {
 
                 {isDeploying ? (
                   <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                    <Loader2 size={36} className="spin-loader" style={{ color: '#00f2fe', margin: '0 auto 1rem' }} />
+                    <Loader2 size={36} className="spin-loader" style={{ color: '#c084fc', margin: '0 auto 1rem' }} />
                     <h3 style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.5rem' }}>
                       Payment Verified! Provisioning Service...
                     </h3>
@@ -557,7 +557,7 @@ export default function Checkout() {
                       type="button"
                       onClick={handleInitiateRazorpay}
                       disabled={submitting}
-                      style={{ width: '100%', padding: '1.1rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 800, fontSize: '1.05rem', border: 'none', borderRadius: '12px', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(0, 242, 254, 0.4)', opacity: submitting ? 0.7 : 1 }}
+                      style={{ width: '100%', padding: '1.1rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 800, fontSize: '1.05rem', border: 'none', borderRadius: '12px', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(168, 85, 247, 0.4)', opacity: submitting ? 0.7 : 1 }}
                     >
                       {submitting ? (
                         <>
@@ -586,7 +586,7 @@ export default function Checkout() {
                         type="button"
                         onClick={handleTestSimulatePayment}
                         disabled={submitting}
-                        style={{ background: 'rgba(56, 189, 248, 0.1)', border: '1px dashed rgba(56, 189, 248, 0.4)', color: '#38bdf8', fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', cursor: 'pointer' }}
+                        style={{ background: 'rgba(192, 132, 252, 0.1)', border: '1px dashed rgba(192, 132, 252, 0.4)', color: '#d8b4fe', fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', cursor: 'pointer' }}
                         title="Simulate successful test payment for development testing"
                       >
                         ⚡ Test Mode: Simulate Paid
@@ -596,9 +596,9 @@ export default function Checkout() {
                 )}
 
                 <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-around', color: '#64748b', fontSize: '0.8rem' }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><ShieldCheck size={14} style={{ color: '#00f2fe' }} /> 256-Bit SSL Encrypted</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={14} style={{ color: '#00f2fe' }} /> Instant Provisioning</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Globe size={14} style={{ color: '#00f2fe' }} /> Auto Invoice</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><ShieldCheck size={14} style={{ color: '#c084fc' }} /> 256-Bit SSL Encrypted</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={14} style={{ color: '#c084fc' }} /> Instant Provisioning</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Globe size={14} style={{ color: '#c084fc' }} /> Auto Invoice</span>
                 </div>
               </div>
             )}
@@ -606,10 +606,10 @@ export default function Checkout() {
 
           {/* RIGHT COLUMN: Order Summary Card */}
           <div>
-            <div style={{ background: '#060e1e', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '16px', padding: '2rem', position: 'sticky', top: '100px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+            <div style={{ background: '#060e1e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '16px', padding: '2rem', position: 'sticky', top: '100px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
                 <div>
-                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#00f2fe', fontWeight: 700 }}>
+                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#c084fc', fontWeight: 700 }}>
                     Selected Plan
                   </span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', margin: '4px 0' }}>
@@ -620,7 +620,7 @@ export default function Checkout() {
                   </span>
                 </div>
                 {plan.badge && (
-                  <span style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid rgba(0, 242, 254, 0.4)', color: '#00f2fe', fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', borderRadius: '999px' }}>
+                  <span style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', borderRadius: '999px' }}>
                     {plan.badge}
                   </span>
                 )}
@@ -656,7 +656,7 @@ export default function Checkout() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                   <span style={{ color: '#94a3b8' }}>Billing Duration:</span>
-                  <span style={{ color: '#00f2fe', fontWeight: 600 }}>{currentCycle.duration} ({currentCycle.months}x)</span>
+                  <span style={{ color: '#c084fc', fontWeight: 600 }}>{currentCycle.duration} ({currentCycle.months}x)</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                   <span style={{ color: '#94a3b8' }}>High-Speed Tier (+10%):</span>
@@ -664,10 +664,10 @@ export default function Checkout() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
                   <span style={{ color: '#94a3b8' }}>DDoS Protection:</span>
-                  <span style={{ color: '#00f2fe', fontWeight: 600 }}>INCLUDED</span>
+                  <span style={{ color: '#c084fc', fontWeight: 600 }}>INCLUDED</span>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: '1rem', marginTop: '0.5rem', borderTop: '1px solid rgba(6, 182, 212, 0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: '1rem', marginTop: '0.5rem', borderTop: '1px solid rgba(147, 51, 234, 0.25)' }}>
                   <div>
                     <span style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'block' }}>Total Due Today</span>
                     <span style={{ fontSize: '0.75rem', color: '#64748b' }}>INR Currency &bull; Taxes Included</span>
@@ -676,7 +676,7 @@ export default function Checkout() {
                     <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif' }}>
                       {formatINR(totalAmount)}
                     </span>
-                    <span style={{ fontSize: '0.85rem', color: '#00f2fe', display: 'block' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#c084fc', display: 'block' }}>
                       /{currentCycle.duration}
                     </span>
                   </div>
@@ -684,8 +684,8 @@ export default function Checkout() {
               </div>
 
               {/* Guarantees Box */}
-              <div style={{ background: 'rgba(0, 242, 254, 0.05)', border: '1px solid rgba(0, 242, 254, 0.15)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.8rem', color: '#94a3b8', lineHeight: 1.5 }}>
-                <strong style={{ color: '#00f2fe', display: 'block', marginBottom: '4px' }}>Data Serware SLA Guarantee:</strong>
+              <div style={{ background: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.15)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.8rem', color: '#94a3b8', lineHeight: 1.5 }}>
+                <strong style={{ color: '#c084fc', display: 'block', marginBottom: '4px' }}>Data Serware SLA Guarantee:</strong>
                 All nodes are monitored 24/7 with zero downtime migration, daily backups, and automated failover routing.
               </div>
 

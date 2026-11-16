@@ -58,19 +58,19 @@ export default function Legal() {
     icon = Mail;
     content = (
       <>
-        <div className="contact-card glass-card" style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '16px', padding: '2rem' }}>
-          <h3 style={{ color: '#00f2fe', marginTop: 0 }}>24/7 Technical Support &amp; Community</h3>
+        <div className="contact-card glass-card" style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '16px', padding: '2rem' }}>
+          <h3 style={{ color: '#c084fc', marginTop: 0 }}>24/7 Technical Support &amp; Community</h3>
           <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.7' }}>
             Our infrastructure engineering team is available around the clock to assist you with server setups, node migrations, custom Modpack installations, and billing questions.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
-            <div style={{ background: '#030712', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
+            <div style={{ background: '#06020e', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
               <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Email Inquiries:</span>
               <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>support@dataserware.com</strong>
             </div>
 
-            <div style={{ background: '#030712', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
+            <div style={{ background: '#06020e', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
               <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Billing &amp; Payments:</span>
               <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>billing@dataserware.com</strong>
             </div>
@@ -82,14 +82,14 @@ export default function Legal() {
               href="https://discord.gg/dataserware"
               target="_blank"
               rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}
             >
               <MessageSquare size={18} /> Join Official Discord
             </a>
 
             <Link
               to="/track-order"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(6, 182, 212, 0.3)', color: '#00f2fe', fontWeight: 600, borderRadius: '10px', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(147, 51, 234, 0.3)', color: '#c084fc', fontWeight: 600, borderRadius: '10px', textDecoration: 'none' }}
             >
               <PackageCheck size={18} /> Track Existing Order
             </Link>
@@ -126,9 +126,9 @@ export default function Legal() {
   return (
     <section className="section top-space" style={{ minHeight: '80vh', padding: '3.5rem 1rem' }}>
       <div className="container" style={{ maxWidth: '840px', margin: '0 auto' }}>
-        <div className="glass-card glow-border" style={{ background: '#081426', border: '1px solid rgba(6, 182, 212, 0.25)', borderRadius: '20px', padding: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem', borderBottom: '1px solid rgba(6, 182, 212, 0.2)', paddingBottom: '1rem' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(0, 242, 254, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00f2fe' }}>
+        <div className="glass-card glow-border" style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '20px', padding: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', paddingBottom: '1rem' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c084fc' }}>
               <IconComp size={26} />
             </div>
             <div>

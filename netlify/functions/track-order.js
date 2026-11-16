@@ -187,8 +187,8 @@ function formatOrderForTracking(order, server) {
         type: 'web',
         domain: order.domain_name || details.domain || order.server_name,
         username: details.username,
-        cpanelUrl: details.cpanelUrl || 'https://cpanel.novexhost.com:2083',
-        nameservers: details.nameservers || ['ns1.novexhost.com', 'ns2.novexhost.com'],
+        cpanelUrl: details.cpanelUrl || 'https://cpanel.dataserware.com:2083',
+        nameservers: details.nameservers || ['ns1.dataserware.com', 'ns2.dataserware.com'],
         status: 'active'
       };
     } else if (isBareMetalVds) {
@@ -214,7 +214,7 @@ function formatOrderForTracking(order, server) {
         nodeId: server?.node_id || 1,
         status: server?.status || 'active',
         memoryMb: server?.memory_mb || 2048,
-        panelUrl: process.env.PTERODACTYL_PANEL_URL || 'https://panel.novexhost.com'
+        panelUrl: process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com'
       };
     }
   }
@@ -242,6 +242,6 @@ function formatOrderForTracking(order, server) {
     paidAt: order.paid_at || null,
     provisionedAt: order.provisioned_at || null,
     serverDetails: formattedServerDetails,
-    supportInstructions: 'If you have questions about your server, connect with our 24/7 technical team on Discord or email support@novexhost.com with your Order Reference.'
+    supportInstructions: 'If you have questions about your server, connect with our 24/7 technical team on Discord or email support@dataserware.com with your Order Reference.'
   };
 }

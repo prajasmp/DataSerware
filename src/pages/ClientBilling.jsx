@@ -273,20 +273,20 @@ export default function ClientBilling() {
   });
 
   return (
-    <div className="client-portal-wrapper" style={{ minHeight: '100vh', background: '#020611', color: '#f8fafc', paddingBottom: '4rem' }}>
+    <div className="client-portal-wrapper" style={{ minHeight: '100vh', background: '#070213', color: '#f8fafc', paddingBottom: '4rem' }}>
 
       {/* Subdomain Header Banner */}
       <div style={{
         background: 'linear-gradient(90deg, #040d1f 0%, #081d33 50%, #040d1f 100%)',
-        borderBottom: '1px solid rgba(0, 242, 254, 0.25)',
+        borderBottom: '1px solid rgba(168, 85, 247, 0.25)',
         padding: '12px 0'
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{
-              background: 'rgba(56, 189, 248, 0.15)',
-              border: '1px solid rgba(56, 189, 248, 0.4)',
-              color: '#38bdf8',
+              background: 'rgba(192, 132, 252, 0.15)',
+              border: '1px solid rgba(192, 132, 252, 0.4)',
+              color: '#d8b4fe',
               fontSize: '0.72rem',
               fontWeight: 800,
               padding: '3px 8px',
@@ -297,7 +297,7 @@ export default function ClientBilling() {
               PORTAL B: CLIENT &amp; BILLING
             </span>
             <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.85rem', color: '#94a3b8' }}>
-              Subdomain: <strong style={{ color: '#00f2fe' }}>client.dataserware.com</strong>
+              Subdomain: <strong style={{ color: '#c084fc' }}>client.dataserware.com</strong>
             </span>
           </div>
 
@@ -307,7 +307,7 @@ export default function ClientBilling() {
               style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#cbd5e1', fontSize: '0.82rem', textDecoration: 'none' }}
               title="Return to Main Marketing Website"
             >
-              <Globe size={13} style={{ color: '#00f2fe' }} />
+              <Globe size={13} style={{ color: '#c084fc' }} />
               <span>Main Website</span>
             </Link>
             <span style={{ color: '#334155' }}>|</span>
@@ -363,9 +363,9 @@ export default function ClientBilling() {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeTab === 'store' ? 'rgba(0, 242, 254, 0.18)' : 'transparent',
-                color: activeTab === 'store' ? '#00f2fe' : '#94a3b8',
-                borderBottom: activeTab === 'store' ? '2px solid #00f2fe' : '2px solid transparent'
+                background: activeTab === 'store' ? 'rgba(168, 85, 247, 0.18)' : 'transparent',
+                color: activeTab === 'store' ? '#c084fc' : '#94a3b8',
+                borderBottom: activeTab === 'store' ? '2px solid #c084fc' : '2px solid transparent'
               }}
             >
               <ShoppingCart size={14} />
@@ -384,15 +384,15 @@ export default function ClientBilling() {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeTab === 'cart' ? 'rgba(0, 242, 254, 0.18)' : 'transparent',
-                color: activeTab === 'cart' ? '#00f2fe' : '#94a3b8',
-                borderBottom: activeTab === 'cart' ? '2px solid #00f2fe' : '2px solid transparent'
+                background: activeTab === 'cart' ? 'rgba(168, 85, 247, 0.18)' : 'transparent',
+                color: activeTab === 'cart' ? '#c084fc' : '#94a3b8',
+                borderBottom: activeTab === 'cart' ? '2px solid #c084fc' : '2px solid transparent'
               }}
             >
               <CreditCard size={14} />
               <span>Configure &amp; Checkout</span>
               {selectedPlan && (
-                <span style={{ background: '#00f2fe', color: '#020611', fontSize: '10px', fontWeight: 800, padding: '1px 6px', borderRadius: '10px' }}>
+                <span style={{ background: '#c084fc', color: '#070213', fontSize: '10px', fontWeight: 800, padding: '1px 6px', borderRadius: '10px' }}>
                   1
                 </span>
               )}
@@ -410,9 +410,9 @@ export default function ClientBilling() {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeTab === 'services' ? 'rgba(0, 242, 254, 0.18)' : 'transparent',
-                color: activeTab === 'services' ? '#00f2fe' : '#94a3b8',
-                borderBottom: activeTab === 'services' ? '2px solid #00f2fe' : '2px solid transparent'
+                background: activeTab === 'services' ? 'rgba(168, 85, 247, 0.18)' : 'transparent',
+                color: activeTab === 'services' ? '#c084fc' : '#94a3b8',
+                borderBottom: activeTab === 'services' ? '2px solid #c084fc' : '2px solid transparent'
               }}
             >
               <Server size={14} />
@@ -431,9 +431,9 @@ export default function ClientBilling() {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeTab === 'invoices' ? 'rgba(0, 242, 254, 0.18)' : 'transparent',
-                color: activeTab === 'invoices' ? '#00f2fe' : '#94a3b8',
-                borderBottom: activeTab === 'invoices' ? '2px solid #00f2fe' : '2px solid transparent'
+                background: activeTab === 'invoices' ? 'rgba(168, 85, 247, 0.18)' : 'transparent',
+                color: activeTab === 'invoices' ? '#c084fc' : '#94a3b8',
+                borderBottom: activeTab === 'invoices' ? '2px solid #c084fc' : '2px solid transparent'
               }}
             >
               <FileText size={14} />
@@ -452,9 +452,9 @@ export default function ClientBilling() {
                 fontWeight: 600,
                 border: 'none',
                 cursor: 'pointer',
-                background: activeTab === 'tickets' ? 'rgba(0, 242, 254, 0.18)' : 'transparent',
-                color: activeTab === 'tickets' ? '#00f2fe' : '#94a3b8',
-                borderBottom: activeTab === 'tickets' ? '2px solid #00f2fe' : '2px solid transparent'
+                background: activeTab === 'tickets' ? 'rgba(168, 85, 247, 0.18)' : 'transparent',
+                color: activeTab === 'tickets' ? '#c084fc' : '#94a3b8',
+                borderBottom: activeTab === 'tickets' ? '2px solid #c084fc' : '2px solid transparent'
               }}
             >
               <Headphones size={14} />
@@ -482,7 +482,7 @@ export default function ClientBilling() {
 
             {user || demoLoggedIn ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.05)', padding: '4px 10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, #00f2fe, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#030712', fontWeight: 800, fontSize: '0.75rem' }}>
+                <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg, #c084fc, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#06020e', fontWeight: 800, fontSize: '0.75rem' }}>
                   {user ? (user.displayName?.[0] || 'U') : 'D'}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
@@ -496,8 +496,8 @@ export default function ClientBilling() {
               <button
                 onClick={() => setActiveTab('auth')}
                 style={{
-                  background: 'linear-gradient(135deg, #00f2fe, #06b6d4)',
-                  color: '#020611',
+                  background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  color: '#070213',
                   border: 'none',
                   padding: '6px 14px',
                   borderRadius: '6px',
@@ -525,7 +525,7 @@ export default function ClientBilling() {
           <div>
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1.5rem' }}>
               <div>
-                <span style={{ color: '#00f2fe', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                <span style={{ color: '#c084fc', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                   DATA SERWARE PRODUCT STOREFRONT
                 </span>
                 <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: '6px 0 0', color: '#fff', fontFamily: 'Outfit, sans-serif' }}>
@@ -580,9 +580,9 @@ export default function ClientBilling() {
                     border: '1px solid',
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
-                    background: storeCategory === cat.id ? 'linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(6, 182, 212, 0.2))' : 'rgba(15, 23, 42, 0.6)',
-                    borderColor: storeCategory === cat.id ? '#00f2fe' : 'rgba(255, 255, 255, 0.08)',
-                    color: storeCategory === cat.id ? '#00f2fe' : '#94a3b8'
+                    background: storeCategory === cat.id ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(147, 51, 234, 0.2))' : 'rgba(15, 23, 42, 0.6)',
+                    borderColor: storeCategory === cat.id ? '#c084fc' : 'rgba(255, 255, 255, 0.08)',
+                    color: storeCategory === cat.id ? '#c084fc' : '#94a3b8'
                   }}
                 >
                   {cat.label}
@@ -596,8 +596,8 @@ export default function ClientBilling() {
                 <div
                   key={plan.id}
                   style={{
-                    background: 'linear-gradient(180deg, #071529 0%, #030a16 100%)',
-                    border: '1px solid rgba(0, 242, 254, 0.18)',
+                    background: 'linear-gradient(180deg, #110626 0%, #030a16 100%)',
+                    border: '1px solid rgba(168, 85, 247, 0.18)',
                     borderRadius: '16px',
                     padding: '1.5rem',
                     display: 'flex',
@@ -613,8 +613,8 @@ export default function ClientBilling() {
                       position: 'absolute',
                       top: '12px',
                       right: '12px',
-                      background: 'linear-gradient(135deg, #00f2fe, #38bdf8)',
-                      color: '#030712',
+                      background: 'linear-gradient(135deg, #c084fc, #d8b4fe)',
+                      color: '#06020e',
                       fontSize: '0.65rem',
                       fontWeight: 800,
                       padding: '2px 8px',
@@ -626,7 +626,7 @@ export default function ClientBilling() {
                   )}
 
                   <div>
-                    <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       {CATEGORIES[plan.category] || plan.category}
                     </span>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', margin: '4px 0 12px' }}>
@@ -644,13 +644,13 @@ export default function ClientBilling() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.82rem', color: '#cbd5e1' }}>
                         {plan.ram && (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Cpu size={14} style={{ color: '#00f2fe' }} />
+                            <Cpu size={14} style={{ color: '#c084fc' }} />
                             <span>{plan.ram}</span>
                           </div>
                         )}
                         {plan.cpu && (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Zap size={14} style={{ color: '#38bdf8' }} />
+                            <Zap size={14} style={{ color: '#d8b4fe' }} />
                             <span>{plan.cpu}</span>
                           </div>
                         )}
@@ -670,8 +670,8 @@ export default function ClientBilling() {
                       setActiveTab('cart');
                     }}
                     style={{
-                      background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)',
-                      color: '#020611',
+                      background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)',
+                      color: '#070213',
                       border: 'none',
                       borderRadius: '10px',
                       padding: '10px 16px',
@@ -682,7 +682,7 @@ export default function ClientBilling() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '8px',
-                      boxShadow: '0 0 15px rgba(0, 242, 254, 0.3)'
+                      boxShadow: '0 0 15px rgba(168, 85, 247, 0.3)'
                     }}
                   >
                     <span>Configure &amp; Order</span>
@@ -703,11 +703,11 @@ export default function ClientBilling() {
                 maxWidth: '650px',
                 margin: '2rem auto',
                 background: 'linear-gradient(180deg, #081d33 0%, #030c1a 100%)',
-                border: '1px solid rgba(0, 242, 254, 0.4)',
+                border: '1px solid rgba(168, 85, 247, 0.4)',
                 borderRadius: '24px',
                 padding: '2.5rem',
                 textAlign: 'center',
-                boxShadow: '0 0 40px rgba(0, 242, 254, 0.2)'
+                boxShadow: '0 0 40px rgba(168, 85, 247, 0.2)'
               }}>
                 <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid #10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', color: '#10b981' }}>
                   <CheckCircle2 size={36} />
@@ -722,14 +722,14 @@ export default function ClientBilling() {
                   Service <strong>{orderCompleteData.service.name}</strong> has been allocated on node <strong>{orderCompleteData.service.node}</strong> with IP <code>{orderCompleteData.service.ip}</code>.
                 </p>
 
-                <div style={{ background: '#020611', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '1.25rem', textAlign: 'left', marginBottom: '2rem' }}>
+                <div style={{ background: '#070213', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '1.25rem', textAlign: 'left', marginBottom: '2rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
                     <span style={{ color: '#94a3b8' }}>Invoice ID:</span>
                     <strong style={{ color: '#fff' }}>{orderCompleteData.invoice.id}</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
                     <span style={{ color: '#94a3b8' }}>Dedicated IP:</span>
-                    <strong style={{ color: '#00f2fe', fontFamily: 'monospace' }}>{orderCompleteData.service.ip}</strong>
+                    <strong style={{ color: '#c084fc', fontFamily: 'monospace' }}>{orderCompleteData.service.ip}</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
                     <span style={{ color: '#94a3b8' }}>Status:</span>
@@ -784,10 +784,10 @@ export default function ClientBilling() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
 
                 {/* Left Column: Server Configuration */}
-                <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '20px', padding: '2rem' }}>
+                <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '20px', padding: '2rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '1rem' }}>
                     <div>
-                      <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                      <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                         Step 1: Configure Your Service
                       </span>
                       <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
@@ -796,7 +796,7 @@ export default function ClientBilling() {
                     </div>
                     <button
                       onClick={() => setActiveTab('store')}
-                      style={{ background: 'transparent', border: 'none', color: '#38bdf8', fontSize: '0.82rem', cursor: 'pointer', textDecoration: 'underline' }}
+                      style={{ background: 'transparent', border: 'none', color: '#d8b4fe', fontSize: '0.82rem', cursor: 'pointer', textDecoration: 'underline' }}
                     >
                       Change Plan
                     </button>
@@ -816,7 +816,7 @@ export default function ClientBilling() {
                         placeholder="e.g. smp.dataserware.net"
                         style={{
                           width: '100%',
-                          background: '#020611',
+                          background: '#070213',
                           border: '1px solid rgba(255, 255, 255, 0.15)',
                           borderRadius: '8px',
                           padding: '10px 14px',
@@ -842,9 +842,9 @@ export default function ClientBilling() {
                               padding: '10px 12px',
                               borderRadius: '8px',
                               border: '1px solid',
-                              background: selectedLocation === loc.name ? 'rgba(0, 242, 254, 0.15)' : '#020611',
-                              borderColor: selectedLocation === loc.name ? '#00f2fe' : 'rgba(255, 255, 255, 0.1)',
-                              color: selectedLocation === loc.name ? '#00f2fe' : '#cbd5e1',
+                              background: selectedLocation === loc.name ? 'rgba(168, 85, 247, 0.15)' : '#070213',
+                              borderColor: selectedLocation === loc.name ? '#c084fc' : 'rgba(255, 255, 255, 0.1)',
+                              color: selectedLocation === loc.name ? '#c084fc' : '#cbd5e1',
                               cursor: 'pointer',
                               textAlign: 'left'
                             }}
@@ -869,9 +869,9 @@ export default function ClientBilling() {
                             padding: '10px',
                             borderRadius: '8px',
                             border: '1px solid',
-                            background: billingCycle === 'monthly' ? 'rgba(0, 242, 254, 0.15)' : '#020611',
-                            borderColor: billingCycle === 'monthly' ? '#00f2fe' : 'rgba(255, 255, 255, 0.1)',
-                            color: billingCycle === 'monthly' ? '#00f2fe' : '#cbd5e1',
+                            background: billingCycle === 'monthly' ? 'rgba(168, 85, 247, 0.15)' : '#070213',
+                            borderColor: billingCycle === 'monthly' ? '#c084fc' : 'rgba(255, 255, 255, 0.1)',
+                            color: billingCycle === 'monthly' ? '#c084fc' : '#cbd5e1',
                             cursor: 'pointer'
                           }}
                         >
@@ -886,9 +886,9 @@ export default function ClientBilling() {
                             padding: '10px',
                             borderRadius: '8px',
                             border: '1px solid',
-                            background: billingCycle === 'quarterly' ? 'rgba(0, 242, 254, 0.15)' : '#020611',
-                            borderColor: billingCycle === 'quarterly' ? '#00f2fe' : 'rgba(255, 255, 255, 0.1)',
-                            color: billingCycle === 'quarterly' ? '#00f2fe' : '#cbd5e1',
+                            background: billingCycle === 'quarterly' ? 'rgba(168, 85, 247, 0.15)' : '#070213',
+                            borderColor: billingCycle === 'quarterly' ? '#c084fc' : 'rgba(255, 255, 255, 0.1)',
+                            color: billingCycle === 'quarterly' ? '#c084fc' : '#cbd5e1',
                             cursor: 'pointer'
                           }}
                         >
@@ -903,9 +903,9 @@ export default function ClientBilling() {
                             padding: '10px',
                             borderRadius: '8px',
                             border: '1px solid',
-                            background: billingCycle === 'annual' ? 'rgba(0, 242, 254, 0.15)' : '#020611',
-                            borderColor: billingCycle === 'annual' ? '#00f2fe' : 'rgba(255, 255, 255, 0.1)',
-                            color: billingCycle === 'annual' ? '#00f2fe' : '#cbd5e1',
+                            background: billingCycle === 'annual' ? 'rgba(168, 85, 247, 0.15)' : '#070213',
+                            borderColor: billingCycle === 'annual' ? '#c084fc' : 'rgba(255, 255, 255, 0.1)',
+                            color: billingCycle === 'annual' ? '#c084fc' : '#cbd5e1',
                             cursor: 'pointer'
                           }}
                         >
@@ -925,7 +925,7 @@ export default function ClientBilling() {
                         onChange={(e) => setServerSoftware(e.target.value)}
                         style={{
                           width: '100%',
-                          background: '#020611',
+                          background: '#070213',
                           border: '1px solid rgba(255, 255, 255, 0.15)',
                           borderRadius: '8px',
                           padding: '10px 14px',
@@ -958,7 +958,7 @@ export default function ClientBilling() {
                           placeholder="Coupon Code"
                           style={{
                             flex: 1,
-                            background: '#020611',
+                            background: '#070213',
                             border: '1px solid rgba(255, 255, 255, 0.15)',
                             borderRadius: '8px',
                             padding: '10px 14px',
@@ -971,9 +971,9 @@ export default function ClientBilling() {
                           type="button"
                           onClick={applyPromo}
                           style={{
-                            background: 'rgba(0, 242, 254, 0.2)',
-                            border: '1px solid #00f2fe',
-                            color: '#00f2fe',
+                            background: 'rgba(168, 85, 247, 0.2)',
+                            border: '1px solid #c084fc',
+                            color: '#c084fc',
                             padding: '0 16px',
                             borderRadius: '8px',
                             fontWeight: 700,
@@ -999,15 +999,15 @@ export default function ClientBilling() {
                 </div>
 
                 {/* Right Column: Order Summary & Checkout */}
-                <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '20px', padding: '2rem', height: 'fit-content' }}>
-                  <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '20px', padding: '2rem', height: 'fit-content' }}>
+                  <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                     Step 2: Order Summary
                   </span>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', margin: '4px 0 1.25rem' }}>
                     Shopping Cart Total
                   </h3>
 
-                  <div style={{ background: '#020611', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                  <div style={{ background: '#070213', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '1.25rem', marginBottom: '1.5rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.9rem' }}>
                       <span style={{ color: '#94a3b8' }}>Plan:</span>
                       <strong style={{ color: '#fff' }}>{selectedPlan ? selectedPlan.name : 'None'}</strong>
@@ -1034,7 +1034,7 @@ export default function ClientBilling() {
                     )}
                     <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '10px', marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                       <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff' }}>Total Due:</span>
-                      <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#00f2fe' }}>
+                      <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#c084fc' }}>
                         {formatPrice(finalPrice)}
                       </span>
                     </div>
@@ -1060,9 +1060,9 @@ export default function ClientBilling() {
                             padding: '10px',
                             borderRadius: '8px',
                             border: '1px solid',
-                            background: paymentMethod === m.id ? 'rgba(0, 242, 254, 0.15)' : '#020611',
-                            borderColor: paymentMethod === m.id ? '#00f2fe' : 'rgba(255, 255, 255, 0.1)',
-                            color: paymentMethod === m.id ? '#00f2fe' : '#cbd5e1',
+                            background: paymentMethod === m.id ? 'rgba(168, 85, 247, 0.15)' : '#070213',
+                            borderColor: paymentMethod === m.id ? '#c084fc' : 'rgba(255, 255, 255, 0.1)',
+                            color: paymentMethod === m.id ? '#c084fc' : '#cbd5e1',
                             fontSize: '0.8rem',
                             fontWeight: 600,
                             cursor: 'pointer'
@@ -1079,8 +1079,8 @@ export default function ClientBilling() {
                     onClick={handleCheckout}
                     style={{
                       width: '100%',
-                      background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)',
-                      color: '#020611',
+                      background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)',
+                      color: '#070213',
                       border: 'none',
                       borderRadius: '12px',
                       padding: '14px',
@@ -1091,7 +1091,7 @@ export default function ClientBilling() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '8px',
-                      boxShadow: '0 0 25px rgba(0, 242, 254, 0.35)'
+                      boxShadow: '0 0 25px rgba(168, 85, 247, 0.35)'
                     }}
                   >
                     <ShieldCheck size={18} />
@@ -1099,7 +1099,7 @@ export default function ClientBilling() {
                   </button>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '12px', fontSize: '0.78rem', color: '#94a3b8' }}>
-                    <Zap size={13} style={{ color: '#00f2fe' }} />
+                    <Zap size={13} style={{ color: '#c084fc' }} />
                     <span>Instant provisioning triggered to Pterodactyl node</span>
                   </div>
                 </div>
@@ -1114,7 +1114,7 @@ export default function ClientBilling() {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                   MY HOSTING INFRASTRUCTURE
                 </span>
                 <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
@@ -1124,8 +1124,8 @@ export default function ClientBilling() {
               <button
                 onClick={() => setActiveTab('store')}
                 style={{
-                  background: 'linear-gradient(135deg, #00f2fe, #06b6d4)',
-                  color: '#020611',
+                  background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  color: '#070213',
                   border: 'none',
                   borderRadius: '8px',
                   padding: '8px 16px',
@@ -1147,8 +1147,8 @@ export default function ClientBilling() {
                 <div
                   key={srv.id}
                   style={{
-                    background: '#071529',
-                    border: '1px solid rgba(0, 242, 254, 0.2)',
+                    background: '#110626',
+                    border: '1px solid rgba(168, 85, 247, 0.2)',
                     borderRadius: '16px',
                     padding: '1.5rem',
                     display: 'flex',
@@ -1160,7 +1160,7 @@ export default function ClientBilling() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(0, 242, 254, 0.1)', border: '1px solid rgba(0, 242, 254, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00f2fe' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c084fc' }}>
                       <Server size={24} />
                     </div>
                     <div>
@@ -1173,7 +1173,7 @@ export default function ClientBilling() {
                         </span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#94a3b8', fontSize: '0.82rem', flexWrap: 'wrap' }}>
-                        <span>IP: <strong style={{ color: '#00f2fe', fontFamily: 'monospace' }}>{srv.ip}</strong></span>
+                        <span>IP: <strong style={{ color: '#c084fc', fontFamily: 'monospace' }}>{srv.ip}</strong></span>
                         <span>&bull;</span>
                         <span>Node: {srv.node}</span>
                         <span>&bull;</span>
@@ -1217,7 +1217,7 @@ export default function ClientBilling() {
         {activeTab === 'invoices' && (
           <div>
             <div style={{ marginBottom: '1.5rem' }}>
-              <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+              <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                 BILLING &amp; TRANSACTIONS
               </span>
               <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
@@ -1225,10 +1225,10 @@ export default function ClientBilling() {
               </h2>
             </div>
 
-            <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
+            <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '16px', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                 <thead>
-                  <tr style={{ background: '#020611', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
+                  <tr style={{ background: '#070213', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: '#94a3b8' }}>
                     <th style={{ padding: '14px 18px' }}>Invoice #</th>
                     <th style={{ padding: '14px 18px' }}>Date</th>
                     <th style={{ padding: '14px 18px' }}>Service / Description</th>
@@ -1240,7 +1240,7 @@ export default function ClientBilling() {
                 <tbody>
                   {invoices.map(inv => (
                     <tr key={inv.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                      <td style={{ padding: '14px 18px', fontFamily: 'monospace', color: '#00f2fe', fontWeight: 700 }}>
+                      <td style={{ padding: '14px 18px', fontFamily: 'monospace', color: '#c084fc', fontWeight: 700 }}>
                         {inv.id}
                       </td>
                       <td style={{ padding: '14px 18px', color: '#cbd5e1' }}>{inv.date}</td>
@@ -1263,7 +1263,7 @@ export default function ClientBilling() {
                         {inv.status === 'PAID' ? (
                           <button
                             onClick={() => alert(`Receipt downloaded for ${inv.id}`)}
-                            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: '#38bdf8', padding: '4px 10px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                            style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: '#d8b4fe', padding: '4px 10px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                           >
                             <Download size={12} /> Receipt
                           </button>
@@ -1273,7 +1273,7 @@ export default function ClientBilling() {
                               setInvoices(invoices.map(i => i.id === inv.id ? { ...i, status: 'PAID' } : i));
                               alert(`Invoice ${inv.id} marked as PAID!`);
                             }}
-                            style={{ background: '#00f2fe', color: '#020611', border: 'none', padding: '4px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer' }}
+                            style={{ background: '#c084fc', color: '#070213', border: 'none', padding: '4px 12px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 800, cursor: 'pointer' }}
                           >
                             Pay Now
                           </button>
@@ -1292,7 +1292,7 @@ export default function ClientBilling() {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                <span style={{ color: '#c084fc', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>
                   24/7 CLIENT HELPDESK
                 </span>
                 <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
@@ -1302,8 +1302,8 @@ export default function ClientBilling() {
               <button
                 onClick={() => setNewTicketModal(true)}
                 style={{
-                  background: 'linear-gradient(135deg, #00f2fe, #06b6d4)',
-                  color: '#020611',
+                  background: 'linear-gradient(135deg, #c084fc, #a855f7)',
+                  color: '#070213',
                   border: 'none',
                   borderRadius: '8px',
                   padding: '8px 16px',
@@ -1325,8 +1325,8 @@ export default function ClientBilling() {
                 <div
                   key={tick.id}
                   style={{
-                    background: '#071529',
-                    border: '1px solid rgba(0, 242, 254, 0.15)',
+                    background: '#110626',
+                    border: '1px solid rgba(168, 85, 247, 0.15)',
                     borderRadius: '12px',
                     padding: '1.25rem',
                     display: 'flex',
@@ -1338,12 +1338,12 @@ export default function ClientBilling() {
                 >
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <span style={{ color: '#00f2fe', fontFamily: 'monospace', fontWeight: 700, fontSize: '0.85rem' }}>{tick.id}</span>
+                      <span style={{ color: '#c084fc', fontFamily: 'monospace', fontWeight: 700, fontSize: '0.85rem' }}>{tick.id}</span>
                       <span style={{ color: '#64748b' }}>&bull;</span>
                       <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>{tick.department}</span>
                       <span style={{
-                        background: tick.status === 'Answered' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                        color: tick.status === 'Answered' ? '#38bdf8' : '#34d399',
+                        background: tick.status === 'Answered' ? 'rgba(192, 132, 252, 0.15)' : 'rgba(16, 185, 129, 0.15)',
+                        color: tick.status === 'Answered' ? '#d8b4fe' : '#34d399',
                         fontSize: '0.7rem',
                         fontWeight: 800,
                         padding: '1px 6px',
@@ -1366,7 +1366,7 @@ export default function ClientBilling() {
             {/* New Ticket Modal */}
             {newTicketModal && (
               <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem' }}>
-                <div style={{ background: '#071529', border: '1px solid rgba(0, 242, 254, 0.3)', borderRadius: '20px', padding: '2rem', maxWidth: '520px', width: '100%' }}>
+                <div style={{ background: '#110626', border: '1px solid rgba(168, 85, 247, 0.3)', borderRadius: '20px', padding: '2rem', maxWidth: '520px', width: '100%' }}>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#fff', marginTop: 0 }}>Open Support Ticket</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div>
@@ -1376,7 +1376,7 @@ export default function ClientBilling() {
                         value={ticketSubject}
                         onChange={(e) => setTicketSubject(e.target.value)}
                         placeholder="Brief summary of the issue"
-                        style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
+                        style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
                       />
                     </div>
                     <div>
@@ -1384,7 +1384,7 @@ export default function ClientBilling() {
                       <select
                         value={ticketDept}
                         onChange={(e) => setTicketDept(e.target.value)}
-                        style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
+                        style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
                       >
                         <option>Technical Support</option>
                         <option>Billing &amp; Payments</option>
@@ -1399,7 +1399,7 @@ export default function ClientBilling() {
                         value={ticketMessage}
                         onChange={(e) => setTicketMessage(e.target.value)}
                         placeholder="Describe your issue or request in detail..."
-                        style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
+                        style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '8px 12px', color: '#fff' }}
                       />
                     </div>
                     <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '10px' }}>
@@ -1411,7 +1411,7 @@ export default function ClientBilling() {
                       </button>
                       <button
                         onClick={handleCreateTicket}
-                        style={{ background: '#00f2fe', color: '#020611', border: 'none', padding: '8px 20px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}
+                        style={{ background: '#c084fc', color: '#070213', border: 'none', padding: '8px 20px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}
                       >
                         Submit Ticket
                       </button>
@@ -1425,13 +1425,13 @@ export default function ClientBilling() {
 
         {/* TAB 6: AUTHENTICATION (CLEAN LOGIN & REGISTER VIEWS) */}
         {activeTab === 'auth' && (
-          <div style={{ maxWidth: '440px', margin: '2rem auto', background: '#071529', border: '1px solid rgba(0, 242, 254, 0.25)', borderRadius: '20px', padding: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+          <div style={{ maxWidth: '440px', margin: '2rem auto', background: '#110626', border: '1px solid rgba(168, 85, 247, 0.25)', borderRadius: '20px', padding: '2.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <DataSerwareLogo size={36} showText={true} />
             </div>
 
             {/* Toggle Tabs */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', background: '#020611', padding: '4px', borderRadius: '10px', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', background: '#070213', padding: '4px', borderRadius: '10px', marginBottom: '1.5rem' }}>
               <button
                 type="button"
                 onClick={() => setAuthView('login')}
@@ -1439,8 +1439,8 @@ export default function ClientBilling() {
                   padding: '8px',
                   borderRadius: '6px',
                   border: 'none',
-                  background: authView === 'login' ? 'rgba(0, 242, 254, 0.2)' : 'transparent',
-                  color: authView === 'login' ? '#00f2fe' : '#94a3b8',
+                  background: authView === 'login' ? 'rgba(168, 85, 247, 0.2)' : 'transparent',
+                  color: authView === 'login' ? '#c084fc' : '#94a3b8',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -1455,8 +1455,8 @@ export default function ClientBilling() {
                   padding: '8px',
                   borderRadius: '6px',
                   border: 'none',
-                  background: authView === 'register' ? 'rgba(0, 242, 254, 0.2)' : 'transparent',
-                  color: authView === 'register' ? '#00f2fe' : '#94a3b8',
+                  background: authView === 'register' ? 'rgba(168, 85, 247, 0.2)' : 'transparent',
+                  color: authView === 'register' ? '#c084fc' : '#94a3b8',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer'
@@ -1475,7 +1475,7 @@ export default function ClientBilling() {
                     value={clientEmail}
                     onChange={(e) => setClientEmail(e.target.value)}
                     required
-                    style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
+                    style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
                   />
                 </div>
                 <div>
@@ -1485,14 +1485,14 @@ export default function ClientBilling() {
                     value={clientPassword}
                     onChange={(e) => setClientPassword(e.target.value)}
                     required
-                    style={{ width: '100%', background: '#020611', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
+                    style={{ width: '100%', background: '#070213', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '10px 14px', color: '#fff' }}
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                style={{ width: '100%', background: 'linear-gradient(135deg, #00f2fe, #06b6d4)', color: '#020611', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 800, fontSize: '0.95rem', cursor: 'pointer', marginBottom: '1rem' }}
+                style={{ width: '100%', background: 'linear-gradient(135deg, #c084fc, #a855f7)', color: '#070213', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 800, fontSize: '0.95rem', cursor: 'pointer', marginBottom: '1rem' }}
               >
                 {authView === 'login' ? 'Sign In to Client Area' : 'Register Account'}
               </button>
@@ -1500,7 +1500,7 @@ export default function ClientBilling() {
 
             <button
               onClick={() => { setDemoLoggedIn(true); setActiveTab('services'); }}
-              style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', color: '#38bdf8', borderRadius: '10px', padding: '10px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer' }}
+              style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', color: '#d8b4fe', borderRadius: '10px', padding: '10px', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer' }}
             >
               ⚡ Instant 1-Click Demo Client Access
             </button>
