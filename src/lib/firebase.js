@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
 const firebaseConfig = {
@@ -28,4 +28,4 @@ if (typeof window !== 'undefined') {
   }).catch(() => {});
 }
 
-export { app, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged };
+export { app, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged };

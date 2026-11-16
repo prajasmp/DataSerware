@@ -3,6 +3,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import {
   auth,
   googleProvider,
+  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
   signOut as firebaseSignOut,
@@ -106,9 +107,31 @@ export function AuthProvider({ children }) {
     setAuthLoading(true);
 
     try {
-      await signInWithRedirect(auth, googleProvider);
-    } catch (err) {
-      console.error('Firebase Google redirect sign-in failed:', err?.code, err?.message);
+      // 1. Try instant Google Sign-In Popup (reliable across localhost and all browsers)
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result?.user) {
+        const idToken = await result.user.getIdToken().catch(() => null);
+        const gUser = {
+          uid: result.user.uid,
+          displayName: result.user.displayName || result.user.email?.split('@')[0] || 'Google User',
+          email: result.user.email,
+          photoURL: result.user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(result.user.displayName || 'G')}&background=a855f7&color=ffffff&bold=true`,
+          idToken
+        };
+        setUser(gUser);
+        await syncUserToDatabase(gUser);
+      }
+    } catch (popupErr) {
+      console.warn('Google popup error or closed:', popupErr?.code, popupErr?.message);
+      // If popup was blocked or failed for reasons other than user canceling, fallback to redirect
+      if (popupErr?.code === 'auth/popup-blocked' || popupErr?.code === 'auth/cancelled-popup-request') {
+        try {
+          await signInWithRedirect(auth, googleProvider);
+        } catch (redirectErr) {
+          console.error('Firebase redirect sign-in failed:', redirectErr?.code, redirectErr?.message);
+        }
+      }
+    } finally {
       setAuthLoading(false);
     }
   };
@@ -129,11 +152,17 @@ export function AuthProvider({ children }) {
     user?.email && user.email.toLowerCase() === PRIMARY_ADMIN_EMAIL.toLowerCase()
   );
 
+  const envAdminEmails = (import.meta.env.VITE_ADMIN_EMAILS || import.meta.env.ADMIN_EMAILS || '')
+    .split(',')
+    .map(e => e.trim().toLowerCase())
+    .filter(Boolean);
+
   const isAdmin = Boolean(
     isPrimaryOwner ||
     userRole === 'owner' ||
     userRole === 'admin' ||
     (user?.email && (
+      envAdminEmails.includes(user.email.toLowerCase()) ||
       user.email.toLowerCase() === 'admin@dataserware.com' ||
       user.email.toLowerCase() === 'r26377269@gmail.com' ||
       user.email.toLowerCase() === 'notxlaksly@gmail.com' ||
