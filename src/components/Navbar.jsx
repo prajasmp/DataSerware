@@ -79,11 +79,13 @@ export default function Navbar() {
             Game &amp; VPS
           </NavLink>
 
-          {/* Portal B: Direct Link to Client Area / Billing */}
-          <NavLink
-            to="/billing"
+          {/* Official Control Panel Redirect Link (https://panel.dataserware.com/) */}
+          <a
+            href="https://panel.dataserware.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMobileOpen(false)}
-            className={({ isActive }) => `portal-nav-link client-portal-btn ${isActive ? 'active' : ''}`}
+            className="portal-nav-link panel-portal-btn"
             style={{
               color: '#c084fc',
               fontWeight: 700,
@@ -92,46 +94,29 @@ export default function Navbar() {
               gap: '6px'
             }}
           >
-            <CreditCard size={14} style={{ color: '#c084fc' }} />
-            <span>Client Area</span>
-            <span style={{
-              fontSize: '9px',
-              padding: '1px 5px',
-              borderRadius: '4px',
-              background: 'rgba(168, 85, 247, 0.2)',
-              border: '1px solid rgba(168, 85, 247, 0.4)',
-              color: '#d8b4fe'
-            }}>
-              Billing
-            </span>
-          </NavLink>
+            <Terminal size={14} style={{ color: '#c084fc' }} />
+            <span>Control Panel</span>
+            <ExternalLink size={12} style={{ color: '#a855f7' }} />
+          </a>
 
-          {/* Portal C: Direct Link to Control Panel */}
-          <NavLink
-            to="/panel"
+          {/* Official Discord Link (https://dsc.gg/dataserware) */}
+          <a
+            href="https://dsc.gg/dataserware"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMobileOpen(false)}
-            className={({ isActive }) => `portal-nav-link panel-portal-btn ${isActive ? 'active' : ''}`}
+            className="portal-nav-link discord-portal-btn"
             style={{
-              color: '#a855f7',
+              color: '#a78bfa',
               fontWeight: 700,
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px'
             }}
           >
-            <Terminal size={14} style={{ color: '#c084fc' }} />
-            <span>Control Panel</span>
-            <span style={{
-              fontSize: '9px',
-              padding: '1px 5px',
-              borderRadius: '4px',
-              background: 'rgba(147, 51, 234, 0.2)',
-              border: '1px solid rgba(147, 51, 234, 0.4)',
-              color: '#e9d5ff'
-            }}>
-              Live
-            </span>
-          </NavLink>
+            <Zap size={14} style={{ color: '#c084fc' }} />
+            <span>Discord</span>
+          </a>
 
           <NavLink to="/track-order" onClick={() => setMobileOpen(false)} className={({ isActive }) => `track-order-link ${isActive ? 'active' : ''}`}>
             <PackageCheck size={14} style={{ display: 'inline', marginRight: '5px', color: '#c084fc' }} />
@@ -161,7 +146,7 @@ export default function Navbar() {
                   </div>
                 </Link>
 
-                <a href="https://discord.gg/dataserware" target="_blank" rel="noopener noreferrer" onClick={() => { setSupportDropdownOpen(false); setMobileOpen(false); }}>
+                <a href="https://dsc.gg/dataserware" target="_blank" rel="noopener noreferrer" onClick={() => { setSupportDropdownOpen(false); setMobileOpen(false); }}>
                   <Zap size={16} className="menu-icon cyan" />
                   <div>
                     <span className="menu-title">Discord Community</span>

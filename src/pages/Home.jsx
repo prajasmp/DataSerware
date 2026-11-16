@@ -87,7 +87,7 @@ export default function Home() {
       icon: Puzzle,
       description: 'Ultra-low latency game instances for Minecraft (Java/Bedrock), Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
       specs: 'AMD Ryzen 9 7950X • Gen4 NVMe • 1.2 Tbps DDoS',
-      link: '/billing?plan=ryzen-8gb',
+      link: '/checkout/ryzen-8gb',
       badge: 'POPULAR'
     },
     {
@@ -96,7 +96,7 @@ export default function Home() {
       icon: Server,
       description: 'High-frequency KVM Cloud VPS running Linux (Ubuntu, Debian, AlmaLinux) or Windows with 100% dedicated vCPUs & dedicated IPv4.',
       specs: 'Dedicated IPv4 • 1 Gbps Port • Root Access',
-      link: '/billing?plan=ryzen-vps-8gb',
+      link: '/checkout/ryzen-vps-8gb',
       badge: 'HIGH-CLOCK'
     },
     {
@@ -105,7 +105,7 @@ export default function Home() {
       icon: Monitor,
       description: 'Dedicated Remote Desktop VPS with Windows Server 2022/2025, low latency, 24/7 background execution, and zero idle timeouts.',
       specs: 'Windows Server • GUI Desktop • 99.9% Uptime',
-      link: '/billing?plan=ryzen-vps-16gb',
+      link: '/checkout/ryzen-vps-16gb',
       badge: 'WINDOWS'
     },
     {
@@ -132,7 +132,7 @@ export default function Home() {
       icon: Bot,
       description: 'Reliable 24/7 background container hosting for Discord bots, API workers, and webhooks in Node.js, Python, Go, and Java.',
       specs: 'Node.js 20 • Python 3.11 • 0% CPU Throttling',
-      link: '/billing?plan=bot-2gb',
+      link: '/checkout/bot-2gb',
       badge: 'ALWAYS-ON'
     }
   ];
@@ -370,44 +370,47 @@ export default function Home() {
               </div>
             </ScrollReveal>
 
-            {/* QUICK CTA BUTTONS (CONNECTED TO PORTALS B AND C) */}
+            {/* QUICK CTA BUTTONS (CONNECTED TO PLANS, CONTROL PANEL & DISCORD) */}
             <ScrollReveal animation="fade-up" delay={500}>
               <div className="ag-hero-ctas" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '1.5rem' }}>
-                <Link to="/billing" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
-                  <CreditCard size={17} />
-                  <span>Client Area &amp; Store</span>
+                <Link to="/plans" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
+                  <Zap size={17} />
+                  <span>View All Hosting Plans</span>
                   <ArrowRight size={17} />
                 </Link>
 
-                <Link
-                  to="/panel"
+                <a
+                  href="https://panel.dataserware.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     padding: '0.9rem 1.4rem',
                     borderRadius: '12px',
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    border: '1px solid rgba(16, 185, 129, 0.4)',
-                    color: '#34d399',
+                    background: 'rgba(168, 85, 247, 0.16)',
+                    border: '1px solid rgba(192, 132, 252, 0.45)',
+                    color: '#c084fc',
                     fontWeight: 800,
                     fontSize: '0.95rem',
                     textDecoration: 'none',
-                    boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)'
+                    boxShadow: '0 0 20px rgba(168, 85, 247, 0.2)'
                   }}
                 >
                   <Terminal size={17} />
-                  <span>Launch Control Panel</span>
-                </Link>
+                  <span>Control Panel</span>
+                  <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                </a>
 
                 <a
-                  href="https://discord.gg/dataserware"
+                  href="https://dsc.gg/dataserware"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ag-discord-cta"
                   style={{ textDecoration: 'none' }}
                 >
-                  <Zap size={17} />
+                  <Bot size={17} />
                   <span>Discord</span>
                 </a>
               </div>
@@ -577,7 +580,7 @@ export default function Home() {
             </div>
 
             <Link
-              to="/billing"
+              to="/plans"
               style={{
                 background: '#c084fc',
                 color: '#070213',
@@ -591,8 +594,8 @@ export default function Home() {
                 gap: '6px'
               }}
             >
-              <span>Redeem in Billing Portal</span>
-              <ArrowRight size={15} />
+              <span>Explore Plans</span>
+              <ArrowRight size={14} />
             </Link>
           </div>
 
@@ -730,9 +733,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* CRITICAL USER REQUIREMENT: CLICKING "ORDER NOW" OR "PURCHASE" PASSES PLAN DETAILS & REDIRECTS TO CLIENT AREA / BILLING */}
                 <Link
-                  to={`/billing?plan=${plan.id}`}
+                  to={`/checkout/${plan.id}`}
                   style={{
                     background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)',
                     color: '#070213',
@@ -749,8 +751,8 @@ export default function Home() {
                     transition: 'transform 0.2s'
                   }}
                 >
-                  <CreditCard size={16} />
-                  <span>Order Now &bull; Client Portal</span>
+                  <Zap size={16} />
+                  <span>Deploy Now &bull; Instant Setup</span>
                   <ArrowRight size={16} />
                 </Link>
               </div>
@@ -859,22 +861,24 @@ export default function Home() {
                 <p>Instant setup, 24/7 Discord support, and sub-15ms latency across Asia and global nodes.</p>
               </div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link to="/billing" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
-                  <CreditCard size={18} />
-                  <span>Go to Client Area &amp; Store</span>
+                <Link to="/plans" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
+                  <Zap size={18} />
+                  <span>Explore All Plans</span>
                   <ArrowRight size={18} />
                 </Link>
-                <Link
-                  to="/panel"
+                <a
+                  href="https://panel.dataserware.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     padding: '0.9rem 1.5rem',
                     borderRadius: '12px',
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    border: '1px solid rgba(16, 185, 129, 0.4)',
-                    color: '#34d399',
+                    background: 'rgba(168, 85, 247, 0.16)',
+                    border: '1px solid rgba(192, 132, 252, 0.45)',
+                    color: '#c084fc',
                     fontWeight: 800,
                     fontSize: '0.95rem',
                     textDecoration: 'none'
@@ -882,7 +886,8 @@ export default function Home() {
                 >
                   <Terminal size={18} />
                   <span>Launch Control Panel</span>
-                </Link>
+                  <ExternalLink size={14} style={{ opacity: 0.8 }} />
+                </a>
               </div>
             </div>
           </ScrollReveal>

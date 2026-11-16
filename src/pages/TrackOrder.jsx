@@ -394,7 +394,7 @@ export default function TrackOrder() {
                     </div>
 
                     <a
-                      href="https://discord.gg/dataserware"
+                      href="https://dsc.gg/dataserware"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: '#c084fc', fontWeight: 600, textDecoration: 'none' }}

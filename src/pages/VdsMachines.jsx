@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { VDS_PLANS, BILLING_CYCLES, calculatePriceForCycle, formatINR } from '../data/plans';
+import { VDS_PLANS, BILLING_CYCLES, SUPPORTED_VDS_OS, calculatePriceForCycle } from '../data/plans';
+import { useCurrency } from '../context/CurrencyContext';
 import {
   Cpu,
   Server,
@@ -24,11 +25,12 @@ export default function VdsMachines() {
   const [selectedFamily, setSelectedFamily] = useState(urlFamily || 'all');
   const [selectedCycle, setSelectedCycle] = useState('1mo');
   const [activeFaq, setActiveFaq] = useState(null);
+  const { formatPrice } = useCurrency();
 
   const currentCycle = BILLING_CYCLES.find(c => c.id === selectedCycle) || BILLING_CYCLES[0];
 
   const families = [
-    { id: 'all', label: 'All VDS Machines', count: 6 },
+    { id: 'all', label: 'All VDS Machines', count: VDS_PLANS.length },
     { id: 'ryzen9', label: 'AMD Ryzen 9 (Flagship)', count: 1 },
     { id: 'ryzen7', label: 'AMD Ryzen 7 Series', count: 2 },
     { id: 'xeon', label: 'Intel Xeon Series', count: 3 }
@@ -38,315 +40,269 @@ export default function VdsMachines() {
     ? VDS_PLANS
     : VDS_PLANS.filter(p => p.family === selectedFamily);
 
+  const cycleDiscounts = {
+    '1mo': null,
+    '3mo': 'Save 5%',
+    '6mo': 'Save 10%',
+    '12mo': 'Save 15%'
+  };
+
   const faqs = [
     {
       q: "What is a Data Serware VDS Machine?",
-      a: "Data Serware VDS Machines are dedicated physical bare-metal servers designed for extreme computing, heavy database clusters, virtualization nodes, and competitive game server networks. You receive the entire physical machine—no shared vCPUs and no noisy neighbors."
+      a: "Data Serware VDS Machines are pure dedicated bare-metal servers designed for extreme computing, heavy database clusters, virtualization nodes, and competitive game networks. You receive 100% of the physical hardware—no shared vCPUs, no hypervisor overhead, and zero noisy neighbors."
     },
     {
-      q: "How does billing duration work for VDS Machines?",
-      a: "You can purchase VDS machines for 1 Month, 3 Months, 6 Months, or 1 Year. Billing is calculated directly using the monthly rate, with exact INR invoicing via Razorpay."
+      q: "How does billing and deployment work for VDS Machines?",
+      a: "You can purchase VDS machines for 1 Month, 3 Months, 6 Months, or 1 Year with automatic multi-month discounts. Upon successful payment verification, our automated NOC provisioning engine prepares the hardware, installs your selected OS, tests network uplinks, and delivers login credentials."
     },
     {
-      q: "Is IPMI / KVM out-of-band management provided?",
-      a: "Yes! IPMI / KVM access is available where supported across our enterprise fleet, granting you direct out-of-band console access, BIOS configuration, and ISO mount capabilities."
+      q: "Is IPMI / KVM out-of-band management included?",
+      a: "Yes! Dedicated IPMI / KVM access is included across supported machines, providing you with full hardware-level remote control, BIOS configuration, and custom ISO mounting capabilities."
     },
     {
       q: "What DDoS mitigation is included?",
-      a: "All VDS machines come protected by our multi-layered Enterprise Anti-DDoS infrastructure with real-time BGP filtering and Cloudflare Magic Transit on supported clusters."
+      a: "All VDS machines come protected by Data Serware's multi-layered Enterprise Anti-DDoS infrastructure with real-time BGP filtering and Cloudflare Magic Transit on supported clusters."
     },
     {
-      q: "How long does physical machine deployment take?",
-      a: "Upon verified Razorpay payment, our automated NOC provisioning engine allocates the physical hardware, configures your chosen OS via automated PXE netboot, tests connectivity, and delivers credentials via your secure order link."
+      q: "Can I install Windows Server on a VDS machine?",
+      a: "Yes! We support Windows Server 2022 and 2025 (BYOL / Evaluation) alongside enterprise Linux distributions including Ubuntu 24.04/22.04 LTS, Debian 12/13, and AlmaLinux 9."
     }
   ];
 
   return (
-    <div className="vds-machines-page relative z-10 pt-28 pb-24 text-slate-100 min-h-screen">
-      {/* Background Neon Elements */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-blue-600/10 blur-[140px] pointer-events-none rounded-full" />
-      <div className="absolute top-2/3 left-10 w-[450px] h-[350px] bg-cyan-400/5 blur-[100px] pointer-events-none rounded-full" />
+    <div className="ds-page-container">
+      {/* Background Ambient Glow */}
+      <div className="ds-ambient-glow-top" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 shadow-[0_0_15px_rgba(147, 51, 234,0.25)] backdrop-blur-md">
-            <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
-            Dedicated Bare-Metal Architecture
+      <div className="ds-content-wrap">
+        {/* Page Hero */}
+        <div className="ds-page-hero">
+          <div className="ds-hero-badge">
+            <Radio size={14} className="ds-badge-sparkle" />
+            <span>Dedicated Bare-Metal Architecture</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6">
-            Data Serware <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">VDS Machines</span>
+          <h1 className="ds-page-title">
+            Data Serware <span className="ds-gradient-text">VDS Machines</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-            Dedicated physical bare-metal performance for mission-critical operations. Powered by flagship AMD Ryzen 9 9950X, Ryzen 7, and Intel Xeon E5 multi-threaded processors on unmetered 1 Gbps uplinks.
+          <p className="ds-page-subtitle">
+            Dedicated physical bare-metal hardware for mission-critical operations. Powered by flagship AMD Ryzen 9 9950X, Ryzen 7, and Intel Xeon multi-threaded processors on unmetered 1 Gbps uplinks.
           </p>
 
-          {/* Billing Cycle Picker */}
-          <div className="mt-10 inline-flex p-1.5 rounded-2xl bg-slate-900/80 border border-cyan-500/20 backdrop-blur-xl shadow-2xl">
+          {/* Family Filter Tabs */}
+          <div className="ds-family-tabs">
+            {families.map((fam) => (
+              <button
+                key={fam.id}
+                onClick={() => setSelectedFamily(fam.id)}
+                className={`ds-family-btn ${selectedFamily === fam.id ? 'active' : ''}`}
+              >
+                <span>{fam.label}</span>
+                <span className="ds-fam-count">({fam.count})</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Billing Cycle Selector */}
+          <div className="ds-cycle-bar">
             {BILLING_CYCLES.map((cycle) => {
               const active = cycle.id === selectedCycle;
+              const discount = cycleDiscounts[cycle.id];
               return (
                 <button
                   key={cycle.id}
                   onClick={() => setSelectedCycle(cycle.id)}
-                  className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                    active
-                      ? 'bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(147, 51, 234,0.4)]'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
-                  }`}
+                  className={`ds-cycle-btn ${active ? 'active' : ''}`}
                 >
-                  {cycle.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Family Filter Tabs */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {families.map((fam) => {
-              const active = fam.id === selectedFamily;
-              return (
-                <button
-                  key={fam.id}
-                  onClick={() => setSelectedFamily(fam.id)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
-                    active
-                      ? 'bg-slate-800 text-cyan-300 border border-cyan-500/50 shadow-[0_0_15px_rgba(147, 51, 234,0.2)]'
-                      : 'bg-slate-900/50 text-slate-400 border border-slate-800 hover:text-white'
-                  }`}
-                >
-                  {fam.label} ({fam.count})
+                  <span>{cycle.label}</span>
+                  {discount && <span className="ds-cycle-discount">{discount}</span>}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Flagship Banner if Ryzen 9 is shown */}
-        {(selectedFamily === 'all' || selectedFamily === 'ryzen9') && (
-          <div className="relative rounded-3xl p-8 sm:p-10 mb-16 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/40 border-2 border-cyan-400 shadow-[0_0_50px_rgba(147, 51, 234,0.25)] overflow-hidden">
-            <div className="absolute top-0 right-0 px-6 py-1.5 rounded-bl-2xl bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-black text-xs uppercase tracking-widest shadow-md">
-              Flagship Bare-Metal
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-              <div className="lg:col-span-2">
-                <div className="flex items-center gap-3 text-cyan-400 text-sm font-semibold mb-2">
-                  <Cpu className="w-5 h-5 text-cyan-400" />
-                  <span>Zen 5 Architecture &bull; 16 Cores / 32 Threads</span>
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-black text-white mb-4">
-                  AMD Ryzen 9 9950X Machine
-                </h3>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-light">
-                  Uncompromised single-core and multi-threaded horsepower. Equipped with 128 GB DDR4, 1 TB NVMe SSD, 1 Gbps unmetered uplink, and Cloudflare Magic Transit DDoS Shield.
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                    <span className="text-xs text-slate-400 block">CPU Clock</span>
-                    <span className="text-sm font-bold text-white">Up to 5.7 GHz</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                    <span className="text-xs text-slate-400 block">Memory</span>
-                    <span className="text-sm font-bold text-cyan-300">128 GB DDR4</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                    <span className="text-xs text-slate-400 block">Primary Drive</span>
-                    <span className="text-sm font-bold text-white">1 TB NVMe</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                    <span className="text-xs text-slate-400 block">Network Uplink</span>
-                    <span className="text-sm font-bold text-emerald-400">1 Gbps Unmetered</span>
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 rounded-2xl bg-slate-950/90 border border-cyan-500/30 flex flex-col justify-between h-full">
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-400 block mb-1">Total Pricing</span>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-cyan-300">
-                      {formatINR(calculatePriceForCycle(35200, currentCycle.months))}
-                    </span>
-                    <span className="text-xs text-slate-400 font-medium">/ {currentCycle.duration}</span>
-                  </div>
-                  <div className="text-xs text-cyan-400/80 mt-1">
-                    Standard Rate: ₹35,200/mo (INR)
-                  </div>
-                </div>
-                <Link
-                  to={`/checkout/vds-ryzen9-9950x?cycle=${currentCycle.id}`}
-                  className="mt-6 w-full py-3.5 rounded-xl text-center font-bold text-sm bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(147, 51, 234,0.4)] hover:shadow-[0_0_30px_rgba(147, 51, 234,0.6)] transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Order Flagship Ryzen 9</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Machine Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24 items-stretch">
+        {/* VDS Plans Grid */}
+        <div className="ds-cards-grid">
           {filteredPlans.map((plan) => {
             const cyclePrice = calculatePriceForCycle(plan.price, currentCycle.months);
-            const isFlagship = plan.id === 'vds-ryzen9-9950x';
+            const isFlagship = plan.family === 'ryzen9';
 
             return (
               <div
                 key={plan.id}
-                className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 backdrop-blur-xl ${
-                  isFlagship
-                    ? 'bg-gradient-to-b from-slate-900/90 via-cyan-950/20 to-slate-900/90 border-2 border-cyan-400 shadow-[0_0_35px_rgba(147, 51, 234,0.2)]'
-                    : 'bg-slate-900/60 border border-slate-800/80 hover:border-cyan-500/40 shadow-xl'
-                }`}
+                className={`ds-hosting-card ${isFlagship ? 'flagship-card' : ''}`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 shadow-md">
-                    {plan.badge}
+                  <div className="ds-card-badge-pill flagship">
+                    <Sparkles size={12} />
+                    <span>{plan.badge}</span>
                   </div>
                 )}
 
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-white tracking-wide">{plan.name}</h3>
-                    <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
-                      <Server className="w-6 h-6" />
+                <div className="ds-card-header">
+                  <div className="ds-card-title-row">
+                    <h3 className="ds-card-title">{plan.name}</h3>
+                    <div className="ds-card-icon-wrap">
+                      <Cpu size={20} />
                     </div>
                   </div>
-
-                  <div className="mb-6 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/70">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-black text-cyan-300">{formatINR(cyclePrice)}</span>
-                      <span className="text-xs text-slate-400 font-medium">/ {currentCycle.duration}</span>
-                    </div>
-                    {currentCycle.months > 1 && (
-                      <div className="text-xs text-cyan-400/80 mt-1">
-                        Equivalent to {formatINR(plan.price)}/mo
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Specifications */}
-                  <div className="space-y-3 mb-8 text-sm">
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Cpu className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{plan.processor}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Activity className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span><strong>{plan.cores}</strong></span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Zap className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{plan.ram}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <HardDrive className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{plan.storage}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Radio className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{plan.network} &bull; {plan.bandwidth}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Globe className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{plan.ipv4}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <Lock className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>Full Root &amp; OS Control</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-slate-200">
-                      <ShieldAlert className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Enterprise DDoS Protection</span>
-                    </div>
-                    {plan.ipmi && (
-                      <div className="flex items-center gap-3 text-cyan-300 font-medium">
-                        <Terminal className="w-4 h-4 text-cyan-400 shrink-0" />
-                        <span>{plan.ipmi}</span>
-                      </div>
-                    )}
-                  </div>
+                  <p className="ds-card-desc">
+                    {plan.processor} &bull; {plan.cores}
+                  </p>
                 </div>
 
+                {/* Price Display */}
+                <div className="ds-price-box">
+                  <div className="ds-price-row">
+                    <span className="ds-price-amount">{formatPrice(cyclePrice)}</span>
+                    <span className="ds-price-period">/ {currentCycle.duration}</span>
+                  </div>
+                  {currentCycle.months > 1 && (
+                    <div className="ds-price-sub">
+                      Equivalent to {formatPrice(plan.price)}/mo
+                    </div>
+                  )}
+                </div>
+
+                {/* Specs List */}
+                <div className="ds-specs-list">
+                  <div className="ds-spec-item highlight">
+                    <Cpu size={15} className="ds-spec-icon" />
+                    <span><strong>{plan.cpu}</strong></span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <Activity size={15} className="ds-spec-icon" />
+                    <span>{plan.ram}</span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <HardDrive size={15} className="ds-spec-icon" />
+                    <span>{plan.storage}</span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <Globe size={15} className="ds-spec-icon" />
+                    <span>{plan.bandwidth} on {plan.network}</span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <Server size={15} className="ds-spec-icon" />
+                    <span>{plan.ipv4} Dedicated</span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <Terminal size={15} className="ds-spec-icon success" />
+                    <span>{plan.access}</span>
+                  </div>
+                  <div className="ds-spec-item">
+                    <ShieldAlert size={15} className="ds-spec-icon" />
+                    <span>{plan.ddos}</span>
+                  </div>
+                  {plan.ipmi && (
+                    <div className="ds-spec-item bonus">
+                      <Lock size={15} className="ds-spec-icon bonus" />
+                      <span>{plan.ipmi}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Order Button */}
                 <Link
                   to={`/checkout/${plan.id}?cycle=${currentCycle.id}`}
-                  className="w-full py-3.5 rounded-xl text-center font-bold text-sm tracking-wide bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-white border border-slate-700 hover:border-cyan-400 transition-all flex items-center justify-center gap-2"
+                  className={`ds-card-btn ${isFlagship ? 'flagship-btn' : ''}`}
                 >
-                  <span>Configure {plan.name}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Deploy {plan.name}</span>
+                  <ArrowRight size={16} />
                 </Link>
               </div>
             );
           })}
         </div>
 
-        {/* Physical Bare-Metal Architecture Highlight */}
-        <div className="rounded-3xl p-8 sm:p-12 bg-slate-900/60 border border-slate-800/80 backdrop-blur-xl mb-24">
-          <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              Bare-Metal Distinction
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              True Physical Machine Architecture
-            </h2>
-            <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
-              Unlike shared VPS nodes or sliced VMs, each Data Serware VDS machine gives you exclusive bare-metal access to CPU silicon, memory controllers, and PCIe NVMe lanes. Ideal for high-throughput game servers, Redis caches, high-frequency trading simulations, and private cloud hypervisors.
-            </p>
+        {/* Supported Operating Systems Showcase */}
+        <div className="ds-os-showcase-section">
+          <div className="ds-section-header">
+            <span className="ds-section-tag">OPERATING SYSTEM TEMPLATES</span>
+            <h2 className="ds-section-title">Pre-Configured OS &amp; Distributions</h2>
+            <p className="ds-section-desc">Deploy your choice of Linux or Windows with automated netboot installation.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-950/60 border border-slate-800">
-              <Cpu className="w-8 h-8 text-cyan-400 mb-3" />
-              <h4 className="font-bold text-white mb-2">100% Dedicated Silicon</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Zero hypervisor overhead, full AVX-512 vector support, and uninterrupted sustained clock rates.
-              </p>
+          <div className="ds-os-grid">
+            {SUPPORTED_VDS_OS.map((os) => (
+              <div key={os.id} className="ds-os-card">
+                <span className="ds-os-icon">{os.icon}</span>
+                <div className="ds-os-info">
+                  <span className="ds-os-name">{os.name}</span>
+                  <span className="ds-os-tag">{os.tag}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Feature Highlights */}
+        <div className="ds-features-section">
+          <div className="ds-section-header">
+            <span className="ds-section-tag">ENTERPRISE HARDWARE</span>
+            <h2 className="ds-section-title">Pure Dedicated Bare-Metal Power</h2>
+          </div>
+
+          <div className="ds-features-grid">
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><Cpu size={22} /></div>
+              <h4>100% Dedicated Silicon</h4>
+              <p>Zero virtualization penalty. All physical CPU cores and RAM are 100% allocated to your machine.</p>
             </div>
-            <div className="p-6 rounded-2xl bg-slate-950/60 border border-slate-800">
-              <Radio className="w-8 h-8 text-cyan-400 mb-3" />
-              <h4 className="font-bold text-white mb-2">1 Gbps Unmetered Uplink</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Direct connections to Tier-1 international backbones with low latency routing across Asia and Europe.
-              </p>
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><Lock size={22} /></div>
+              <h4>IPMI / KVM Remote Console</h4>
+              <p>Hardware out-of-band management console lets you access BIOS, troubleshoot kernel panics, and mount ISOs.</p>
             </div>
-            <div className="p-6 rounded-2xl bg-slate-950/60 border border-slate-800">
-              <Terminal className="w-8 h-8 text-cyan-400 mb-3" />
-              <h4 className="font-bold text-white mb-2">Out-of-Band IPMI / KVM</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Hardware-level remote console access even if the operating system is offline or rebooting.
-              </p>
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><Globe size={22} /></div>
+              <h4>Unmetered 1 Gbps Port</h4>
+              <p>High-speed unmetered network pipeline with low-latency carrier routes and unshared bandwidth.</p>
+            </div>
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><ShieldAlert size={22} /></div>
+              <h4>Automated DDoS Scrubbing</h4>
+              <p>Multi-layered enterprise L3/L4/L7 DDoS mitigation protects against volumetric amplification attacks.</p>
+            </div>
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><HardDrive size={22} /></div>
+              <h4>Enterprise Gen4 NVMe</h4>
+              <p>High-endurance PCIe Gen4 NVMe solid state drives delivering massive IOPS for heavy database clusters.</p>
+            </div>
+            <div className="ds-feature-box">
+              <div className="ds-feature-icon-wrap"><Zap size={22} /></div>
+              <h4>Instant NOC Provisioning</h4>
+              <p>Automated network orchestration configures and tests your physical machine immediately upon checkout.</p>
             </div>
           </div>
         </div>
 
-        {/* FAQs */}
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Frequently Asked Questions</h2>
-            <p className="text-sm text-slate-400">Everything you need to know about our physical VDS machines.</p>
+        {/* FAQ Section */}
+        <div className="ds-faq-section">
+          <div className="ds-section-header">
+            <span className="ds-section-tag">FREQUENTLY ASKED QUESTIONS</span>
+            <h2 className="ds-section-title">VDS Bare-Metal FAQ</h2>
           </div>
 
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = activeFaq === idx;
+          <div className="ds-faq-list">
+            {faqs.map((faq, index) => {
+              const isOpen = activeFaq === index;
               return (
                 <div
-                  key={idx}
-                  className="rounded-2xl bg-slate-900/60 border border-slate-800 overflow-hidden transition-all duration-200"
+                  key={index}
+                  className={`ds-faq-item ${isOpen ? 'open' : ''}`}
+                  onClick={() => setActiveFaq(isOpen ? null : index)}
                 >
-                  <button
-                    onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-cyan-300"
-                  >
+                  <div className="ds-faq-question">
                     <span>{faq.q}</span>
-                    <ChevronDown className={`w-5 h-5 text-cyan-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                  </button>
+                    <ChevronDown size={18} className={`ds-faq-arrow ${isOpen ? 'rotated' : ''}`} />
+                  </div>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/50 pt-3">
-                      {faq.a}
+                    <div className="ds-faq-answer">
+                      <p>{faq.a}</p>
                     </div>
                   )}
                 </div>
@@ -354,8 +310,24 @@ export default function VdsMachines() {
             })}
           </div>
         </div>
+
+        {/* Discord Support Bottom CTA */}
+        <div className="ds-bottom-banner">
+          <div className="ds-bottom-content">
+            <h3>Need Custom Hardware Specs or BGP IP Announcement?</h3>
+            <p>Our infrastructure engineers can build custom bare-metal clusters and announce your ASN/BGP subnets.</p>
+          </div>
+          <a
+            href="https://dsc.gg/dataserware"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ds-discord-btn"
+          >
+            <Zap size={16} />
+            <span>Chat on Discord Support</span>
+          </a>
+        </div>
       </div>
     </div>
   );
 }
-

@@ -35,19 +35,19 @@ export default function Footer() {
         </div>
 
         <div className="footer-col">
-          <h4>Connected Portals</h4>
+          <h4>Services &amp; Links</h4>
           <Link to="/" style={{ color: '#cbd5e1' }}>
             <Globe size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
             Main Website (dataserware.com)
           </Link>
-          <Link to="/billing" style={{ color: '#c084fc', fontWeight: 600 }}>
-            <CreditCard size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
-            Client Area &amp; Billing Portal
-          </Link>
-          <Link to="/panel" style={{ color: '#a855f7', fontWeight: 600 }}>
+          <a href="https://panel.dataserware.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#c084fc', fontWeight: 600 }}>
             <Terminal size={13} style={{ display: 'inline', marginRight: '6px', color: '#c084fc' }} />
-            Game &amp; Server Control Panel
-          </Link>
+            Control Panel (panel.dataserware.com)
+          </a>
+          <a href="https://dsc.gg/dataserware" target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', fontWeight: 600 }}>
+            <Zap size={13} style={{ display: 'inline', marginRight: '6px', color: '#a78bfa' }} />
+            Discord Community
+          </a>
           <Link to="/track-order" style={{ color: '#c084fc' }}>
             <PackageCheck size={13} style={{ display: 'inline', marginRight: '6px' }} />
             Track Order Status
@@ -57,7 +57,7 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Customer Care</h4>
           <Link to="/contact">24/7 Technical Support</Link>
-          <a href="https://discord.gg/dataserware" target="_blank" rel="noopener noreferrer">
+          <a href="https://dsc.gg/dataserware" target="_blank" rel="noopener noreferrer">
             Discord Community
           </a>
           <Link to="/terms">Terms of Service</Link>

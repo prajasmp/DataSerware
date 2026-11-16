@@ -147,7 +147,7 @@ export default function Plans() {
           {isDomain ? (
             <a
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              href="https://discord.gg/dataserware"
+              href="https://dsc.gg/dataserware"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -156,9 +156,9 @@ export default function Plans() {
           ) : (
             <Link
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              to={`/billing?plan=${plan.id}`}
+              to={`/checkout/${plan.id}`}
             >
-              Configure &amp; Order &bull; {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
+              Configure &amp; Deploy &bull; {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
             </Link>
           )}
         </div>

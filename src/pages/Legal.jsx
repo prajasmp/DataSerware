@@ -79,7 +79,7 @@ export default function Legal() {
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
             <a
               className="primary-btn glow-btn inline-btn"
-              href="https://discord.gg/dataserware"
+              href="https://dsc.gg/dataserware"
               target="_blank"
               rel="noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}
