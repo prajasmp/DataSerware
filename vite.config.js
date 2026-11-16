@@ -86,6 +86,7 @@ function netlifyFunctionsDevPlugin() {
 
 export default defineConfig({
   plugins: [react(), netlifyFunctionsDevPlugin()],
+  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
   build: {
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
