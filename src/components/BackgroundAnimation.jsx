@@ -45,8 +45,7 @@ export default function BackgroundAnimation() {
       mouse.x += (mouse.targetX - mouse.x) * 0.04;
       mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
-      ctx.fillStyle = '#06020e';
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
       const leftShift = Math.sin(tick * 0.7) * 40;
       const rightShift = Math.cos(tick * 0.7) * 40;
@@ -150,8 +149,8 @@ export default function BackgroundAnimation() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      className="global-bg-container"
       style={{
         position: 'fixed',
         top: 0,
@@ -159,8 +158,53 @@ export default function BackgroundAnimation() {
         width: '100vw',
         height: '100vh',
         zIndex: 0,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        overflow: 'hidden',
+        background: '#06020e'
       }}
-    />
+    >
+      {/* User's Official Data Serware Banner as Ambient Background */}
+      <div
+        className="global-banner-bg"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'url(/assets/dataserware-banner.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.32,
+          filter: 'contrast(1.15) brightness(0.85)',
+          transform: 'scale(1.02)',
+          pointerEvents: 'none'
+        }}
+      />
+
+      {/* Cyber Vignette & Depth Overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse at 50% 25%, rgba(168, 85, 247, 0.08) 0%, rgba(6, 2, 14, 0.72) 55%, #06020e 95%)',
+          pointerEvents: 'none'
+        }}
+      />
+
+      {/* Interactive Electric Violet Particles & Node Canvas */}
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none'
+        }}
+      />
+    </div>
   );
 }

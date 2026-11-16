@@ -291,8 +291,8 @@ export default function Home() {
 
         <div className="ag-hero-art-layer">
           <img
-            src="/assets/dataserware_hero_cinematic.png"
-            alt="Data Serware Futuristic Cloud Infrastructure"
+            src="/assets/dataserware-banner.png"
+            alt="Data Serware Enterprise Cloud & Game Hosting Banner"
             className="ag-cinematic-bg-img"
           />
           <div className="ag-art-gradient-overlay" />
