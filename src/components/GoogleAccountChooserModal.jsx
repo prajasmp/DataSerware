@@ -68,7 +68,7 @@ export default function GoogleAccountChooserModal({ isOpen, onClose, onSelectAcc
         <div className="google-modal-body">
           <h2 className="chooser-heading">Choose an account</h2>
           <p className="chooser-subheading">
-            to continue to <span className="app-domain">dataserware.firebaseapp.com</span>
+            to continue to <span className="app-domain">data-serware.firebaseapp.com</span>
           </p>
 
           {!showCustomInput ? (
