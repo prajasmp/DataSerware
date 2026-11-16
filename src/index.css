@@ -6348,3 +6348,582 @@ textarea:focus {
     align-items: flex-start;
   }
 }
+
+
+/* ==========================================================================
+   DATA SERWARE CHECKOUT & DIRECT 1-CLICK RAZORPAY DEPLOY STYLES
+   ========================================================================== */
+
+.ds-checkout-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 1.5rem 80px;
+  background-color: #070213;
+  color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+.ds-ambient-glow-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(12, 4, 28, 0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ds-checkout-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.ds-checkout-header {
+  margin-bottom: 2rem;
+}
+
+.ds-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c084fc;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.ds-back-link:hover {
+  color: #e9d5ff;
+  transform: translateX(-3px);
+}
+
+.ds-checkout-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ds-checkout-main-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.ds-checkout-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  max-width: 650px;
+  line-height: 1.5;
+}
+
+.ds-security-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.ds-error-alert {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1.5px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+.ds-error-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+/* Deploying Animated Overlay Card */
+.ds-deploying-card {
+  background: linear-gradient(180deg, rgba(22, 10, 46, 0.98) 0%, rgba(10, 3, 22, 0.98) 100%);
+  border: 2px solid rgba(168, 85, 247, 0.6);
+  border-radius: 24px;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(168, 85, 247, 0.35);
+  max-width: 650px;
+  margin: 2rem auto;
+}
+
+.ds-deploy-spinner-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #c084fc;
+}
+
+.ds-deploy-heading {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+}
+
+.ds-deploy-step {
+  font-size: 1rem;
+  color: #c084fc;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.ds-deploy-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.ds-deploy-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #9333ea, #c084fc, #38bdf8);
+  border-radius: 999px;
+  animation: dsProgressAnim 2s infinite ease-in-out;
+}
+
+@keyframes dsProgressAnim {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+.ds-deploy-footer-note {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: block;
+}
+
+/* 2-Column Checkout Layout */
+.ds-checkout-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.35fr) minmax(300px, 1fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.ds-checkout-form-card {
+  background: linear-gradient(180deg, rgba(20, 9, 44, 0.95) 0%, rgba(10, 3, 22, 0.98) 100%);
+  border: 1.5px solid rgba(168, 85, 247, 0.4);
+  border-radius: 22px;
+  padding: 2.2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.15);
+}
+
+.ds-form-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.ds-form-section-header.with-border {
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.ds-form-section-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.ds-form-icon {
+  color: #c084fc;
+  flex-shrink: 0;
+}
+
+.ds-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.2rem;
+}
+
+.ds-input-group label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.ds-input-group label .required {
+  color: #f43f5e;
+}
+
+.ds-input {
+  width: 100%;
+  background: rgba(13, 5, 29, 0.9);
+  border: 1.5px solid rgba(168, 85, 247, 0.35);
+  border-radius: 12px;
+  padding: 13px 16px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ds-input:focus {
+  border-color: #c084fc;
+  background: rgba(18, 7, 40, 0.95);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+}
+
+.ds-input::placeholder {
+  color: #64748b;
+}
+
+.ds-select {
+  cursor: pointer;
+}
+
+.ds-select option {
+  background-color: #0d051d;
+  color: #ffffff;
+}
+
+.ds-phone-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ds-phone-prefix {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1.5px solid rgba(168, 85, 247, 0.35);
+  border-radius: 12px;
+  padding: 0 14px;
+  color: #c084fc;
+  font-weight: 800;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.ds-input-help {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-top: 3px;
+}
+
+/* Billing Cycle duration pills */
+.ds-cycle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.ds-cycle-box {
+  background: rgba(18, 7, 38, 0.75);
+  border: 1.5px solid rgba(168, 85, 247, 0.3);
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ffffff;
+}
+
+.ds-cycle-box:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+  background: rgba(28, 12, 58, 0.85);
+}
+
+.ds-cycle-box.selected {
+  border-color: #c084fc;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(147, 51, 234, 0.35) 100%);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+}
+
+.ds-cycle-box-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.ds-cycle-box-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.ds-cycle-check {
+  color: #c084fc;
+}
+
+.ds-cycle-box-price {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #c084fc;
+}
+
+/* Big Razorpay Pay Button */
+.ds-pay-btn {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #9333ea 100%);
+  color: #070213;
+  font-size: 1.1rem;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1.8rem;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+  transition: all 0.25s ease;
+  letter-spacing: -0.01em;
+}
+
+.ds-pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 45px rgba(168, 85, 247, 0.8);
+  filter: brightness(1.08);
+}
+
+.ds-pay-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ds-checkout-footer-badges {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  flex-wrap: wrap;
+}
+
+.ds-checkout-footer-badges span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cbd5e1;
+}
+
+.ds-sandbox-test-row {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.ds-sandbox-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ds-sandbox-btn:hover {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: #c084fc;
+}
+
+/* Right Summary Column */
+.ds-checkout-summary-wrap {
+  position: sticky;
+  top: 90px;
+}
+
+.ds-summary-card {
+  background: linear-gradient(180deg, rgba(22, 10, 48, 0.95) 0%, rgba(10, 4, 24, 0.98) 100%);
+  border: 1.5px solid rgba(168, 85, 247, 0.45);
+  border-radius: 22px;
+  padding: 2.2rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(168, 85, 247, 0.18);
+}
+
+.ds-summary-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ds-summary-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #c084fc;
+}
+
+.ds-summary-pill {
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #f3e8ff;
+}
+
+.ds-summary-plan-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.ds-summary-plan-sub {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ds-summary-specs-box {
+  background: rgba(8, 3, 20, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 14px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.ds-summary-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+.ds-summary-spec-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-summary-spec-row strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.ds-summary-pricing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  padding-top: 1.25rem;
+}
+
+.ds-pricing-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: #94a3b8;
+}
+
+.ds-text-green {
+  color: #4ade80;
+  font-weight: 800;
+}
+
+.ds-pricing-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1.5px dashed rgba(168, 85, 247, 0.35);
+  padding-top: 1.2rem;
+  margin-top: 0.6rem;
+}
+
+.ds-total-label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.ds-total-sub {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.ds-total-amount {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #c084fc;
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.ds-summary-sla-box {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ds-summary-sla-box p {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.ds-sla-icon {
+  color: #c084fc;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+  .ds-checkout-grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-checkout-summary-wrap {
+    position: static;
+  }
+}

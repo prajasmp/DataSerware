@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation, Navigate, Link } from 'react-router-dom';
 import { getPlanById, SERVER_LOCATIONS, BILLING_CYCLES, SUPPORTED_VDS_OS, calculatePriceForCycle, formatINR } from '../data/plans';
 import { useCurrency } from '../context/CurrencyContext';
+import { useAuth } from '../context/AuthContext';
 import { createPaymentOrder, verifyPayment } from '../services/api';
 import DataSerwareLogo from '../components/DataSerwareLogo';
 import {
   ShieldCheck, Lock, Zap, User, Mail, Smartphone,
-  Check, ArrowRight, ArrowLeft, QrCode, CheckCircle2,
-  Server, Globe, Cpu, HardDrive, RefreshCw, AlertCircle, Loader2,
-  Terminal, Key, Radio, Calendar
+  Check, ArrowRight, ArrowLeft, CheckCircle2,
+  Server, Globe, Cpu, HardDrive, AlertCircle, Loader2,
+  Terminal, Key, Radio, Calendar, CreditCard, Sparkles
 } from 'lucide-react';
 
 export default function Checkout() {
@@ -17,15 +18,41 @@ export default function Checkout() {
   const location = useLocation();
   const plan = getPlanById(planId || '');
   const { formatPrice } = useCurrency();
+  const { user } = useAuth();
 
   // Query parameter for preselected billing cycle (e.g. ?cycle=3mo)
   const queryParams = new URLSearchParams(location.search);
   const initialCycleId = queryParams.get('cycle') || '1mo';
 
-  // Customer details (No login required)
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
+  // Customer details (Prefill from Google Auth or LocalStorage if available)
+  const [fullName, setFullName] = useState(() => {
+    if (user?.displayName) return user.displayName;
+    try {
+      const saved = JSON.parse(localStorage.getItem('dataserware_guest_info') || '{}');
+      return saved.name || '';
+    } catch {
+      return '';
+    }
+  });
+
+  const [email, setEmail] = useState(() => {
+    if (user?.email) return user.email;
+    try {
+      const saved = JSON.parse(localStorage.getItem('dataserware_guest_info') || '{}');
+      return saved.email || '';
+    } catch {
+      return '';
+    }
+  });
+
+  const [mobileNumber, setMobileNumber] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('dataserware_guest_info') || '{}');
+      return saved.mobile || '';
+    } catch {
+      return '';
+    }
+  });
 
   // Configuration options
   const [billingCycle, setBillingCycle] = useState(initialCycleId);
@@ -38,9 +65,8 @@ export default function Checkout() {
   // Checkout states
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [activeStep, setActiveStep] = useState(1); // 1: Configure & Details, 2: Payment Review & Razorpay
-  const [createdOrderData, setCreatedOrderData] = useState(null);
   const [isDeploying, setIsDeploying] = useState(false);
+  const [deployStepText, setDeployStepText] = useState('Verifying payment signature...');
 
   const isWebHosting = plan?.category === 'web-hosting' || plan?.id?.startsWith('web-');
   const isBareMetalVds = plan?.category?.startsWith('vds-') || plan?.type === 'bare-metal';
@@ -49,27 +75,20 @@ export default function Checkout() {
   const totalAmount = plan ? calculatePriceForCycle(plan.price, currentCycle.months) : 0;
 
   useEffect(() => {
-    // If an existing guest user stored details in localStorage, autofill for convenience
-    try {
-      const saved = localStorage.getItem('dataserware_guest_info');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.name) setFullName(parsed.name);
-        if (parsed.email) setEmail(parsed.email);
-        if (parsed.mobile) setMobileNumber(parsed.mobile);
-      }
-    } catch (e) {}
-
+    if (user) {
+      if (!fullName && user.displayName) setFullName(user.displayName);
+      if (!email && user.email) setEmail(user.email);
+    }
     if (plan && !serverName) {
       setServerName(`${plan.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}-${Math.floor(100 + Math.random() * 900)}`);
     }
-  }, [plan]);
+  }, [user, plan]);
 
   if (!plan) {
     return <Navigate to="/plans" replace />;
   }
 
-  // Helper to load Razorpay script dynamically
+  // Load Razorpay Checkout SDK dynamically
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
       if (window.Razorpay) {
@@ -84,26 +103,27 @@ export default function Checkout() {
     });
   };
 
-  const handleProceedToReview = (e) => {
-    e.preventDefault();
+  // Directly initiate Razorpay Payment Modal
+  const handlePayAndDeploy = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     setErrorMessage('');
 
+    // Validation
     if (!fullName || !fullName.trim()) {
       setErrorMessage('Please enter your full name for server registration.');
       return;
     }
     if (!email || !email.includes('@') || !email.includes('.')) {
-      setErrorMessage('Please enter a valid email address to receive server credentials.');
+      setErrorMessage('Please enter a valid email address to receive your server credentials.');
       return;
     }
     const cleanMobile = mobileNumber.replace(/\D/g, '');
     if (!cleanMobile || cleanMobile.length < 10) {
-      setErrorMessage('Please enter a valid 10-digit mobile number.');
+      setErrorMessage('Please enter a valid 10-digit mobile number for order verification.');
       return;
     }
-
     if (isWebHosting && (!domainName || !domainName.includes('.'))) {
-      setErrorMessage('Please enter a valid primary domain name (e.g. yoursite.com) for Web Hosting.');
+      setErrorMessage('Please enter a valid primary domain name (e.g. mysite.com) for Web Hosting.');
       return;
     }
 
@@ -113,50 +133,45 @@ export default function Checkout() {
         email: email.trim(),
         mobile: cleanMobile
       }));
-    } catch (e) {}
+    } catch {}
 
-    setActiveStep(2);
-  };
-
-  const handleInitiateRazorpay = async () => {
     setSubmitting(true);
-    setErrorMessage('');
 
     try {
-      // 1. Create backend order & Razorpay order
-      const orderRes = await createPaymentOrder({
+      // 1. Create order on backend
+      const orderPayload = {
         planId: plan.id,
         fullName: fullName.trim(),
         email: email.trim().toLowerCase(),
-        mobileNumber: mobileNumber.trim(),
+        mobileNumber: cleanMobile,
         serverName: serverName.trim() || domainName.trim() || `${plan.name} Node`,
         serverRegion,
         billingCycle: currentCycle.id,
         domainName: domainName.trim(),
         os: isBareMetalVds ? operatingSystem : null,
         sshKey: isBareMetalVds ? sshKey.trim() : null
-      });
+      };
+
+      const orderRes = await createPaymentOrder(orderPayload);
 
       if (!orderRes.success) {
-        throw new Error(orderRes.error || 'Failed to create order on backend.');
+        throw new Error(orderRes.error || 'Failed to initialize order on server.');
       }
-
-      setCreatedOrderData(orderRes);
 
       // 2. Load Razorpay script
       const scriptLoaded = await loadRazorpayScript();
       if (!scriptLoaded) {
-        throw new Error('Razorpay payment gateway failed to load. Please check your network connection.');
+        throw new Error('Razorpay SDK failed to load. Please check your internet connection.');
       }
 
-      // 3. Configure Razorpay modal options
+      // 3. Configure Razorpay Modal Options
       const options = {
         key: orderRes.razorpayKeyId,
         amount: orderRes.amountInPaise,
         currency: 'INR',
         name: 'Data Serware',
         description: `${plan.name} (${currentCycle.duration})`,
-        image: '/favicon.svg',
+        image: '/assets/dataserware-logo.png',
         order_id: orderRes.razorpayOrderId,
         handler: async function (response) {
           await handlePaymentSuccess(response, orderRes);
@@ -164,7 +179,7 @@ export default function Checkout() {
         prefill: {
           name: fullName.trim(),
           email: email.trim().toLowerCase(),
-          contact: mobileNumber.trim()
+          contact: cleanMobile
         },
         notes: {
           orderId: orderRes.orderId,
@@ -173,7 +188,7 @@ export default function Checkout() {
           serverName: serverName.trim() || domainName.trim()
         },
         theme: {
-          color: '#c084fc'
+          color: '#a855f7'
         },
         modal: {
           ondismiss: function () {
@@ -182,27 +197,31 @@ export default function Checkout() {
         }
       };
 
+      // 4. Open native Razorpay modal
       const rzp = new window.Razorpay(options);
+
       rzp.on('payment.failed', function (failRes) {
         console.error('[Razorpay Failed]:', failRes.error);
-        setErrorMessage(`Payment failed: ${failRes.error.description || 'Transaction declined'}`);
+        setErrorMessage(`Payment declined: ${failRes.error?.description || 'Transaction canceled'}`);
         setSubmitting(false);
       });
+
       rzp.open();
     } catch (err) {
-      console.error('[Checkout Error]:', err);
+      console.error('[Payment Initiation Error]:', err);
       setErrorMessage(err.message || 'Payment initiation failed. Please try again.');
       setSubmitting(false);
     }
   };
 
+  // Payment Verification & Auto Server Provisioning
   const handlePaymentSuccess = async (rzpResponse, orderMeta) => {
     setIsDeploying(true);
     setSubmitting(true);
     setErrorMessage('');
+    setDeployStepText('Verifying cryptographic payment signature with Razorpay...');
 
     try {
-      console.log('[Razorpay Success Received]:', rzpResponse);
       const verifyRes = await verifyPayment({
         orderId: orderMeta.orderId,
         razorpayOrderId: rzpResponse.razorpay_order_id || orderMeta.razorpayOrderId,
@@ -214,486 +233,382 @@ export default function Checkout() {
         throw new Error(verifyRes.error || 'Payment signature verification failed.');
       }
 
-      navigate(`/order-success/${orderMeta.orderId}?token=${orderMeta.trackingToken}`);
+      setDeployStepText('Allocating hardware on Data Serware cluster...');
+
+      setTimeout(() => {
+        navigate(`/order-success/${orderMeta.orderId}?token=${orderMeta.trackingToken}`);
+      }, 1500);
     } catch (err) {
       console.error('[Verification Error]:', err);
-      setErrorMessage(`Payment verification notice: ${err.message}. Your payment was received; please track via order reference.`);
+      setErrorMessage(`Payment received notice: ${err.message}. Your payment was captured; tracking order now.`);
       setIsDeploying(false);
       setSubmitting(false);
     }
   };
 
-  // Development sandbox payment simulation helper
+  // Instant Test Simulation Handler (for sandbox development)
   const handleTestSimulatePayment = async () => {
+    if (!fullName || !email) {
+      setErrorMessage('Please fill in your name and email first.');
+      return;
+    }
     setSubmitting(true);
+    setErrorMessage('');
+
     try {
-      let orderRes = createdOrderData;
-      if (!orderRes) {
-        orderRes = await createPaymentOrder({
-          planId: plan.id,
-          fullName: fullName.trim(),
-          email: email.trim().toLowerCase(),
-          mobileNumber: mobileNumber.trim(),
-          serverName: serverName.trim() || domainName.trim() || `${plan.name} Node`,
-          serverRegion,
-          billingCycle: currentCycle.id,
-          domainName: domainName.trim(),
-          os: isBareMetalVds ? operatingSystem : null,
-          sshKey: isBareMetalVds ? sshKey.trim() : null
-        });
-        setCreatedOrderData(orderRes);
-      }
+      const orderPayload = {
+        planId: plan.id,
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        mobileNumber: (mobileNumber.trim() || '9876543210'),
+        serverName: serverName.trim() || domainName.trim() || `${plan.name} Node`,
+        serverRegion,
+        billingCycle: currentCycle.id,
+        domainName: domainName.trim(),
+        os: isBareMetalVds ? operatingSystem : null,
+        sshKey: isBareMetalVds ? sshKey.trim() : null
+      };
+
+      const orderRes = await createPaymentOrder(orderPayload);
+      if (!orderRes.success) throw new Error(orderRes.error || 'Failed to create test order.');
 
       await handlePaymentSuccess({
         razorpay_order_id: orderRes.razorpayOrderId,
-        razorpay_payment_id: `pay_test_${Date.now()}`,
+        razorpay_payment_id: `pay_sim_${Date.now()}`,
         razorpay_signature: `test_sig_${Date.now()}`
       }, orderRes);
     } catch (err) {
-      setErrorMessage(err.message || 'Test simulation error');
+      setErrorMessage(err.message || 'Simulation error.');
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="checkout-page-wrapper" style={{ minHeight: '85vh', padding: '3rem 1rem' }}>
-      <div className="container" style={{ maxWidth: '1080px', margin: '0 auto' }}>
+    <div className="ds-checkout-page">
+      <div className="ds-ambient-glow-top" />
 
-        {/* Header Breadcrumb */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <div>
-            <Link to="/plans" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#c084fc', fontSize: '0.875rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-              <ArrowLeft size={16} /> Back to Hosting Plans
-            </Link>
-            <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', fontFamily: 'Outfit, sans-serif' }}>
-              Checkout &bull; <span style={{ color: '#c084fc' }}>No Registration Required</span>
-            </h1>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
-              Instant automated deployment right after Razorpay payment verification.
-            </p>
-          </div>
-
-          {/* Stepper indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 1 ? '#c084fc' : '#34d399', fontWeight: 700, fontSize: '0.9rem' }}>
-              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 1 ? 'rgba(168, 85, 247, 0.2)' : '#10b981', border: `1px solid ${activeStep === 1 ? '#c084fc' : '#10b981'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                {activeStep > 1 ? <Check size={14} /> : '1'}
-              </span>
-              <span>Details</span>
+      <div className="ds-checkout-container">
+        {/* Breadcrumb & Heading */}
+        <div className="ds-checkout-header">
+          <Link to="/plans" className="ds-back-link">
+            <ArrowLeft size={16} />
+            <span>Back to Hosting Plans</span>
+          </Link>
+          <div className="ds-checkout-title-row">
+            <div>
+              <h1 className="ds-checkout-main-title">
+                Configure &amp; <span className="ds-gradient-text">Instant Deploy</span>
+              </h1>
+              <p className="ds-checkout-subtitle">
+                Enter your delivery details, pay securely via Razorpay (UPI / Card / NetBanking), and receive automated server credentials instantly.
+              </p>
             </div>
-            <span style={{ width: '24px', height: '2px', background: 'rgba(255, 255, 255, 0.15)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeStep === 2 ? '#c084fc' : '#64748b', fontWeight: 700, fontSize: '0.9rem' }}>
-              <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: activeStep === 2 ? 'rgba(168, 85, 247, 0.2)' : 'rgba(255, 255, 255, 0.05)', border: `1px solid ${activeStep === 2 ? '#c084fc' : 'rgba(255, 255, 255, 0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: activeStep === 2 ? '#c084fc' : '#64748b' }}>
-                2
-              </span>
-              <span>Payment &amp; Deploy</span>
+            <div className="ds-security-tag">
+              <ShieldCheck size={16} />
+              <span>Razorpay 256-Bit SSL Encrypted</span>
             </div>
           </div>
         </div>
 
         {errorMessage && (
-          <div style={{ background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.35)', borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px', color: '#fca5a5' }}>
-            <AlertCircle size={20} style={{ color: '#ef4444', flexShrink: 0 }} />
+          <div className="ds-error-alert">
+            <AlertCircle size={20} className="ds-error-icon" />
             <span>{errorMessage}</span>
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+        {/* Deploying Overlay Modal */}
+        {isDeploying && (
+          <div className="ds-deploying-card">
+            <div className="ds-deploy-spinner-wrap">
+              <Loader2 size={46} className="spin-loader" />
+            </div>
+            <h2 className="ds-deploy-heading">Payment Verified! Provisioning Server...</h2>
+            <p className="ds-deploy-step">{deployStepText}</p>
+            <div className="ds-deploy-progress-bar">
+              <div className="ds-deploy-progress-fill" />
+            </div>
+            <span className="ds-deploy-footer-note">
+              {isWebHosting
+                ? 'Configuring cPanel account and AutoSSL certificates...'
+                : isBareMetalVds
+                ? 'Allocating physical bare-metal hardware and initiating PXE boot...'
+                : 'Allocating Pterodactyl node ports, RAM limits, and generating credentials...'}
+            </span>
+          </div>
+        )}
 
-          {/* LEFT COLUMN: Customer Form or Payment Action */}
-          <div>
-            {activeStep === 1 && (
-              <form onSubmit={handleProceedToReview} style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <User size={18} style={{ color: '#c084fc' }} /> Customer Information
-                </h2>
+        {/* 2-Column Checkout Layout */}
+        {!isDeploying && (
+          <div className="ds-checkout-grid">
+            {/* LEFT COLUMN: Customer Form + Razorpay Direct Pay Button */}
+            <form onSubmit={handlePayAndDeploy} className="ds-checkout-form-card">
+              <div className="ds-form-section-header">
+                <User size={18} className="ds-form-icon" />
+                <h3>1. Customer Delivery Information</h3>
+              </div>
 
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                    Full Name <span style={{ color: '#ef4444' }}>*</span>
+              <div className="ds-input-group">
+                <label>
+                  Full Name <span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="e.g. Alex Johnson"
+                  className="ds-input"
+                />
+              </div>
+
+              <div className="ds-input-group">
+                <label>
+                  Delivery Email Address <span className="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="alex@gmail.com"
+                  className="ds-input"
+                />
+                <span className="ds-input-help">
+                  Your server login credentials, control panel URL, and Razorpay invoice receipt will be delivered here.
+                </span>
+              </div>
+
+              <div className="ds-input-group">
+                <label>
+                  Mobile Number (10 Digits) <span className="required">*</span>
+                </label>
+                <div className="ds-phone-row">
+                  <span className="ds-phone-prefix">+91 (IN)</span>
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    value={mobileNumber}
+                    onChange={(e) => setMobileNumber(e.target.value)}
+                    placeholder="9876543210"
+                    className="ds-input"
+                  />
+                </div>
+              </div>
+
+              {/* Billing Cycle Duration */}
+              <div className="ds-form-section-header with-border">
+                <Calendar size={18} className="ds-form-icon" />
+                <h3>2. Select Billing Term</h3>
+              </div>
+
+              <div className="ds-cycle-grid">
+                {BILLING_CYCLES.map((c) => {
+                  const isSel = c.id === billingCycle;
+                  const cPrice = calculatePriceForCycle(plan.price, c.months);
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => setBillingCycle(c.id)}
+                      className={`ds-cycle-box ${isSel ? 'selected' : ''}`}
+                    >
+                      <div className="ds-cycle-box-top">
+                        <span className="ds-cycle-box-label">{c.duration}</span>
+                        {isSel && <CheckCircle2 size={16} className="ds-cycle-check" />}
+                      </div>
+                      <span className="ds-cycle-box-price">{formatINR(cPrice)}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Service Configuration */}
+              <div className="ds-form-section-header with-border">
+                <Server size={18} className="ds-form-icon" />
+                <h3>3. Server Configuration</h3>
+              </div>
+
+              {/* Web Hosting: Domain prompt */}
+              {isWebHosting && (
+                <div className="ds-input-group">
+                  <label>
+                    Primary Domain Name <span className="required">*</span>
                   </label>
                   <input
                     type="text"
                     required
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="e.g. Alex Johnson"
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    value={domainName}
+                    onChange={(e) => setDomainName(e.target.value)}
+                    placeholder="e.g. yourbrand.com or yourname.in"
+                    className="ds-input"
                   />
-                </div>
-
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                    Delivery Email Address <span style={{ color: '#ef4444' }}>*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="alex@gmail.com"
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
-                  />
-                  <span style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px', display: 'block' }}>
-                    Your server credentials, panel link, and Razorpay receipt will be delivered here.
+                  <span className="ds-input-help">
+                    Your cPanel account and web root will be created for this domain.
                   </span>
                 </div>
+              )}
 
-                <div style={{ marginBottom: '1.75rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                    Mobile Number (10 Digits) <span style={{ color: '#ef4444' }}>*</span>
-                  </label>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <span style={{ background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', padding: '0.8rem 0.9rem', color: '#94a3b8', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
-                      +91
-                    </span>
-                    <input
-                      type="tel"
-                      required
-                      maxLength={10}
-                      value={mobileNumber}
-                      onChange={(e) => setMobileNumber(e.target.value)}
-                      placeholder="9876543210"
-                      style={{ flex: 1, padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
-                    />
-                  </div>
-                </div>
-
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Calendar size={18} style={{ color: '#c084fc' }} /> Billing Cycle &amp; Term
-                </h2>
-
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.6rem' }}>
-                    Select Billing Duration
-                  </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                    {BILLING_CYCLES.map(c => {
-                      const isSel = c.id === billingCycle;
-                      const cPrice = calculatePriceForCycle(plan.price, c.months);
-                      return (
-                        <button
-                          key={c.id}
-                          type="button"
-                          onClick={() => setBillingCycle(c.id)}
-                          style={{
-                            padding: '12px 14px',
-                            borderRadius: '10px',
-                            textAlign: 'left',
-                            background: isSel ? 'rgba(147, 51, 234, 0.15)' : '#06020e',
-                            border: isSel ? '2px solid #c084fc' : '1px solid rgba(255, 255, 255, 0.08)',
-                            color: '#fff',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease'
-                          }}
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: isSel ? '#c084fc' : '#e2e8f0' }}>{c.duration}</span>
-                            {isSel && <CheckCircle2 size={14} style={{ color: '#c084fc' }} />}
-                          </div>
-                          <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block' }}>{formatINR(cPrice)}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Server size={18} style={{ color: '#c084fc' }} /> {isWebHosting ? 'Web Hosting Configuration' : isBareMetalVds ? 'Physical Machine Configuration' : 'Server Configuration'}
-                </h2>
-
-                {/* If Web Hosting: Prompt for Primary Domain */}
-                {isWebHosting && (
-                  <div style={{ marginBottom: '1.25rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                      Primary Domain Name <span style={{ color: '#ef4444' }}>*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={domainName}
-                      onChange={(e) => setDomainName(e.target.value)}
-                      placeholder="e.g. mycompany.com or brandname.in"
-                      style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
-                    />
-                    <span style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '4px', display: 'block' }}>
-                      Your website files and cPanel root directory will be created for this domain.
-                    </span>
-                  </div>
-                )}
-
-                {/* If VDS Bare-Metal: Prompt for OS and SSH Key */}
-                {isBareMetalVds && (
-                  <>
-                    <div style={{ marginBottom: '1.25rem' }}>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                        Operating System Installation
-                      </label>
-                      <select
-                        value={operatingSystem}
-                        onChange={(e) => setOperatingSystem(e.target.value)}
-                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
-                      >
-                        {SUPPORTED_VDS_OS.map(osItem => (
-                          <option key={osItem.id} value={osItem.name}>
-                            {osItem.icon} {osItem.name} ({osItem.tag})
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div style={{ marginBottom: '1.25rem' }}>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                        SSH Public Key (Optional)
-                      </label>
-                      <textarea
-                        rows={2}
-                        value={sshKey}
-                        onChange={(e) => setSshKey(e.target.value)}
-                        placeholder="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5... (or leave blank for generated root password)"
-                        style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.85rem', outline: 'none', fontFamily: 'monospace' }}
-                      />
-                    </div>
-                  </>
-                )}
-
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                    {isWebHosting ? 'Account / Hostname Label' : 'Server Hostname / Label'}
-                  </label>
-                  <input
-                    type="text"
-                    value={serverName}
-                    onChange={(e) => setServerName(e.target.value)}
-                    placeholder={isWebHosting ? 'my-web-site' : 'my-baremetal-node'}
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: '1.75rem' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                    Datacenter Cluster Location
-                  </label>
+              {/* VDS Bare-Metal: OS prompt */}
+              {isBareMetalVds && (
+                <div className="ds-input-group">
+                  <label>Operating System Installation</label>
                   <select
-                    value={serverRegion}
-                    onChange={(e) => setServerRegion(e.target.value)}
-                    style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
+                    value={operatingSystem}
+                    onChange={(e) => setOperatingSystem(e.target.value)}
+                    className="ds-input ds-select"
                   >
-                    {SERVER_LOCATIONS.map(loc => (
-                      <option key={loc.id} value={loc.name}>
-                        {loc.flag} {loc.name} (Ping: {loc.ping})
+                    {SUPPORTED_VDS_OS.map((os) => (
+                      <option key={os.id} value={os.name}>
+                        {os.icon} {os.name} ({os.tag})
                       </option>
                     ))}
                   </select>
                 </div>
+              )}
 
-                <button
-                  type="submit"
-                  style={{ width: '100%', padding: '1rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 800, fontSize: '1rem', border: 'none', borderRadius: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(168, 85, 247, 0.4)' }}
+              <div className="ds-input-group">
+                <label>Datacenter Location</label>
+                <select
+                  value={serverRegion}
+                  onChange={(e) => setServerRegion(e.target.value)}
+                  className="ds-input ds-select"
                 >
-                  <span>Review &amp; Proceed to Payment</span>
-                  <ArrowRight size={18} />
-                </button>
-              </form>
-            )}
+                  {SERVER_LOCATIONS.map((loc) => (
+                    <option key={loc.id} value={loc.name}>
+                      {loc.flag} {loc.name} (Ping: {loc.ping})
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {activeStep === 2 && (
-              <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Lock size={18} style={{ color: '#c084fc' }} /> Secure Razorpay Checkout
-                </h2>
-                <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '1.5rem' }}>
-                  Pay via UPI (GPay, PhonePe, Paytm), Credit/Debit Card, NetBanking, or Wallets in INR.
-                </p>
-
-                <div style={{ background: 'rgba(147, 51, 234, 0.08)', border: '1px solid rgba(147, 51, 234, 0.2)', borderRadius: '12px', padding: '1.25rem', marginBottom: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                    <span style={{ color: '#94a3b8' }}>Customer:</span>
-                    <span style={{ color: '#ffffff', fontWeight: 600 }}>{fullName}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                    <span style={{ color: '#94a3b8' }}>Email:</span>
-                    <span style={{ color: '#ffffff', fontWeight: 600 }}>{email}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                    <span style={{ color: '#94a3b8' }}>Contact:</span>
-                    <span style={{ color: '#ffffff', fontWeight: 600 }}>+91 {mobileNumber}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                    <span style={{ color: '#94a3b8' }}>Term / Duration:</span>
-                    <span style={{ color: '#c084fc', fontWeight: 600 }}>{currentCycle.duration}</span>
-                  </div>
-                  {isWebHosting && domainName && (
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                      <span style={{ color: '#94a3b8' }}>Primary Domain:</span>
-                      <span style={{ color: '#c084fc', fontWeight: 600, fontFamily: 'monospace' }}>{domainName}</span>
-                    </div>
-                  )}
-                  {isBareMetalVds && (
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                      <span style={{ color: '#94a3b8' }}>Target OS:</span>
-                      <span style={{ color: '#34d399', fontWeight: 600 }}>{operatingSystem}</span>
-                    </div>
-                  )}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                    <span style={{ color: '#94a3b8' }}>Service Label:</span>
-                    <span style={{ color: '#ffffff', fontWeight: 600 }}>{serverName || domainName || `${plan.name} Node`}</span>
-                  </div>
-                </div>
-
-                {isDeploying ? (
-                  <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-                    <Loader2 size={36} className="spin-loader" style={{ color: '#c084fc', margin: '0 auto 1rem' }} />
-                    <h3 style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-                      Payment Verified! Provisioning Service...
-                    </h3>
-                    <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
-                      {isWebHosting ? 'Creating cPanel account and allocating DNS...' : isBareMetalVds ? 'Allocating physical bare-metal hardware and triggering PXE installer...' : 'Contacting Pterodactyl node cluster & allocating RAM limits...'}
-                    </p>
-                  </div>
+              {/* Prominent Direct Razorpay Pay Button */}
+              <button
+                type="submit"
+                disabled={submitting}
+                className="ds-pay-btn"
+              >
+                {submitting ? (
+                  <>
+                    <Loader2 size={20} className="spin-loader" />
+                    <span>Connecting to Razorpay...</span>
+                  </>
                 ) : (
                   <>
-                    <button
-                      type="button"
-                      onClick={handleInitiateRazorpay}
-                      disabled={submitting}
-                      style={{ width: '100%', padding: '1.1rem', background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)', color: '#06020e', fontWeight: 800, fontSize: '1.05rem', border: 'none', borderRadius: '12px', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 0 25px rgba(168, 85, 247, 0.4)', opacity: submitting ? 0.7 : 1 }}
-                    >
-                      {submitting ? (
-                        <>
-                          <Loader2 size={20} className="spin-loader" />
-                          <span>Connecting to Razorpay...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Lock size={18} />
-                          <span>Pay {formatINR(totalAmount)} with Razorpay &rarr;</span>
-                        </>
-                      )}
-                    </button>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.25rem' }}>
-                      <button
-                        type="button"
-                        onClick={() => setActiveStep(1)}
-                        style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '4px' }}
-                      >
-                        <ArrowLeft size={14} /> Edit Customer Details
-                      </button>
-
-                      {/* Developer Sandbox Quick-Test Trigger */}
-                      <button
-                        type="button"
-                        onClick={handleTestSimulatePayment}
-                        disabled={submitting}
-                        style={{ background: 'rgba(192, 132, 252, 0.1)', border: '1px dashed rgba(192, 132, 252, 0.4)', color: '#d8b4fe', fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', cursor: 'pointer' }}
-                        title="Simulate successful test payment for development testing"
-                      >
-                        ⚡ Test Mode: Simulate Paid
-                      </button>
-                    </div>
+                    <CreditCard size={20} />
+                    <span>Pay {formatINR(totalAmount)} with Razorpay &amp; Auto-Deploy &rarr;</span>
                   </>
                 )}
+              </button>
 
-                <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-around', color: '#64748b', fontSize: '0.8rem' }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><ShieldCheck size={14} style={{ color: '#c084fc' }} /> 256-Bit SSL Encrypted</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={14} style={{ color: '#c084fc' }} /> Instant Provisioning</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Globe size={14} style={{ color: '#c084fc' }} /> Auto Invoice</span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* RIGHT COLUMN: Order Summary Card */}
-          <div>
-            <div style={{ background: '#060e1e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '16px', padding: '2rem', position: 'sticky', top: '100px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#c084fc', fontWeight: 700 }}>
-                    Selected Plan
-                  </span>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', margin: '4px 0' }}>
-                    {plan.name}
-                  </h3>
-                  <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-                    {plan.category.toUpperCase()} &bull; {currentCycle.duration} Term
-                  </span>
-                </div>
-                {plan.badge && (
-                  <span style={{ background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', borderRadius: '999px' }}>
-                    {plan.badge}
-                  </span>
-                )}
+              <div className="ds-checkout-footer-badges">
+                <span><ShieldCheck size={14} /> 100% Safe UPI &amp; Cards</span>
+                <span><Zap size={14} /> 60s Instant Setup</span>
+                <span><Lock size={14} /> Official Pterodactyl</span>
               </div>
 
-              {/* Hardware Specifications */}
-              <div style={{ background: 'rgba(3, 7, 18, 0.6)', borderRadius: '12px', padding: '1rem', marginBottom: '1.5rem', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                {plan.ram && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '0.85rem', borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                    <span style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}><Cpu size={14} /> Memory:</span>
-                    <span style={{ color: '#fff', fontWeight: 600 }}>{plan.ram}</span>
-                  </div>
-                )}
-                {plan.cpu && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '0.85rem', borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
-                    <span style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}><Zap size={14} /> Compute:</span>
-                    <span style={{ color: '#fff', fontWeight: 600 }}>{plan.cpu}</span>
-                  </div>
-                )}
-                {plan.storage && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '0.85rem' }}>
-                    <span style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}><HardDrive size={14} /> Storage:</span>
-                    <span style={{ color: '#fff', fontWeight: 600 }}>{plan.storage}</span>
-                  </div>
-                )}
+              {/* Sandbox quick testing simulation button */}
+              <div className="ds-sandbox-test-row">
+                <button
+                  type="button"
+                  onClick={handleTestSimulatePayment}
+                  disabled={submitting}
+                  className="ds-sandbox-btn"
+                >
+                  ⚡ Sandbox Mode: Test Simulated Instant Deploy
+                </button>
               </div>
+            </form>
 
-              {/* Price Calculation (10% Increased Price with Original Reference) */}
-              <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '1.25rem', marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Base Monthly Rate:</span>
-                  <span style={{ color: '#ffffff', fontWeight: 600 }}>{formatINR(plan.price)}/mo</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Billing Duration:</span>
-                  <span style={{ color: '#c084fc', fontWeight: 600 }}>{currentCycle.duration} ({currentCycle.months}x)</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                  <span style={{ color: '#94a3b8' }}>High-Speed Tier (+10%):</span>
-                  <span style={{ color: '#34d399' }}>Applied</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                  <span style={{ color: '#94a3b8' }}>DDoS Protection:</span>
-                  <span style={{ color: '#c084fc', fontWeight: 600 }}>INCLUDED</span>
+            {/* RIGHT COLUMN: Plan Summary Card */}
+            <div className="ds-checkout-summary-wrap">
+              <div className="ds-summary-card">
+                <div className="ds-summary-badge-row">
+                  <span className="ds-summary-tag">SELECTED PLAN</span>
+                  {plan.badge && (
+                    <span className="ds-summary-pill">{plan.badge}</span>
+                  )}
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: '1rem', marginTop: '0.5rem', borderTop: '1px solid rgba(147, 51, 234, 0.25)' }}>
-                  <div>
-                    <span style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'block' }}>Total Due Today</span>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>INR Currency &bull; Taxes Included</span>
+                <h3 className="ds-summary-plan-title">{plan.name}</h3>
+                <span className="ds-summary-plan-sub">
+                  {plan.category.toUpperCase()} &bull; {currentCycle.duration} Term
+                </span>
+
+                {/* Hardware Specs Box */}
+                <div className="ds-summary-specs-box">
+                  {plan.ram && (
+                    <div className="ds-summary-spec-row">
+                      <span><Cpu size={14} /> Memory:</span>
+                      <strong>{plan.ram}</strong>
+                    </div>
+                  )}
+                  {plan.cpu && (
+                    <div className="ds-summary-spec-row">
+                      <span><Zap size={14} /> Compute:</span>
+                      <strong>{plan.cpu}</strong>
+                    </div>
+                  )}
+                  {plan.storage && (
+                    <div className="ds-summary-spec-row">
+                      <span><HardDrive size={14} /> Storage:</span>
+                      <strong>{plan.storage}</strong>
+                    </div>
+                  )}
+                  {plan.bandwidth && (
+                    <div className="ds-summary-spec-row">
+                      <span><Globe size={14} /> Bandwidth:</span>
+                      <strong>{plan.bandwidth}</strong>
+                    </div>
+                  )}
+                  {plan.websites && (
+                    <div className="ds-summary-spec-row">
+                      <span><Globe size={14} /> Domains:</span>
+                      <strong>{plan.websites}</strong>
+                    </div>
+                  )}
+                </div>
+
+                {/* Price Breakdown */}
+                <div className="ds-summary-pricing-list">
+                  <div className="ds-pricing-line">
+                    <span>Base Monthly Rate:</span>
+                    <span>{formatPrice(plan.price)}/mo</span>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif' }}>
-                      {formatINR(totalAmount)}
-                    </span>
-                    <span style={{ fontSize: '0.85rem', color: '#c084fc', display: 'block' }}>
-                      /{currentCycle.duration}
-                    </span>
+                  <div className="ds-pricing-line">
+                    <span>Billing Duration:</span>
+                    <span>{currentCycle.duration}</span>
                   </div>
+                  <div className="ds-pricing-line">
+                    <span>DDoS Protection (1.2 Tbps):</span>
+                    <span className="ds-text-green">INCLUDED</span>
+                  </div>
+                  <div className="ds-pricing-line">
+                    <span>Automated Deployment:</span>
+                    <span className="ds-text-green">INSTANT 60s</span>
+                  </div>
+
+                  <div className="ds-pricing-total-row">
+                    <div>
+                      <span className="ds-total-label">Total Due Today:</span>
+                      <span className="ds-total-sub">All taxes &amp; fees included</span>
+                    </div>
+                    <span className="ds-total-amount">{formatINR(totalAmount)}</span>
+                  </div>
+                </div>
+
+                {/* SLA Guarantee Note */}
+                <div className="ds-summary-sla-box">
+                  <ShieldCheck size={18} className="ds-sla-icon" />
+                  <p>
+                    <strong>Data Serware SLA Guarantee:</strong> 99.9% uptime with automated anti-DDoS mitigation, offsite daily backups, and 24/7 systems support.
+                  </p>
                 </div>
               </div>
-
-              {/* Guarantees Box */}
-              <div style={{ background: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.15)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.8rem', color: '#94a3b8', lineHeight: 1.5 }}>
-                <strong style={{ color: '#c084fc', display: 'block', marginBottom: '4px' }}>Data Serware SLA Guarantee:</strong>
-                All nodes are monitored 24/7 with zero downtime migration, daily backups, and automated failover routing.
-              </div>
-
             </div>
           </div>
-
-        </div>
-
+        )}
       </div>
     </div>
   );
