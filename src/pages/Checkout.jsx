@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation, Navigate, Link } from 'react-route
 import { getPlanById, SERVER_LOCATIONS, BILLING_CYCLES, SUPPORTED_VDS_OS, calculatePriceForCycle, formatINR } from '../data/plans';
 import { useCurrency } from '../context/CurrencyContext';
 import { createPaymentOrder, verifyPayment } from '../services/api';
-import NovexLogo from '../components/NovexLogo';
+import DataSerwareLogo from '../components/DataSerwareLogo';
 import {
   ShieldCheck, Lock, Zap, User, Mail, Smartphone,
   Check, ArrowRight, ArrowLeft, QrCode, CheckCircle2,
@@ -51,7 +51,7 @@ export default function Checkout() {
   useEffect(() => {
     // If an existing guest user stored details in localStorage, autofill for convenience
     try {
-      const saved = localStorage.getItem('novexhost_guest_info');
+      const saved = localStorage.getItem('dataserware_guest_info') || localStorage.getItem('novexhost_guest_info');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.name) setFullName(parsed.name);
@@ -108,7 +108,7 @@ export default function Checkout() {
     }
 
     try {
-      localStorage.setItem('novexhost_guest_info', JSON.stringify({
+      localStorage.setItem('dataserware_guest_info', JSON.stringify({
         name: fullName.trim(),
         email: email.trim(),
         mobile: cleanMobile
@@ -154,7 +154,7 @@ export default function Checkout() {
         key: orderRes.razorpayKeyId,
         amount: orderRes.amountInPaise,
         currency: 'INR',
-        name: 'NOVEXHOST',
+        name: 'Data Serware',
         description: `${plan.name} (${currentCycle.duration})`,
         image: '/favicon.svg',
         order_id: orderRes.razorpayOrderId,
@@ -685,7 +685,7 @@ export default function Checkout() {
 
               {/* Guarantees Box */}
               <div style={{ background: 'rgba(0, 242, 254, 0.05)', border: '1px solid rgba(0, 242, 254, 0.15)', borderRadius: '10px', padding: '0.9rem', fontSize: '0.8rem', color: '#94a3b8', lineHeight: 1.5 }}>
-                <strong style={{ color: '#00f2fe', display: 'block', marginBottom: '4px' }}>NOVEXHOST SLA Guarantee:</strong>
+                <strong style={{ color: '#00f2fe', display: 'block', marginBottom: '4px' }}>Data Serware SLA Guarantee:</strong>
                 All nodes are monitored 24/7 with zero downtime migration, daily backups, and automated failover routing.
               </div>
 

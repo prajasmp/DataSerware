@@ -149,15 +149,13 @@ export default function Dashboard() {
                 </div>
 
                 <div style={{ marginTop: '0.5rem' }}>
-                  <a
-                    href={server.identifier || server.panel_uuid || server.panel_server_id ? `https://panel.novexhost.com/server/${server.identifier || server.panel_uuid || server.panel_server_id}` : 'https://panel.novexhost.com'}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to="/panel"
                     className="primary-btn small glow-btn"
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}
                   >
-                    <Settings size={14} /> Manage Server
-                  </a>
+                    <Settings size={14} /> Manage in Control Panel
+                  </Link>
                 </div>
               </article>
             ))

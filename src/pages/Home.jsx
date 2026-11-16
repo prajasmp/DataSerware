@@ -1,16 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCurrency } from '../context/CurrencyContext';
 import {
   Zap, Shield, Cpu, Gauge, Headphones, Lock, Sparkles,
-  ArrowRight, Globe, Layers, Server, Puzzle, Users, CheckCircle2
+  ArrowRight, Globe, Layers, Server, Puzzle, Users, CheckCircle2,
+  Terminal, CreditCard, ExternalLink, HardDrive, Wifi, Monitor,
+  Bot, RefreshCw, Check, Star, ChevronRight
 } from 'lucide-react';
 import ElectricNodeDiagram from '../components/ElectricNodeDiagram';
 import ScrollReveal from '../components/ScrollReveal';
+import { SERVER_LOCATIONS, ALL_GAME_PLANS, ALL_VPS_PLANS, WEB_HOSTING_PLANS } from '../data/plans';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
   const canvasRef = useRef(null);
 
+  // Active pricing category tab on the homepage
+  const [pricingCategory, setPricingCategory] = useState('game');
+
+  // Particle background effect
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -31,7 +40,7 @@ export default function Home() {
       dx: (Math.random() - 0.5) * 0.4,
       dy: -Math.random() * 0.5 - 0.2,
       alpha: Math.random() * 0.7 + 0.2,
-      color: Math.random() > 0.3 ? '#00f2fe' : '#06b6d4'
+      color: Math.random() > 0.3 ? '#00f2fe' : '#38bdf8'
     }));
 
     const render = () => {
@@ -70,54 +79,209 @@ export default function Home() {
     };
   }, []);
 
-  const gameCards = [
-    { name: 'Minecraft', badge: 'Popular', icon: '/assets/minecraft_icon.png', isOrange: false }
+  // 6 Core Service Categories required by user
+  const serviceCategories = [
+    {
+      id: 'game-servers',
+      title: 'Game Servers',
+      icon: Puzzle,
+      description: 'Ultra-low latency game instances for Minecraft (Java/Bedrock), Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
+      specs: 'AMD Ryzen 9 7950X • Gen4 NVMe • 1.2 Tbps DDoS',
+      link: '/billing?plan=ryzen-8gb',
+      badge: 'POPULAR'
+    },
+    {
+      id: 'cloud-vps',
+      title: 'VPS Hosting',
+      icon: Server,
+      description: 'High-frequency KVM Cloud VPS running Linux (Ubuntu, Debian, AlmaLinux) or Windows with 100% dedicated vCPUs & dedicated IPv4.',
+      specs: 'Dedicated IPv4 • 1 Gbps Port • Root Access',
+      link: '/billing?plan=ryzen-vps-8gb',
+      badge: 'HIGH-CLOCK'
+    },
+    {
+      id: 'rdp-hosting',
+      title: 'RDP Hosting',
+      icon: Monitor,
+      description: 'Dedicated Remote Desktop VPS with Windows Server 2022/2025, low latency, 24/7 background execution, and zero idle timeouts.',
+      specs: 'Windows Server • GUI Desktop • 99.9% Uptime',
+      link: '/billing?plan=ryzen-vps-16gb',
+      badge: 'WINDOWS'
+    },
+    {
+      id: 'dedicated-vds',
+      title: 'Dedicated Servers',
+      icon: Cpu,
+      description: 'Pure bare-metal physical hardware with exclusive silicon, up to 128 GB DDR5 ECC, 2 TB Gen4 NVMe, and unshared 10 Gbps uplinks.',
+      specs: '100% Bare-Metal • AMD Ryzen 9 9950X • IPMI Access',
+      link: '/vds-machines',
+      badge: 'BARE-METAL'
+    },
+    {
+      id: 'web-hosting',
+      title: 'Web Hosting',
+      icon: Globe,
+      description: 'LiteSpeed / NGINX hybrid web hosting with official cPanel, unlimited free AutoSSL certificates, MariaDB databases, and 1-click WordPress.',
+      specs: 'cPanel 120 • Free SSL • NVMe SSD ~ 7,000 MB/s',
+      link: '/web-hosting',
+      badge: 'CPANEL'
+    },
+    {
+      id: 'bot-hosting',
+      title: 'Discord Bot Hosting',
+      icon: Bot,
+      description: 'Reliable 24/7 background container hosting for Discord bots, API workers, and webhooks in Node.js, Python, Go, and Java.',
+      specs: 'Node.js 20 • Python 3.11 • 0% CPU Throttling',
+      link: '/billing?plan=bot-2gb',
+      badge: 'ALWAYS-ON'
+    }
   ];
 
-  const hudFeatures = [
-    { icon: Globe, title: 'GLOBAL NODES' },
-    { icon: Shield, title: 'ANTI-DDOS' },
-    { icon: Cpu, title: 'NVMe STORAGE' },
-    { icon: Zap, title: 'INSTANT SETUP' },
-    { icon: Puzzle, title: 'MOD SUPPORT' }
+  // Featured Plans for Pricing & Offers section
+  const featuredGamePlans = [
+    {
+      id: 'amd-4gb',
+      name: 'AMD EPYC Gaming 4 GB',
+      category: 'Game Server',
+      price: 299,
+      ram: '4 GB DDR4/DDR5 RAM',
+      cpu: '200% Dedicated CPU',
+      storage: '40 GB NVMe SSD',
+      features: ['DDoS Protection (1.2 Tbps)', 'Pterodactyl Control Panel', 'Instant 60s Setup', 'Daily Automated Backups']
+    },
+    {
+      id: 'ryzen-8gb',
+      name: 'Ryzen 9 7950X Extreme 8 GB',
+      category: 'Extreme Gaming',
+      price: 649,
+      badge: 'Most Popular',
+      ram: '8 GB DDR5 High-Clock RAM',
+      cpu: '350% Dedicated 5.7GHz CPU',
+      storage: '80 GB Gen4 NVMe SSD',
+      features: ['1.2 Tbps Corero DDoS Shield', 'Custom Control Panel & Console', 'Unmetered 1 Gbps Bandwidth', 'Free Subdomain Included']
+    },
+    {
+      id: 'ryzen-16gb',
+      name: 'Ryzen 9 7950X Mega 16 GB',
+      category: 'Heavy Networks',
+      price: 1299,
+      badge: 'Extreme Power',
+      ram: '16 GB DDR5 RAM',
+      cpu: '500% Dedicated CPU',
+      storage: '160 GB Gen4 NVMe SSD',
+      features: ['Unlimited Player Slots', 'Full SFTP & Database Access', 'Multi-Port Allocation (3 Ports)', 'Priority 24/7 Engineer Support']
+    }
   ];
+
+  const featuredVpsPlans = [
+    {
+      id: 'intel-vps-4gb',
+      name: 'Intel Cloud VPS 4 GB',
+      category: 'Cloud VPS',
+      price: 499,
+      ram: '4 GB RAM',
+      cpu: '2 Intel vCores',
+      storage: '50 GB Gen4 NVMe',
+      features: ['Full KVM Root Access', 'Dedicated IPv4 Address', 'Ubuntu, Debian, AlmaLinux', 'Enterprise DDoS Filter']
+    },
+    {
+      id: 'ryzen-vps-8gb',
+      name: 'Ryzen Ultra VPS 8 GB',
+      category: 'High-Clock VPS',
+      price: 899,
+      badge: 'Recommended',
+      ram: '8 GB DDR5 RAM',
+      cpu: '4 AMD Ryzen vCores (5.7GHz)',
+      storage: '100 GB NVMe Storage',
+      features: ['Full Root / Administrator Access', '1 Gbps Dedicated Port', 'Windows / Linux OS Switcher', 'Instant Automated Deployment']
+    },
+    {
+      id: 'ryzen-vps-16gb',
+      name: 'Ryzen Ultra VPS 16 GB (RDP)',
+      category: 'High-End / RDP',
+      price: 1539,
+      badge: 'RDP Ready',
+      ram: '16 GB RAM',
+      cpu: '6 AMD Ryzen vCores',
+      storage: '160 GB Gen4 NVMe',
+      features: ['Windows Server 2022/2025 GUI', 'Ultra Low Latency RDP Access', 'Unmetered 10 Gbps Uplink', 'Daily Cloud Snapshots']
+    }
+  ];
+
+  const featuredWebPlans = [
+    {
+      id: 'web-solo',
+      name: 'SERWARE SOLO',
+      category: 'cPanel Web Hosting',
+      price: 24.20,
+      ram: '1 Hosted Website',
+      cpu: '10 GB NVMe Storage',
+      storage: '2 MySQL Databases',
+      features: ['1 Hosted Website', '10 GB NVMe Storage', 'Free AutoSSL Certificate', 'cPanel Control Panel Included']
+    },
+    {
+      id: 'web-premium',
+      name: 'SERWARE PREMIUM',
+      category: 'cPanel Web Hosting',
+      price: 77.00,
+      badge: 'Best Value',
+      ram: '3 Hosted Websites',
+      cpu: '20 GB NVMe Storage',
+      storage: '10 MySQL Databases',
+      features: ['3 Hosted Websites', '20 GB NVMe Storage', 'Free Domain (Annual Plan)', '7 Automated Backup Slots']
+    },
+    {
+      id: 'web-business',
+      name: 'SERWARE BUSINESS',
+      category: 'cPanel Web Hosting',
+      price: 220.00,
+      badge: 'Enterprise',
+      ram: '10 Hosted Websites',
+      cpu: '50 GB NVMe Storage',
+      storage: '100 MySQL Databases',
+      features: ['10 Hosted Websites', '50 GB NVMe Storage', 'SSH Terminal Access & Git', 'Free Domain & Dedicated IP']
+    }
+  ];
+
+  const activePlans = pricingCategory === 'game' ? featuredGamePlans : pricingCategory === 'vps' ? featuredVpsPlans : featuredWebPlans;
 
   const features = [
     {
       icon: Cpu,
-      title: 'Modern Infrastructure',
-      description: 'Ultra-fast NVMe storage and dedicated server hardware optimized for high tickrates.'
+      title: 'AMD Ryzen 9 7950X & EPYC',
+      description: 'Single-core clock speeds up to 5.7 GHz boost ensure 20.0 tick rates on Minecraft and lag-free game worlds.'
     },
     {
       icon: Gauge,
-      title: 'Ultra-Low Latency',
-      description: 'High-speed network routes tuned specifically for India and South Asia regions.'
+      title: 'Ultra-Low Ping Routing',
+      description: 'Sub-15ms latency across Mumbai, Singapore, Frankfurt, London, and Virginia via tier-1 telecom backbones.'
     },
     {
       icon: Shield,
-      title: 'Enterprise Anti-DDoS',
-      description: 'Always-on 1.2 Tbps DDoS protection filtering volumetric & application layer attacks.'
+      title: '1.2 Tbps Always-On DDoS Shield',
+      description: 'Automated Corero & Path.net layer-3/4/7 packet filtering instantly absorbs volumetric UDP/TCP attacks.'
     },
     {
       icon: Headphones,
-      title: '24/7 Human Support',
-      description: 'Direct assistance from specialized systems engineers through Discord and tickets.'
+      title: '24/7 Specialized Support',
+      description: 'Direct assistance from knowledgeable systems engineers via live Discord community and support tickets.'
     },
     {
       icon: Lock,
-      title: 'Instant Server Setup',
-      description: 'Automated instant deployment right after payment verification. No waiting required.'
+      title: 'Automated 60-Second Setup',
+      description: 'Immediate automated provisioning upon payment verification. You receive panel credentials in seconds.'
     },
     {
       icon: Sparkles,
-      title: 'Full Root / Panel Access',
-      description: 'Complete control via custom Pterodactyl dashboard with custom SFTP & Web Console.'
+      title: 'Pterodactyl & KVM Control',
+      description: 'Full web console, live SFTP file manager, database provisioner, and automated offsite snapshots.'
     }
   ];
 
   return (
     <div className="home-redesign-wrapper">
 
+      {/* PORTAL A: HERO SECTION */}
       <section className="ag-hero-container">
 
         <canvas ref={canvasRef} className="ag-hero-canvas" />
@@ -128,26 +292,20 @@ export default function Home() {
         <div className="ag-hero-art-layer">
           <img
             src="/assets/novexhost_hero_cinematic.png"
-            alt="NOVEXHOST Futuristic Cloud Infrastructure"
+            alt="Data Serware Futuristic Cloud Infrastructure"
             className="ag-cinematic-bg-img"
           />
           <div className="ag-art-gradient-overlay" />
 
           <div className="ag-artwork-text-left">
-            <span className="ag-art-line">BUILD</span>
             <span className="ag-art-line">DEPLOY</span>
             <span className="ag-art-line">SCALE</span>
-            <span className="ag-art-line cyan-highlight">UNLIMITED</span>
+            <span className="ag-art-line">PROTECT</span>
+            <span className="ag-art-line cyan-highlight">DATA SERWARE</span>
           </div>
 
           <div className="ag-artwork-text-right">
-            <span>PREMIUM CLOUD &amp; VPS HOSTING</span>
-          </div>
-
-          <div className="ag-pathway-texts">
-            <span className="pathway-word word-1">FASTER</span>
-            <span className="pathway-word word-2">SAFER</span>
-            <span className="pathway-word word-3">STRONGER</span>
+            <span>ENTERPRISE CLOUD &amp; GAME SERVERS</span>
           </div>
         </div>
 
@@ -157,47 +315,48 @@ export default function Home() {
             <ScrollReveal animation="fade-up" delay={100}>
               <div className="ag-glass-badge">
                 <Sparkles size={14} className="badge-sparkle" />
-                <span>Next-Gen Cloud Platform</span>
+                <span>Next-Gen Cloud &amp; Bare Metal Platform</span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal animation="fade-up" delay={200}>
               <h1 className="ag-hero-title">
-                POWER YOUR<br />
-                WORLD WITH<br />
-                <span className="cyan-electric-text">NOVEXHOST</span>
+                HIGH-PERFORMANCE<br />
+                INFRASTRUCTURE BY<br />
+                <span className="cyan-electric-text">DATA SERWARE</span>
               </h1>
             </ScrollReveal>
 
             <ScrollReveal animation="fade-up" delay={300}>
               <p className="ag-hero-desc">
-                High-performance game servers, Gen4 NVMe Cloud VPS, Discord bot hosting, and domains with automated instant deployment and 24/7 technical support.
+                Ultra-low latency AMD Ryzen™ 9 7950X, EPYC™ &amp; NVMe Gen4 game servers, Cloud VPS, dedicated RDP, and cPanel web hosting with 1.2 Tbps DDoS protection and instant 60-second deployment.
               </p>
             </ScrollReveal>
 
+            {/* LIVE BADGES */}
             <ScrollReveal animation="fade-up" delay={400}>
               <div className="ag-compact-features">
                 <div className="ag-feature-pill">
-                  <Zap size={16} className="pill-icon cyan" />
+                  <Shield size={16} className="pill-icon cyan" />
                   <div>
-                    <span className="pill-title">Ultra Low Ping</span>
-                    <span className="pill-val">&lt;12ms</span>
-                  </div>
-                </div>
-
-                <div className="ag-feature-pill">
-                  <Shield size={16} className="pill-icon blue" />
-                  <div>
-                    <span className="pill-title">DDoS Protected</span>
+                    <span className="pill-title">1.2 Tbps Shield</span>
                     <span className="pill-val">Always On</span>
                   </div>
                 </div>
 
                 <div className="ag-feature-pill">
-                  <Server size={16} className="pill-icon cyan" />
+                  <Server size={16} className="pill-icon blue" />
                   <div>
                     <span className="pill-title">99.9% Uptime</span>
-                    <span className="pill-val">Reliable</span>
+                    <span className="pill-val">SLA Backed</span>
+                  </div>
+                </div>
+
+                <div className="ag-feature-pill">
+                  <Zap size={16} className="pill-icon cyan" />
+                  <div>
+                    <span className="pill-title">Ultra Low Ping</span>
+                    <span className="pill-val">&lt;12ms India</span>
                   </div>
                 </div>
 
@@ -205,253 +364,476 @@ export default function Home() {
                   <Users size={16} className="pill-icon blue" />
                   <div>
                     <span className="pill-title">24/7 Support</span>
-                    <span className="pill-val">Human Team</span>
+                    <span className="pill-val">Discord &amp; Desk</span>
                   </div>
                 </div>
               </div>
             </ScrollReveal>
 
+            {/* QUICK CTA BUTTONS (CONNECTED TO PORTALS B AND C) */}
             <ScrollReveal animation="fade-up" delay={500}>
-              <div className="ag-hero-ctas">
-                <Link to="/plans" className="ag-primary-cta">
-                  <span>Explore Plans</span>
-                  <ArrowRight size={18} />
+              <div className="ag-hero-ctas" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+                <Link to="/billing" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
+                  <CreditCard size={17} />
+                  <span>Client Area &amp; Store</span>
+                  <ArrowRight size={17} />
+                </Link>
+
+                <Link
+                  to="/panel"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '0.9rem 1.4rem',
+                    borderRadius: '12px',
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid rgba(16, 185, 129, 0.4)',
+                    color: '#34d399',
+                    fontWeight: 800,
+                    fontSize: '0.95rem',
+                    textDecoration: 'none',
+                    boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)'
+                  }}
+                >
+                  <Terminal size={17} />
+                  <span>Launch Control Panel</span>
                 </Link>
 
                 <a
-                  href="https://discord.gg/novexhost"
+                  href="https://discord.gg/dataserware"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ag-discord-cta"
+                  style={{ textDecoration: 'none' }}
                 >
-                  <svg className="discord-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z" />
-                  </svg>
-                  <span>Join Discord</span>
+                  <Zap size={17} />
+                  <span>Discord</span>
                 </a>
               </div>
             </ScrollReveal>
           </div>
 
           <div className="ag-hero-right">
-
             <ScrollReveal animation="zoom-in" delay={300}>
               <div className="ag-hud-card live-servers-card">
                 <div className="hud-card-header">
-                  <span className="hud-label">LIVE SERVERS</span>
+                  <span className="hud-label">LIVE HARDWARE TELEMETRY</span>
                   <div className="live-dot-pulse" />
                 </div>
                 <div className="hud-main-val">
-                  <span className="num-count">12,458</span>
+                  <span className="num-count">99.98%</span>
                   <span className="val-dot">●</span>
                 </div>
-                <div className="hud-mini-graph">
-                  <svg viewBox="0 0 200 40" className="waveform-svg">
-                    <path
-                      d="M 0 25 Q 25 10, 50 28 T 100 15 T 150 30 T 200 18 L 200 40 L 0 40 Z"
-                      fill="rgba(6, 182, 212, 0.15)"
-                    />
-                    <path
-                      d="M 0 25 Q 25 10, 50 28 T 100 15 T 150 30 T 200 18"
-                      fill="none"
-                      stroke="#00f2fe"
-                      strokeWidth="2.5"
-                    />
-                  </svg>
+                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '4px' }}>
+                  Active Nodes: Mumbai, Singapore, Frankfurt, Virginia, London
                 </div>
-                <div className="hud-card-footer">
-                  <div className="players-info">
-                    <span className="players-label">Players Online</span>
-                    <span className="players-count">58,341</span>
+                <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '0.78rem', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>CPU Boost:</span>
+                    <span style={{ color: '#00f2fe' }}>5.7 GHz Ryzen 9</span>
                   </div>
-                  <Users size={16} className="users-icon" />
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>DDoS Mitigation:</span>
+                    <span style={{ color: '#22c55e' }}>Corero 1.2 Tbps</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Provisioning:</span>
+                    <span style={{ color: '#38bdf8' }}>Automated Pterodactyl</span>
+                  </div>
                 </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal animation="fade-up" delay={450}>
-              <div className="ag-hud-panel feature-hud-panel">
-                {hudFeatures.map((item, idx) => {
-                  const IconComp = item.icon;
-                  return (
-                    <div key={idx} className="hud-feature-row">
-                      <IconComp size={18} className="hud-row-icon" />
-                      <span className="hud-row-text">{item.title}</span>
-                    </div>
-                  );
-                })}
               </div>
             </ScrollReveal>
           </div>
+
         </div>
 
-        <div className="container ag-hero-bottom-grid">
+      </section>
 
-          <div className="ag-game-cards-row">
-            {gameCards.map((game, idx) => (
-              <div
-                key={idx}
-                className="ag-game-card"
-                onClick={() => navigate('/plans')}
-              >
-                <div className="game-icon-box">
-                  <img src={game.icon} alt={game.name} className="game-img" />
-                </div>
-                <div className="game-card-info">
-                  <span className="game-name">{game.name}</span>
-                  <div className="game-status-badge">
-                    <span className={`status-dot ${game.isOrange ? 'orange' : 'green'}`} />
-                    <span className="status-text">{game.badge}</span>
+      {/* SECTION 2: 6 SERVICE CATEGORIES (PORTAL A REQUIREMENT) */}
+      <section className="ag-section" style={{ paddingTop: '3rem', paddingBottom: '3.5rem' }}>
+        <div className="container">
+          <div className="text-center" style={{ maxWidth: '720px', margin: '0 auto 2.5rem' }}>
+            <span className="ag-section-badge">HOSTING ECOSYSTEM</span>
+            <h2 className="ag-section-title" style={{ marginTop: '8px' }}>
+              Engineered for Every Workload
+            </h2>
+            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
+              From competitive multiplayer game servers to mission-critical Bare-Metal hypervisors, Data Serware delivers unparalleled speed, low latency, and rock-solid DDoS mitigation.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+            {serviceCategories.map((svc) => {
+              const Icon = svc.icon;
+              return (
+                <div
+                  key={svc.id}
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(8, 20, 38, 0.9) 0%, rgba(3, 8, 20, 0.95) 100%)',
+                    border: '1px solid rgba(0, 242, 254, 0.2)',
+                    borderRadius: '20px',
+                    padding: '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                    transition: 'transform 0.2s, border-color 0.2s'
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(0, 242, 254, 0.1)', border: '1px solid rgba(0, 242, 254, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00f2fe' }}>
+                        <Icon size={24} />
+                      </div>
+                      <span style={{
+                        background: 'rgba(56, 189, 248, 0.15)',
+                        border: '1px solid rgba(56, 189, 248, 0.4)',
+                        color: '#38bdf8',
+                        fontSize: '0.68rem',
+                        fontWeight: 800,
+                        padding: '3px 8px',
+                        borderRadius: '4px',
+                        letterSpacing: '0.08em'
+                      }}>
+                        {svc.badge}
+                      </span>
+                    </div>
+
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
+                      {svc.title}
+                    </h3>
+                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                      {svc.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '0.85rem', marginBottom: '1.25rem', fontSize: '0.78rem', color: '#38bdf8', fontFamily: 'JetBrains Mono, monospace' }}>
+                      {svc.specs}
+                    </div>
+
+                    {/* REDIRECT TO CLIENT AREA / BILLING */}
+                    <Link
+                      to={svc.link}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        width: '100%',
+                        padding: '10px 16px',
+                        borderRadius: '10px',
+                        background: 'rgba(0, 242, 254, 0.12)',
+                        border: '1px solid rgba(0, 242, 254, 0.3)',
+                        color: '#00f2fe',
+                        fontWeight: 700,
+                        fontSize: '0.88rem',
+                        textDecoration: 'none',
+                        transition: 'background 0.2s'
+                      }}
+                    >
+                      <span>Order in Client Area</span>
+                      <ArrowRight size={15} />
+                    </Link>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: PRICING & SPECIAL OFFERS SECTION (PORTAL A REQUIREMENT) */}
+      <section className="ag-section" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+        <div className="container">
+
+          {/* Promotional Discount Callout */}
+          <div style={{
+            background: 'linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, rgba(37, 99, 235, 0.18) 100%)',
+            border: '1px solid rgba(0, 242, 254, 0.4)',
+            borderRadius: '16px',
+            padding: '1.25rem 2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            marginBottom: '3rem',
+            boxShadow: '0 0 30px rgba(0, 242, 254, 0.15)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#00f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#030712' }}>
+                <Sparkles size={22} />
+              </div>
+              <div>
+                <strong style={{ color: '#fff', fontSize: '1.1rem', display: 'block' }}>
+                  Launch Special: Save 20% on Your First Order!
+                </strong>
+                <span style={{ color: '#cbd5e1', fontSize: '0.88rem' }}>
+                  Use coupon code <code style={{ color: '#00f2fe', background: '#020611', padding: '2px 8px', borderRadius: '4px', fontWeight: 800 }}>SERWARE20</code> during checkout in the Client Area.
+                </span>
+              </div>
+            </div>
+
+            <Link
+              to="/billing"
+              style={{
+                background: '#00f2fe',
+                color: '#020611',
+                padding: '9px 18px',
+                borderRadius: '8px',
+                fontWeight: 800,
+                fontSize: '0.85rem',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              <span>Redeem in Billing Portal</span>
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+
+          <div className="text-center" style={{ maxWidth: '680px', margin: '0 auto 2rem' }}>
+            <span className="ag-section-badge">TRANSPARENT PRICING</span>
+            <h2 className="ag-section-title" style={{ marginTop: '8px' }}>
+              Featured Plans &amp; Instant Provisioning
+            </h2>
+            <p style={{ color: '#94a3b8', fontSize: '0.92rem' }}>
+              Select any tier below to automatically pass the plan parameters directly into the Client Area &amp; Billing Portal.
+            </p>
+
+            {/* Category Switcher Tabs */}
+            <div style={{ display: 'inline-flex', background: '#040d1f', border: '1px solid rgba(0, 242, 254, 0.2)', padding: '4px', borderRadius: '12px', marginTop: '1.5rem', gap: '6px' }}>
+              <button
+                onClick={() => setPricingCategory('game')}
+                style={{
+                  padding: '8px 20px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: pricingCategory === 'game' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
+                  color: pricingCategory === 'game' ? '#020611' : '#94a3b8',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer'
+                }}
+              >
+                🎮 Minecraft &amp; Game
+              </button>
+
+              <button
+                onClick={() => setPricingCategory('vps')}
+                style={{
+                  padding: '8px 20px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: pricingCategory === 'vps' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
+                  color: pricingCategory === 'vps' ? '#020611' : '#94a3b8',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer'
+                }}
+              >
+                🚀 Cloud VPS &amp; RDP
+              </button>
+
+              <button
+                onClick={() => setPricingCategory('web')}
+                style={{
+                  padding: '8px 20px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  background: pricingCategory === 'web' ? 'linear-gradient(135deg, #00f2fe, #06b6d4)' : 'transparent',
+                  color: pricingCategory === 'web' ? '#020611' : '#94a3b8',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer'
+                }}
+              >
+                🌐 cPanel Web
+              </button>
+            </div>
+          </div>
+
+          {/* Pricing Cards Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '1.5rem' }}>
+            {activePlans.map((plan) => (
+              <div
+                key={plan.id}
+                style={{
+                  background: 'linear-gradient(180deg, #081a33 0%, #030a16 100%)',
+                  border: plan.badge ? '2px solid rgba(0, 242, 254, 0.5)' : '1px solid rgba(0, 242, 254, 0.18)',
+                  borderRadius: '20px',
+                  padding: '2rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  position: 'relative',
+                  boxShadow: plan.badge ? '0 0 35px rgba(0, 242, 254, 0.2)' : '0 8px 32px rgba(0,0,0,0.4)'
+                }}
+              >
+                {plan.badge && (
+                  <span style={{
+                    position: 'absolute',
+                    top: '16px',
+                    right: '16px',
+                    background: 'linear-gradient(135deg, #00f2fe, #38bdf8)',
+                    color: '#030712',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    padding: '3px 10px',
+                    borderRadius: '6px',
+                    textTransform: 'uppercase'
+                  }}>
+                    {plan.badge}
+                  </span>
+                )}
+
+                <div>
+                  <span style={{ color: '#00f2fe', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    {plan.category}
+                  </span>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', margin: '6px 0 1rem' }}>
+                    {plan.name}
+                  </h3>
+
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '1.5rem' }}>
+                    <span style={{ fontSize: '2.2rem', fontWeight: 900, color: '#ffffff' }}>
+                      {formatPrice(plan.price)}
+                    </span>
+                    <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>/month</span>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '1.25rem', marginBottom: '1.5rem' }}>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1' }}>
+                      <li style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff', fontWeight: 600 }}>
+                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <span>{plan.ram}</span>
+                      </li>
+                      <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <span>{plan.cpu}</span>
+                      </li>
+                      <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Check size={16} style={{ color: '#00f2fe' }} />
+                        <span>{plan.storage}</span>
+                      </li>
+                      {plan.features.map((f, i) => (
+                        <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8' }}>
+                          <Check size={16} style={{ color: '#38bdf8' }} />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* CRITICAL USER REQUIREMENT: CLICKING "ORDER NOW" OR "PURCHASE" PASSES PLAN DETAILS & REDIRECTS TO CLIENT AREA / BILLING */}
+                <Link
+                  to={`/billing?plan=${plan.id}`}
+                  style={{
+                    background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)',
+                    color: '#020611',
+                    textDecoration: 'none',
+                    padding: '12px 20px',
+                    borderRadius: '12px',
+                    fontWeight: 900,
+                    fontSize: '0.92rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    boxShadow: '0 0 20px rgba(0, 242, 254, 0.35)',
+                    transition: 'transform 0.2s'
+                  }}
+                >
+                  <CreditCard size={16} />
+                  <span>Order Now &bull; Client Portal</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: GLOBAL SERVER LOCATIONS SHOWCASE (PORTAL A REQUIREMENT) */}
+      <section className="ag-section" id="locations" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+        <div className="container">
+          <div className="text-center" style={{ maxWidth: '700px', margin: '0 auto 2.5rem' }}>
+            <span className="ag-section-badge">GLOBAL EDGE INFRASTRUCTURE</span>
+            <h2 className="ag-section-title" style={{ marginTop: '8px' }}>
+              Optimized Low-Latency Datacenter Nodes
+            </h2>
+            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
+              Strategically placed tier-3 &amp; tier-4 data facilities connected directly to internet exchange points (IXPs) for minimal routing hops.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
+            {SERVER_LOCATIONS.map((loc) => (
+              <div
+                key={loc.id}
+                style={{
+                  background: '#071529',
+                  border: '1px solid rgba(0, 242, 254, 0.2)',
+                  borderRadius: '16px',
+                  padding: '1.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '1.8rem' }}>{loc.flag}</span>
+                  <span style={{
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    color: '#34d399',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    padding: '2px 8px',
+                    borderRadius: '4px'
+                  }}>
+                    ● {loc.status}
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fff', margin: '4px 0 0' }}>
+                  {loc.name}
+                </h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#00f2fe', fontSize: '0.85rem', fontWeight: 700, fontFamily: 'monospace' }}>
+                  <Zap size={14} />
+                  <span>Latency: {loc.ping}</span>
+                </div>
+                <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                  10 Gbps Redundant Fiber Uplink
+                </span>
               </div>
             ))}
           </div>
 
-          <div className="ag-floating-cta-badge">
-            <div className="cta-badge-left">
-              <div className="cta-dot" />
-              <div className="cta-texts">
-                <span className="cta-t1">Ready to start your server?</span>
-                <span className="cta-t2">Get started in less than 2 minutes!</span>
-              </div>
-            </div>
-            <Link to="/plans" className="cta-circle-btn">
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-
-        <div className="ag-stats-bar-wrapper">
-          <div className="container ag-stats-bar">
-            <div className="ag-stat-item">
-              <Globe size={22} className="stat-icon" />
-              <div>
-                <span className="stat-val">10+</span>
-                <span className="stat-lbl">Global Locations</span>
-              </div>
-            </div>
-
-            <div className="ag-stat-item">
-              <Users size={22} className="stat-icon" />
-              <div>
-                <span className="stat-val">50K+</span>
-                <span className="stat-lbl">Active Players</span>
-              </div>
-            </div>
-
-            <div className="ag-stat-item">
-              <Server size={22} className="stat-icon" />
-              <div>
-                <span className="stat-val">99.9%</span>
-                <span className="stat-lbl">Network Uptime</span>
-              </div>
-            </div>
-
-            <div className="ag-stat-item">
-              <Zap size={22} className="stat-icon" />
-              <div>
-                <span className="stat-val">&lt;12ms</span>
-                <span className="stat-lbl">Average Ping</span>
-              </div>
-            </div>
-          </div>
+          <ElectricNodeDiagram />
         </div>
       </section>
 
-      {/* NEW SERVICE PILLARS: Web Hosting & VDS Bare-Metal */}
-      <section className="ag-section" style={{ paddingTop: '2rem', paddingBottom: '3rem' }}>
-        <div className="container">
-          <div className="text-center" style={{ maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-            <span className="ag-section-badge">EXPANDED INFRASTRUCTURE</span>
-            <h2 className="ag-section-title" style={{ marginTop: '8px' }}>
-              Web Hosting &amp; Dedicated Bare-Metal
-            </h2>
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
-              Whether launching a high-traffic WordPress portal or provisioning full AMD Ryzen 9 bare-metal power, NOVEXHOST delivers enterprise SLA guarantees.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-            {/* Pillar 1: Web Hosting */}
-            <div style={{ background: 'linear-gradient(135deg, rgba(8, 20, 38, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%)', border: '1px solid rgba(6, 182, 212, 0.3)', borderRadius: '24px', padding: '2.5rem', position: 'relative', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(6, 182, 212, 0.1)', color: '#00f2fe', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', marginBottom: '1rem', border: '1px solid rgba(6, 182, 212, 0.25)' }}>
-                <span>From ₹24.20/month</span>
-              </div>
-              <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', marginBottom: '0.75rem' }}>
-                cPanel Web Hosting
-              </h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                Ultra-fast NVMe storage, free automated Let's Encrypt SSL, official cPanel control, and 1-click WordPress installers.
-              </p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> 10 GB to 50 GB NVMe Storage
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> MySQL Databases &amp; phpMyAdmin
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> Free AutoSSL &amp; Professional Email
-                </li>
-              </ul>
-              <Link to="/web-hosting" className="ag-primary-cta" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Explore Web Hosting Plans</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-
-            {/* Pillar 2: VDS Bare-Metal */}
-            <div style={{ background: 'linear-gradient(135deg, rgba(8, 20, 38, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%)', border: '2px solid rgba(0, 242, 254, 0.4)', borderRadius: '24px', padding: '2.5rem', position: 'relative', overflow: 'hidden', boxShadow: '0 0 40px rgba(6,182,212,0.15)' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(0, 242, 254, 0.15)', color: '#00f2fe', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', border: '1px solid rgba(0, 242, 254, 0.4)' }}>
-                <span>Dedicated Bare-Metal</span>
-              </div>
-              <h3 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', marginBottom: '0.75rem' }}>
-                VDS Physical Machines
-              </h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                Flagship AMD Ryzen 9 9950X, Ryzen 7 &amp; Intel Xeon bare-metal machines. 128 GB DDR4, 1 Gbps unmetered uplink, and full root access.
-              </p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem', color: '#cbd5e1' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> 100% Dedicated Physical Silicon
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> 128 GB RAM + 1 TB NVMe SSD
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#00f2fe' }}>&check;</span> Cloudflare Magic Transit DDoS Shield
-                </li>
-              </ul>
-              <Link to="/vds-machines" className="ag-primary-cta" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Configure VDS Machines</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="ag-section" id="locations">
-        <div className="container">
-          <ScrollReveal animation="fade-up" delay={150}>
-            <ElectricNodeDiagram />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <section className="ag-section" id="features">
+      {/* SECTION 5: 24/7 SUPPORT & HARDWARE SPECS (PORTAL A REQUIREMENT) */}
+      <section className="ag-section" id="features" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
         <div className="container">
           <ScrollReveal animation="fade-up" className="section-heading text-center">
-            <span className="ag-section-badge">WHY NOVEXHOST</span>
+            <span className="ag-section-badge">HARDWARE SPECIFICATIONS</span>
             <h2 className="ag-section-title">Built for Performance &amp; Maximum Reliability</h2>
+            <p style={{ color: '#94a3b8', fontSize: '0.95rem', maxWidth: '650px', margin: '8px auto 0' }}>
+              We do not resell cheap virtualized slices. Data Serware operates dedicated enterprise hardware with strict resource reservation.
+            </p>
           </ScrollReveal>
 
-          <div className="ag-features-grid">
+          <div className="ag-features-grid" style={{ marginTop: '2.5rem' }}>
             {features.map((feat, idx) => {
               const IconComp = feat.icon;
               return (
-                <ScrollReveal key={idx} animation="fade-up" delay={idx * 100}>
+                <ScrollReveal key={idx} animation="fade-up" delay={idx * 80}>
                   <div className="ag-feature-card">
                     <div className="feat-icon-ring">
                       <IconComp size={24} className="feat-icon" />
@@ -466,23 +848,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BOTTOM CTA: CONNECTED DIRECTLY TO CLIENT AREA & CONTROL PANEL */}
       <section className="ag-section bottom-cta-sec">
         <div className="container">
           <ScrollReveal animation="fade-up">
-            <div className="ag-bottom-cta-box">
+            <div className="ag-bottom-cta-box" style={{ background: 'linear-gradient(135deg, #071e3d 0%, #030c1c 100%)', border: '1px solid rgba(0, 242, 254, 0.35)', borderRadius: '24px', padding: '3rem 2rem' }}>
               <div className="cta-info">
-                <span className="ag-section-badge">READY TO DOMINATE?</span>
-                <h2>Deploy Your Game Server in Seconds</h2>
-                <p>Instant setup, 24/7 support, and ultra-low latency routes across Asia.</p>
+                <span className="ag-section-badge">DATA SERWARE CLOUD ECOSYSTEM</span>
+                <h2>Deploy Your Infrastructure Today</h2>
+                <p>Instant setup, 24/7 Discord support, and sub-15ms latency across Asia and global nodes.</p>
               </div>
-              <Link to="/plans" className="ag-primary-cta">
-                <span>View All Plans</span>
-                <ArrowRight size={18} />
-              </Link>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link to="/billing" className="ag-primary-cta" style={{ textDecoration: 'none' }}>
+                  <CreditCard size={18} />
+                  <span>Go to Client Area &amp; Store</span>
+                  <ArrowRight size={18} />
+                </Link>
+                <Link
+                  to="/panel"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '0.9rem 1.5rem',
+                    borderRadius: '12px',
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid rgba(16, 185, 129, 0.4)',
+                    color: '#34d399',
+                    fontWeight: 800,
+                    fontSize: '0.95rem',
+                    textDecoration: 'none'
+                  }}
+                >
+                  <Terminal size={18} />
+                  <span>Launch Control Panel</span>
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
+
     </div>
   );
 }

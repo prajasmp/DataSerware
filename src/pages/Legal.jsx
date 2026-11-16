@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { Shield, RefreshCw, Lock, Mail, MessageSquare, CheckCircle, PackageCheck, Zap } from 'lucide-react';
-import NovexLogo from '../components/NovexLogo';
+import DataSerwareLogo from '../components/DataSerwareLogo';
 
 export default function Legal() {
   const location = useLocation();
@@ -18,11 +18,11 @@ export default function Legal() {
       <>
         <h3>1. 24-Hour Service Guarantee</h3>
         <p>
-          At NOVEXHOST, we are committed to providing world-class game servers and Cloud VPS hosting. If your server is not automatically deployed or experiences prolonged downtime due to an infrastructure outage on our side within the first 24 hours of purchase, you are eligible for a full refund.
+          At Data Serware, we are committed to providing world-class game servers and Cloud VPS hosting. If your server is not automatically deployed or experiences prolonged downtime due to an infrastructure outage on our side within the first 24 hours of purchase, you are eligible for a full refund.
         </p>
-        <h3>2. Razorpay Refund Processing</h3>
+        <h3>2. Razorpay &amp; Payment Refund Processing</h3>
         <p>
-          All eligible refunds are processed directly back to your original payment method (UPI, Debit Card, Credit Card, or NetBanking) through our Razorpay merchant integration. Razorpay typically credits refunded funds within 2 to 5 banking business days.
+          All eligible refunds are processed directly back to your original payment method (UPI, Debit Card, Credit Card, or NetBanking) through our payment gateway integration. Typically refunds are credited within 2 to 5 banking business days.
         </p>
         <h3>3. Non-Refundable Items</h3>
         <p>
@@ -30,7 +30,7 @@ export default function Legal() {
         </p>
         <h3>4. How to Request a Refund</h3>
         <p>
-          To submit a refund inquiry, simply email <strong>support@novexhost.com</strong> or open a Discord ticket with your Order Reference (e.g., <code>ORD-NVX-XXXX</code>) and Razorpay Payment ID.
+          To submit a refund inquiry, simply email <strong>support@dataserware.com</strong> or open a Discord ticket with your Order Reference (e.g., <code>ORD-DSW-XXXX</code>) and Payment ID.
         </p>
       </>
     );
@@ -41,11 +41,11 @@ export default function Legal() {
       <>
         <h3>1. Minimal Customer Data Collection</h3>
         <p>
-          NOVEXHOST operates on a guest-first, privacy-respecting architecture. We do not require customer account registration or forced social sign-in to purchase hosting. We only collect the details necessary to deliver and manage your server: full name, contact email address, mobile number, and transaction references.
+          Data Serware operates on a guest-first, privacy-respecting architecture. We do not require forced social sign-in to purchase hosting. We only collect the details necessary to deliver and manage your server: full name, contact email address, mobile number, and transaction references.
         </p>
-        <h3>2. Payment Security with Razorpay</h3>
+        <h3>2. Payment Security</h3>
         <p>
-          All payment card, UPI, and banking transactions are processed securely through Razorpay's PCI-DSS Level 1 compliant infrastructure with 256-bit SSL encryption. NOVEXHOST never stores or accesses your credit card numbers, CVV, or banking passwords.
+          All payment card, UPI, and banking transactions are processed securely through PCI-DSS Level 1 compliant infrastructure with 256-bit SSL encryption. Data Serware never stores or accesses your credit card numbers, CVV, or banking passwords.
         </p>
         <h3>3. Data Confidentiality</h3>
         <p>
@@ -54,7 +54,7 @@ export default function Legal() {
       </>
     );
   } else if (path.includes('contact')) {
-    title = 'Contact NOVEXHOST';
+    title = 'Contact Data Serware';
     icon = Mail;
     content = (
       <>
@@ -67,19 +67,19 @@ export default function Legal() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
             <div style={{ background: '#030712', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
               <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Email Inquiries:</span>
-              <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>support@novexhost.com</strong>
+              <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>support@dataserware.com</strong>
             </div>
 
             <div style={{ background: '#030712', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '1.25rem' }}>
               <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Billing &amp; Payments:</span>
-              <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>billing@novexhost.com</strong>
+              <strong style={{ color: '#ffffff', display: 'block', fontSize: '1rem', marginTop: '4px' }}>billing@dataserware.com</strong>
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.5rem' }}>
             <a
               className="primary-btn glow-btn inline-btn"
-              href="https://discord.gg/novexhost"
+              href="https://discord.gg/dataserware"
               target="_blank"
               rel="noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}
@@ -103,19 +103,19 @@ export default function Legal() {
       <>
         <h3>1. Acceptable Use Policy</h3>
         <p>
-          NOVEXHOST provides high-performance computing, game hosting, and VPS infrastructure for lawful personal and commercial operations. Customers must not use our servers for DDoS attacks, malware distribution, port scanning, cryptocurrency mining without prior written authorization, or unlawful mass spamming.
+          Data Serware provides high-performance computing, game hosting, and VPS infrastructure for lawful personal and commercial operations. Customers must not use our servers for DDoS attacks, malware distribution, port scanning, cryptocurrency mining without prior written authorization, or unlawful mass spamming.
         </p>
         <h3>2. Instant Automated Deployment</h3>
         <p>
-          Hosting services purchased on NOVEXHOST are automatically deployed via our API integration upon successful Razorpay payment verification. If automatic provisioning is delayed by node allocation queues, the customer will not be charged again, and an engineer will provision the environment immediately.
+          Hosting services purchased on Data Serware are automatically deployed via our API integration upon successful payment verification. If automatic provisioning is delayed by node allocation queues, the customer will not be charged again, and an engineer will provision the environment immediately.
         </p>
         <h3>3. Service Level Agreement (SLA)</h3>
         <p>
-          We guarantee 99.9% network uptime across all tier-3 datacenter nodes in Mumbai, Singapore, Frankfurt, and Virginia. Scheduled maintenance is announced in advance on our Discord server and status portal.
+          We guarantee 99.9% network uptime across all tier-3 datacenter nodes in Mumbai, Singapore, Frankfurt, London, and Virginia. Scheduled maintenance is announced in advance on our Discord server and status portal.
         </p>
         <h3>4. Backups and Data Integrity</h3>
         <p>
-          While NOVEXHOST performs automated node-level snapshots, customers are encouraged to download regular SFTP backups of their game worlds, configurations, and VPS storage.
+          While Data Serware performs automated node-level snapshots, customers are encouraged to download regular SFTP backups of their game worlds, configurations, and VPS storage.
         </p>
       </>
     );
@@ -133,7 +133,7 @@ export default function Legal() {
             </div>
             <div>
               <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#ffffff', margin: 0, fontFamily: 'Outfit, sans-serif' }}>{title}</h1>
-              <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>NOVEXHOST Legal &bull; Last updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+              <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Data Serware Legal &bull; Last updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
             </div>
           </div>
 

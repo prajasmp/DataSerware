@@ -18,10 +18,10 @@ export default function GoogleAccountChooserModal({ isOpen, onClose, onSelectAcc
       photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80'
     },
     {
-      name: 'NOVEXHOST Admin',
-      email: 'admin@novexhost.com',
+      name: 'Data Serware Admin',
+      email: 'admin@dataserware.com',
       avatarBg: '#0284c7',
-      initial: 'N',
+      initial: 'D',
       photoURL: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80'
     }
   ];

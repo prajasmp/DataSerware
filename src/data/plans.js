@@ -1,5 +1,5 @@
 /**
- * NOVEXHOST Centralized Plan & Pricing System
+ * Data Serware Centralized Plan & Pricing System
  * All prices have been increased by exactly 10% (New Price = Existing Price * 1.10).
  * Original prices are preserved as `originalPrice` for reference and auditing.
  * Prices are strictly static/deterministic so they are never multiplied again on reloads.
@@ -166,7 +166,7 @@ export const WEB_HOSTING_PLANS = [
     id: "web-solo",
     category: "web-hosting",
     type: "web",
-    name: "NOVEX SOLO",
+    name: "SERWARE SOLO",
     websites: "1 Website",
     storage: "10 GB NVMe Storage",
     databases: "2 MySQL Databases",
@@ -194,7 +194,7 @@ export const WEB_HOSTING_PLANS = [
     id: "web-premium",
     category: "web-hosting",
     type: "web",
-    name: "NOVEX PREMIUM",
+    name: "SERWARE PREMIUM",
     websites: "3 Websites",
     storage: "20 GB NVMe Storage",
     databases: "10 MySQL Databases",
@@ -224,7 +224,7 @@ export const WEB_HOSTING_PLANS = [
     id: "web-business",
     category: "web-hosting",
     type: "web",
-    name: "NOVEX BUSINESS",
+    name: "SERWARE BUSINESS",
     websites: "10 Websites",
     storage: "50 GB NVMe Storage",
     databases: "100 MySQL Databases",
@@ -477,6 +477,13 @@ export const ALL_PLANS = [
   ...WEB_HOSTING_PLANS,
   ...VDS_PLANS
 ];
+
+export const ALL_GAME_PLANS = GAME_PLANS;
+export const ALL_VPS_PLANS = VPS_PLANS;
+export const BOT_HOSTING_PLANS = BOT_PLANS;
+export const VDS_RYZEN9_PLANS = VDS_PLANS.filter(p => p.category === 'vds-ryzen9');
+export const VDS_RYZEN7_PLANS = VDS_PLANS.filter(p => p.category === 'vds-ryzen7');
+export const VDS_XEON_PLANS = VDS_PLANS.filter(p => p.category === 'vds-xeon');
 
 export const getPlanById = (id) => ALL_PLANS.find(p => p.id === id);
 

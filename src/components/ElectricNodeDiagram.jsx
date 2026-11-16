@@ -65,7 +65,7 @@ export default function ElectricNodeDiagram() {
     <div className="electric-diagram-wrapper glass-card glow-border">
       <div className="diagram-header text-center">
         <span className="badge-subtitle">Infrastructure Core</span>
-        <h2>High-Speed Edge Network Driven by NOVEXHOST</h2>
+        <h2>High-Speed Edge Network Driven by Data Serware</h2>
         <p>Real-time telemetry, automated server provisioning, and lightning-fast packet routing across all hosting layers.</p>
       </div>
 
@@ -160,8 +160,8 @@ export default function ElectricNodeDiagram() {
             <div className="chip-pin pin-right-2" />
 
             <div className="chip-content">
-              <span className="chip-ag-text">NVX</span>
-              <span className="chip-subtext">NOVEX CORE</span>
+              <span className="chip-ag-text">DSW</span>
+              <span className="chip-subtext">SERWARE CORE</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import NovexLogo from './NovexLogo';
+import DataSerwareLogo from './DataSerwareLogo';
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -269,7 +269,7 @@ export default function Preloader({ onComplete }) {
 
       <div className="lusion-ui-container">
         <div className="lusion-logo-wrapper" style={{ width: 'auto', height: 'auto', marginBottom: '1.25rem' }}>
-          <NovexLogo size={52} showText={true} />
+          <DataSerwareLogo size={52} showText={true} />
         </div>
 
         <div className="lusion-percentage-display">
@@ -288,7 +288,7 @@ export default function Preloader({ onComplete }) {
           {progress < 30 && 'INITIALIZING HIGH-SPEED INFRASTRUCTURE...'}
           {progress >= 30 && progress < 70 && 'SYNCHRONIZING GLOBAL CLOUD NODES...'}
           {progress >= 70 && progress < 100 && 'OPTIMIZING NETWORK & DDOS SHIELDS...'}
-          {progress === 100 && 'NOVEXHOST PLATFORM READY'}
+          {progress === 100 && 'DATA SERWARE PLATFORM READY'}
         </div>
       </div>
     </div>

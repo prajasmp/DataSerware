@@ -25,7 +25,7 @@ const MOCK_INITIAL_ORDERS = [
 
 export function OrderProvider({ children }) {
   const [orders, setOrders] = useState(() => {
-    const saved = localStorage.getItem('novexhost_orders') || localStorage.getItem('ag_cloud_orders');
+    const saved = localStorage.getItem('dataserware_orders') || localStorage.getItem('novexhost_orders') || localStorage.getItem('ag_cloud_orders');
     return saved ? JSON.parse(saved) : MOCK_INITIAL_ORDERS;
   });
 
@@ -68,6 +68,7 @@ export function OrderProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    localStorage.setItem('dataserware_orders', JSON.stringify(orders));
     localStorage.setItem('novexhost_orders', JSON.stringify(orders));
   }, [orders]);
 

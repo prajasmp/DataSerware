@@ -21,7 +21,7 @@ import {
   fetchAdminVds,
   manageAdminVds
 } from '../services/api';
-import NovexLogo from '../components/NovexLogo';
+import DataSerwareLogo from '../components/DataSerwareLogo';
 import {
   ShieldCheck, CheckCircle, XCircle, Play, Square, RotateCw,
   Trash2, AlertTriangle, RefreshCw, Server,
@@ -263,7 +263,7 @@ export default function Admin({ mode }) {
           <ShieldAlert size={48} style={{ color: '#ef4444', margin: '0 auto 1rem' }} />
           <h2 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Admin Access Required</h2>
           <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
-            You must be an authorized NOVEXHOST administrator to access this management dashboard.
+            You must be an authorized Data Serware administrator to access this management dashboard.
           </p>
           <Link to="/" style={{ padding: '0.8rem 1.5rem', background: 'linear-gradient(135deg, #00f2fe 0%, #06b6d4 100%)', color: '#030712', fontWeight: 700, borderRadius: '10px', textDecoration: 'none' }}>
             Return to Homepage
@@ -291,11 +291,11 @@ export default function Admin({ mode }) {
         {/* Top Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <NovexLogo size={36} showText={false} />
+            <DataSerwareLogo size={36} showText={false} />
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <h1 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', margin: 0 }}>
-                  NOVEXHOST Admin Console
+                  Data Serware Admin Console
                 </h1>
                 <span style={{ background: 'rgba(0, 242, 254, 0.15)', border: '1px solid rgba(0, 242, 254, 0.4)', color: '#00f2fe', fontSize: '0.75rem', fontWeight: 700, padding: '2px 8px', borderRadius: '6px' }}>
                   v2.0
@@ -702,7 +702,7 @@ export default function Admin({ mode }) {
                           </td>
                           <td style={{ padding: '14px', color: '#cbd5e1' }}>
                             <span style={{ background: 'rgba(6, 182, 212, 0.1)', color: '#00f2fe', padding: '3px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700 }}>
-                              {acc.package || 'NOVEX_SOLO'}
+                              {acc.package || 'SERWARE_SOLO'}
                             </span>
                           </td>
                           <td style={{ padding: '14px', color: '#94a3b8' }}>
@@ -1207,7 +1207,7 @@ export default function Admin({ mode }) {
                   </span>
                 </div>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Panel URL:</strong> <code style={{ color: '#00f2fe' }}>{settings?.pterodactyl?.panelUrl || 'https://panel.novexhost.com'}</code></div>
+                  <div><strong>Panel URL:</strong> <code style={{ color: '#00f2fe' }}>{settings?.pterodactyl?.panelUrl || 'https://panel.dataserware.com'}</code></div>
                   <div><strong>Application API Key:</strong> <span style={{ color: settings?.pterodactyl?.hasApplicationKey ? '#34d399' : '#ef4444' }}>{settings?.pterodactyl?.hasApplicationKey ? 'Loaded (Never Exposed)' : 'Missing'}</span></div>
                   <div><strong>Target Node ID:</strong> {settings?.pterodactyl?.nodeId || 1}</div>
                   <div><strong>Location / Egg ID:</strong> Loc {settings?.pterodactyl?.locationId || 1} &bull; Egg {settings?.pterodactyl?.eggId || 3}</div>
@@ -1238,7 +1238,7 @@ export default function Admin({ mode }) {
                   <Globe size={18} style={{ color: '#00f2fe' }} /> Brand Identity
                 </h4>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Brand Name:</strong> <strong style={{ color: '#00f2fe' }}>NOVEXHOST</strong></div>
+                  <div><strong>Brand Name:</strong> <strong style={{ color: '#00f2fe' }}>Data Serware</strong></div>
                   <div><strong>Theme:</strong> Premium Aqua &amp; Cyan Cyber UI</div>
                   <div><strong>Default Currency:</strong> Indian Rupee (INR ₹)</div>
                   <div><strong>Customer Login Requirement:</strong> <span style={{ color: '#34d399' }}>Disabled (Guest Purchases)</span></div>

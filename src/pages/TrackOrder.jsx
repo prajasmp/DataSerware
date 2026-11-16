@@ -136,7 +136,7 @@ export default function TrackOrder() {
             <ShieldCheck size={16} /> Instant Order Tracking &bull; No Login Required
           </div>
           <h1 style={{ fontSize: '2.4rem', fontWeight: 900, color: '#ffffff', fontFamily: 'Outfit, sans-serif', marginBottom: '0.5rem' }}>
-            Track Your NOVEXHOST Order
+            Track Your Data Serware Order
           </h1>
           <p style={{ color: '#94a3b8', fontSize: '1rem', maxWidth: '580px', margin: '0 auto' }}>
             Lookup your real-time payment status, automated server provisioning, node allocation, and server IP details.
@@ -284,12 +284,12 @@ export default function TrackOrder() {
                           </div>
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Nameservers</span>
-                            <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>ns1.novexhost.com / ns2.novexhost.com</span>
+                            <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>ns1.dataserware.com / ns2.dataserware.com</span>
                           </div>
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>cPanel Login</span>
                             <a
-                              href={order.serverDetails.cpanelUrl || 'https://cpanel.novexhost.com:2083'}
+                              href={order.serverDetails.cpanelUrl || 'https://cpanel.dataserware.com:2083'}
                               target="_blank"
                               rel="noopener noreferrer"
                               style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#00f2fe', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'underline' }}
@@ -364,12 +364,12 @@ export default function TrackOrder() {
                           <div>
                             <span style={{ fontSize: '0.8rem', color: '#94a3b8', display: 'block', marginBottom: '4px' }}>Control Panel</span>
                             <a
-                              href={order.serverDetails.panelUrl || 'https://panel.novexhost.com'}
+                              href={order.serverDetails.panelUrl || '/panel'}
                               target="_blank"
                               rel="noopener noreferrer"
                               style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#00f2fe', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'underline' }}
                             >
-                              <span>Open Pterodactyl</span>
+                              <span>Open Control Panel</span>
                               <ExternalLink size={14} />
                             </a>
                           </div>
@@ -394,7 +394,7 @@ export default function TrackOrder() {
                     </div>
 
                     <a
-                      href="https://discord.gg/novexhost"
+                      href="https://discord.gg/dataserware"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: '#00f2fe', fontWeight: 600, textDecoration: 'none' }}

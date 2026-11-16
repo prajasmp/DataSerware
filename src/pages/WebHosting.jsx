@@ -29,23 +29,23 @@ export default function WebHosting() {
   const faqs = [
     {
       q: "What is cPanel Web Hosting and how quickly is it activated?",
-      a: "NOVEXHOST cPanel Web Hosting is an enterprise-grade hosting solution for websites, WordPress, and PHP applications. Activation is immediate upon successful Razorpay payment verification through our automated provisioning cluster."
+      a: "Data Serware cPanel Web Hosting is an enterprise-grade hosting solution for websites, WordPress, and PHP applications. Activation is immediate upon successful Razorpay payment verification through our automated provisioning cluster."
     },
     {
-      q: "Does NOVEXHOST Web Hosting come with a Free SSL Certificate?",
-      a: "Yes! Every website hosted on NOVEXHOST receives automatic, unlimited Let's Encrypt / AutoSSL certificates renewed seamlessly with zero manual configuration."
+      q: "Does Data Serware Web Hosting come with a Free SSL Certificate?",
+      a: "Yes! Every website hosted on Data Serware receives automatic, unlimited Let's Encrypt / AutoSSL certificates renewed seamlessly with zero manual configuration."
     },
     {
       q: "Can I host multiple websites under one plan?",
-      a: "Our NOVEX SOLO plan supports 1 hosted website, NOVEX PREMIUM supports up to 3 domains, and NOVEX BUSINESS supports up to 10 hosted websites with 100 MySQL databases."
+      a: "Our SERWARE SOLO plan supports 1 hosted website, SERWARE PREMIUM supports up to 3 domains, and SERWARE BUSINESS supports up to 10 hosted websites with 100 MySQL databases."
     },
     {
       q: "Do you provide SSH terminal access?",
-      a: "Yes, our NOVEX BUSINESS tier includes direct secure SSH terminal access alongside Git deployment integration."
+      a: "Yes, our SERWARE BUSINESS tier includes direct secure SSH terminal access alongside Git deployment integration."
     },
     {
       q: "Do I need to create an account before ordering?",
-      a: "No! NOVEXHOST features a 100% guest-friendly ordering system. You simply select your plan, enter your domain and contact info, and pay. You receive an unguessable tracking link and instant credentials."
+      a: "No! Data Serware features a 100% guest-friendly ordering system. You simply select your plan, enter your domain and contact info, and pay. You receive an unguessable tracking link and instant credentials."
     }
   ];
 
@@ -211,9 +211,9 @@ export default function WebHosting() {
               <thead>
                 <tr className="border-b border-slate-800 text-cyan-400 uppercase text-xs tracking-wider">
                   <th className="py-4 px-6 font-semibold">Features</th>
-                  <th className="py-4 px-6 font-semibold">NOVEX SOLO</th>
-                  <th className="py-4 px-6 font-semibold text-cyan-300">NOVEX PREMIUM</th>
-                  <th className="py-4 px-6 font-semibold">NOVEX BUSINESS</th>
+                  <th className="py-4 px-6 font-semibold">SERWARE SOLO</th>
+                  <th className="py-4 px-6 font-semibold text-cyan-300">SERWARE PREMIUM</th>
+                  <th className="py-4 px-6 font-semibold">SERWARE BUSINESS</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60">
@@ -322,7 +322,7 @@ export default function WebHosting() {
                 <div className="w-3 h-3 rounded-full bg-amber-500" />
                 <div className="w-3 h-3 rounded-full bg-emerald-500" />
               </div>
-              <span className="text-xs font-mono text-cyan-300">cPanel 120.0 (NOVEXHOST)</span>
+              <span className="text-xs font-mono text-cyan-300">cPanel 120.0 (Data Serware)</span>
             </div>
             <div className="space-y-3 font-mono text-xs">
               <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
@@ -339,7 +339,7 @@ export default function WebHosting() {
               </div>
               <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between">
                 <span className="text-slate-400">Nameservers:</span>
-                <span className="text-cyan-300">ns1.novexhost.com / ns2.novexhost.com</span>
+                <span className="text-cyan-300">ns1.dataserware.com / ns2.dataserware.com</span>
               </div>
             </div>
           </div>

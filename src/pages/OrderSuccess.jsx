@@ -137,7 +137,7 @@ export default function OrderSuccess() {
             </Link>
 
             <a
-              href="https://discord.gg/novexhost"
+              href="https://discord.gg/dataserware"
               target="_blank"
               rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '0.9rem 1.5rem', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#ffffff', fontWeight: 600, fontSize: '0.95rem', borderRadius: '12px', textDecoration: 'none' }}

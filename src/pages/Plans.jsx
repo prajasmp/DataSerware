@@ -147,18 +147,18 @@ export default function Plans() {
           {isDomain ? (
             <a
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              href="https://discord.gg/novexhost"
+              href="https://discord.gg/dataserware"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Create Discord Ticket
+              Order Domain via Support
             </a>
           ) : (
             <Link
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              to={`/checkout/${plan.id}`}
+              to={`/billing?plan=${plan.id}`}
             >
-              Subscribe for {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
+              Configure &amp; Order &bull; {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
             </Link>
           )}
         </div>
@@ -172,7 +172,7 @@ export default function Plans() {
 
         <div className="section-heading text-center craft-heading">
           <span className="badge-subtitle">Enterprise Hardware</span>
-          <h1 className="craft-main-title">High-Performance Infrastructure by NOVEXHOST</h1>
+          <h1 className="craft-main-title">High-Performance Infrastructure by Data Serware</h1>
           <p className="craft-main-desc">Enterprise Gen4 NVMe game servers, Cloud VPS, bot hosting, and domains with instant automated deployment</p>
 
           <div className="billing-pill-container plan-section-tabs" aria-label="Plan categories">

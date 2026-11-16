@@ -6,16 +6,18 @@ import { CurrencyProvider } from './context/CurrencyContext';
 import { OrderProvider } from './context/OrderContext';
 import Preloader from './components/Preloader';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import PortalSwitcherBar from './components/PortalSwitcherBar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
+import ClientBilling from './pages/ClientBilling';
+import Panel from './pages/Panel';
+import ServerManage from './pages/ServerManage';
 import Plans from './pages/Plans';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
 import Dashboard from './pages/Dashboard';
-import Panel from './pages/Panel';
-import ServerManage from './pages/ServerManage';
 import Admin from './pages/Admin';
 import Legal from './pages/Legal';
 import TrackOrder from './pages/TrackOrder';
@@ -60,9 +62,14 @@ export default function App() {
             )}
             <div className={`app-shell ${loadingComplete ? 'app-loaded' : ''}`}>
               <BackgroundAnimation />
+
+              {/* Ecosystem Multi-Portal Switcher Bar (dataserware.com | client.dataserware.com | panel.dataserware.com) */}
+              <PortalSwitcherBar />
+
               <Navbar />
               <main className="main-content">
                 <Routes>
+                  {/* PORTAL A: Main Marketing Website (dataserware.com) */}
                   <Route path="/" element={<Home />} />
                   <Route path="/web-hosting" element={<WebHosting />} />
                   <Route path="/vds-machines" element={<VdsMachines />} />
@@ -72,12 +79,20 @@ export default function App() {
                   <Route path="/intel-xeon-machines" element={<VdsMachines />} />
                   <Route path="/plans" element={<Plans />} />
                   <Route path="/plans/:category" element={<Plans />} />
+
+                  {/* PORTAL B: Client Area & Billing Portal (client.dataserware.com) */}
+                  <Route path="/billing" element={<ClientBilling />} />
+                  <Route path="/client" element={<ClientBilling />} />
                   <Route path="/checkout/:planId" element={<Checkout />} />
                   <Route path="/order-success/:id" element={<OrderSuccess />} />
+
+                  {/* PORTAL C: Game & Server Control Panel (panel.dataserware.com) */}
+                  <Route path="/panel" element={<Panel />} />
+                  <Route path="/panel/server/:serverId" element={<Panel />} />
+
+                  {/* Customer Tracking, Account & Legal */}
                   <Route path="/track-order" element={<TrackOrder />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/panel" element={<Panel />} />
-                  <Route path="/panel/server/:serverId" element={<ServerManage />} />
                   <Route path="/admin" element={<Admin mode="orders" />} />
                   <Route path="/admin-emails" element={<Admin mode="emails" />} />
                   <Route path="/terms" element={<Legal />} />

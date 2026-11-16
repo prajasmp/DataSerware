@@ -2,11 +2,12 @@ import React, { useState, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCurrency } from '../context/CurrencyContext';
-import NovexLogo from './NovexLogo';
+import DataSerwareLogo from './DataSerwareLogo';
 import {
   Menu, X, LogOut, ShieldCheck, UserPlus,
   Server, Loader2, ChevronDown, Headphones, FileText,
-  RefreshCcw, PackageCheck, Zap, Shield, HelpCircle
+  RefreshCcw, PackageCheck, Zap, Shield, HelpCircle,
+  CreditCard, Terminal, ExternalLink, Sparkles
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -50,7 +51,7 @@ export default function Navbar() {
       <nav className="nav container design6-nav">
 
         <Link className="brand-design6" to="/">
-          <NovexLogo size={36} showText={true} />
+          <DataSerwareLogo size={36} showText={true} />
         </Link>
 
         <button
@@ -71,15 +72,69 @@ export default function Navbar() {
           </NavLink>
 
           <NavLink to="/vds-machines" onClick={() => setMobileOpen(false)} className={({ isActive }) => (isActive ? 'active' : '')}>
-            VDS Machines
+            VDS &amp; Dedicated
           </NavLink>
 
           <NavLink to="/plans" onClick={() => setMobileOpen(false)} className={({ isActive }) => (isActive ? 'active' : '')}>
             Game &amp; VPS
           </NavLink>
 
+          {/* Portal B: Direct Link to Client Area / Billing */}
+          <NavLink
+            to="/billing"
+            onClick={() => setMobileOpen(false)}
+            className={({ isActive }) => `portal-nav-link client-portal-btn ${isActive ? 'active' : ''}`}
+            style={{
+              color: '#38bdf8',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <CreditCard size={14} style={{ color: '#00f2fe' }} />
+            <span>Client Area</span>
+            <span style={{
+              fontSize: '9px',
+              padding: '1px 5px',
+              borderRadius: '4px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              color: '#38bdf8'
+            }}>
+              Billing
+            </span>
+          </NavLink>
+
+          {/* Portal C: Direct Link to Control Panel */}
+          <NavLink
+            to="/panel"
+            onClick={() => setMobileOpen(false)}
+            className={({ isActive }) => `portal-nav-link panel-portal-btn ${isActive ? 'active' : ''}`}
+            style={{
+              color: '#34d399',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Terminal size={14} style={{ color: '#10b981' }} />
+            <span>Control Panel</span>
+            <span style={{
+              fontSize: '9px',
+              padding: '1px 5px',
+              borderRadius: '4px',
+              background: 'rgba(16, 185, 129, 0.15)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
+              color: '#34d399'
+            }}>
+              Live
+            </span>
+          </NavLink>
+
           <NavLink to="/track-order" onClick={() => setMobileOpen(false)} className={({ isActive }) => `track-order-link ${isActive ? 'active' : ''}`}>
-            <PackageCheck size={15} style={{ display: 'inline', marginRight: '6px', color: '#00f2fe' }} />
+            <PackageCheck size={14} style={{ display: 'inline', marginRight: '5px', color: '#00f2fe' }} />
             Track Order
           </NavLink>
 
@@ -101,16 +156,24 @@ export default function Navbar() {
                 <Link to="/contact" onClick={() => { setSupportDropdownOpen(false); setMobileOpen(false); }}>
                   <Headphones size={16} className="menu-icon cyan" />
                   <div>
-                    <span className="menu-title">24/7 Support</span>
-                    <span className="menu-desc">Specialized technical engineers</span>
+                    <span className="menu-title">24/7 Technical Desk</span>
+                    <span className="menu-desc">Specialized systems engineers</span>
                   </div>
                 </Link>
+
+                <a href="https://discord.gg/dataserware" target="_blank" rel="noopener noreferrer" onClick={() => { setSupportDropdownOpen(false); setMobileOpen(false); }}>
+                  <Zap size={16} className="menu-icon cyan" />
+                  <div>
+                    <span className="menu-title">Discord Community</span>
+                    <span className="menu-desc">Join 4,500+ developers &amp; gamers</span>
+                  </div>
+                </a>
 
                 <Link to="/terms" onClick={() => { setSupportDropdownOpen(false); setMobileOpen(false); }}>
                   <FileText size={16} className="menu-icon cyan" />
                   <div>
                     <span className="menu-title">Terms of Service</span>
-                    <span className="menu-desc">Hosting SLA & acceptable use</span>
+                    <span className="menu-desc">Hosting SLA &amp; acceptable use</span>
                   </div>
                 </Link>
 
@@ -118,7 +181,7 @@ export default function Navbar() {
                   <RefreshCcw size={16} className="menu-icon cyan" />
                   <div>
                     <span className="menu-title">Refund Policy</span>
-                    <span className="menu-desc">Razorpay guarantees & terms</span>
+                    <span className="menu-desc">Transparent money-back terms</span>
                   </div>
                 </Link>
 
@@ -126,7 +189,7 @@ export default function Navbar() {
                   <Shield size={16} className="menu-icon cyan" />
                   <div>
                     <span className="menu-title">Privacy Policy</span>
-                    <span className="menu-desc">Customer data protection</span>
+                    <span className="menu-desc">Enterprise data protection</span>
                   </div>
                 </Link>
               </div>
@@ -134,14 +197,9 @@ export default function Navbar() {
           </div>
 
           {user && (
-            <>
-              <NavLink to="/dashboard" onClick={() => setMobileOpen(false)}>
-                Dashboard
-              </NavLink>
-              <NavLink to="/panel" onClick={() => setMobileOpen(false)} className="highlight-panel-link">
-                <Server size={14} style={{ display: 'inline', marginRight: '4px' }} /> Control Panel
-              </NavLink>
-            </>
+            <NavLink to="/dashboard" onClick={() => setMobileOpen(false)}>
+              My Account
+            </NavLink>
           )}
 
           {isAdmin && (
@@ -165,7 +223,7 @@ export default function Navbar() {
                     <ShieldCheck size={16} className="menu-icon cyan" />
                     <div>
                       <span className="menu-title">Admin Dashboard</span>
-                      <span className="menu-desc">Orders, deployments & revenue</span>
+                      <span className="menu-desc">Orders, deployments &amp; revenue</span>
                     </div>
                   </Link>
 
@@ -173,7 +231,7 @@ export default function Navbar() {
                     <Zap size={16} className="menu-icon cyan" />
                     <div>
                       <span className="menu-title">Product Pricing</span>
-                      <span className="menu-desc">Manage plans & price rates</span>
+                      <span className="menu-desc">Manage plans &amp; price rates</span>
                     </div>
                   </Link>
 
@@ -231,14 +289,14 @@ export default function Navbar() {
               className="login-btn-design6"
               onClick={loginWithGoogle}
               disabled={authLoading}
-              title="Admin / Staff Sign In"
+              title="Client / Admin Sign In"
             >
               {authLoading ? (
                 <Loader2 size={16} className="spin-loader" />
               ) : (
                 <>
                   <ShieldCheck size={16} />
-                  <span>Admin Sign In</span>
+                  <span>Sign In</span>
                 </>
               )}
             </button>

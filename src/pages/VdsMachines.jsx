@@ -40,8 +40,8 @@ export default function VdsMachines() {
 
   const faqs = [
     {
-      q: "What is a NOVEXHOST VDS Machine?",
-      a: "NOVEXHOST VDS Machines are dedicated physical bare-metal servers designed for extreme computing, heavy database clusters, virtualization nodes, and competitive game server networks. You receive the entire physical machine—no shared vCPUs and no noisy neighbors."
+      q: "What is a Data Serware VDS Machine?",
+      a: "Data Serware VDS Machines are dedicated physical bare-metal servers designed for extreme computing, heavy database clusters, virtualization nodes, and competitive game server networks. You receive the entire physical machine—no shared vCPUs and no noisy neighbors."
     },
     {
       q: "How does billing duration work for VDS Machines?",
@@ -76,7 +76,7 @@ export default function VdsMachines() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6">
-            NOVEXHOST <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">VDS Machines</span>
+            Data Serware <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">VDS Machines</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
@@ -293,7 +293,7 @@ export default function VdsMachines() {
               True Physical Machine Architecture
             </h2>
             <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
-              Unlike shared VPS nodes or sliced VMs, each NOVEXHOST VDS machine gives you exclusive bare-metal access to CPU silicon, memory controllers, and PCIe NVMe lanes. Ideal for high-throughput game servers, Redis caches, high-frequency trading simulations, and private cloud hypervisors.
+              Unlike shared VPS nodes or sliced VMs, each Data Serware VDS machine gives you exclusive bare-metal access to CPU silicon, memory controllers, and PCIe NVMe lanes. Ideal for high-throughput game servers, Redis caches, high-frequency trading simulations, and private cloud hypervisors.
             </p>
           </div>
 
