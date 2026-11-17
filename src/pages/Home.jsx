@@ -5,15 +5,27 @@ import {
   Zap, Shield, Cpu, Gauge, Headphones, Lock, Sparkles,
   ArrowRight, Globe, Server, Puzzle, Users, CheckCircle2,
   Terminal, CreditCard, ExternalLink, HardDrive, Wifi, Monitor,
-  Bot, Check, Clock, ShieldCheck, Flame
+  Bot, Check, Clock, ShieldCheck, Flame, ChevronDown, HelpCircle,
+  Play, RotateCcw, Square, FolderGit2, Database, KeyRound
 } from 'lucide-react';
-import ElectricNodeDiagram from '../components/ElectricNodeDiagram';
-import ScrollReveal from '../components/ScrollReveal';
 import { SERVER_LOCATIONS } from '../data/plans';
 
 export default function Home() {
   const { formatPrice } = useCurrency();
   const [pricingCategory, setPricingCategory] = useState('game');
+  const [openFaq, setOpenFaq] = useState(0);
+
+  // Supported games & runtimes strip
+  const supportedGames = [
+    { name: 'Minecraft Java & Bedrock', tag: 'Paper / Fabric / Forge' },
+    { name: 'Palworld', tag: 'High-Ram Dedicated' },
+    { name: 'Rust', tag: 'Anti-DDoS Protected' },
+    { name: 'ARK: Survival Ascended', tag: 'Unreal Engine 5 Ready' },
+    { name: 'GTA V / FiveM', tag: 'Low Latency Mumbai' },
+    { name: 'Discord Bots', tag: 'Node.js / Python / Java' },
+    { name: 'Cloud VPS (KVM)', tag: 'Ubuntu / Debian / Windows' },
+    { name: 'cPanel Web Hosting', tag: 'LiteSpeed / NVMe' }
+  ];
 
   // 6 Core Service Categories
   const serviceCategories = [
@@ -21,7 +33,7 @@ export default function Home() {
       id: 'game-servers',
       title: 'Game Servers',
       icon: Puzzle,
-      description: 'Ultra-low latency game instances for Minecraft (Java/Bedrock), Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
+      description: 'Ultra-low latency game instances for Minecraft, Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
       specs: 'AMD Ryzen 9 7950X • Gen4 NVMe • 1.2 Tbps DDoS',
       link: '/checkout/ryzen-8gb',
       badge: 'POPULAR'
@@ -73,7 +85,7 @@ export default function Home() {
     }
   ];
 
-  // Featured Plans for Pricing & Offers section
+  // Featured Plans for Pricing & Offers
   const featuredGamePlans = [
     {
       id: 'amd-4gb',
@@ -181,43 +193,38 @@ export default function Home() {
 
   const activePlans = pricingCategory === 'game' ? featuredGamePlans : pricingCategory === 'vps' ? featuredVpsPlans : featuredWebPlans;
 
-  const hardwareFeatures = [
+  // Real, practical FAQs
+  const faqs = [
     {
-      icon: Cpu,
-      title: 'AMD Ryzen 9 7950X & EPYC',
-      description: 'Single-core clock speeds up to 5.7 GHz boost ensure 20.0 tick rates on Minecraft and lag-free game worlds.'
+      q: 'How fast is my server deployed after completing payment?',
+      a: 'Deployment is 100% automated! Within 60 seconds of Razorpay payment verification, our API provisions your Pterodactyl container or KVM hypervisor and delivers credentials to your email and dashboard.'
     },
     {
-      icon: Gauge,
-      title: 'Ultra-Low Ping Routing',
-      description: 'Sub-15ms latency across Mumbai, Singapore, Frankfurt, London, and Virginia via tier-1 telecom backbones.'
+      q: 'What payment methods are supported on DataSerware?',
+      a: 'We accept all major Indian and international payment methods via Razorpay: UPI (Google Pay, PhonePe, Paytm, BHIM), NetBanking from 50+ banks, Debit & Credit Cards (Visa, MasterCard, RuPay), and QR Code scan.'
     },
     {
-      icon: Shield,
-      title: '1.2 Tbps Always-On DDoS Shield',
-      description: 'Automated Corero & Path.net layer-3/4/7 packet filtering instantly absorbs volumetric UDP/TCP attacks.'
+      q: 'Can I upgrade my RAM, CPU, or storage later without losing data?',
+      a: 'Yes, absolutely. You can scale your plan directly from the client area at any time. Upgrades take effect instantly with zero data loss or re-configuration required.'
     },
     {
-      icon: Headphones,
-      title: '24/7 Specialized Support',
-      description: 'Direct assistance from knowledgeable systems engineers via live Discord community and support tickets.'
+      q: 'Is 1.2 Tbps DDoS protection included with all servers?',
+      a: 'Yes! Every game server, VPS, and web hosting container is protected by our automated Corero & Path.net layer-3, layer-4, and layer-7 DDoS mitigation at no extra charge.'
     },
     {
-      icon: Lock,
-      title: 'Automated 60-Second Setup',
-      description: 'Immediate automated provisioning upon payment verification. You receive panel credentials in seconds.'
+      q: 'How do I access the game server control panel?',
+      a: 'You can access our custom Pterodactyl control panel directly at panel.dataserware.com. Your login credentials will be emailed to you immediately upon order completion.'
     },
     {
-      icon: Sparkles,
-      title: 'Pterodactyl & KVM Control',
-      description: 'Full web console, live SFTP file manager, database provisioner, and automated offsite snapshots.'
+      q: 'Where are the server locations and what is the ping in India?',
+      a: 'Our primary node cluster is hosted in Mumbai, India, offering ultra-low 8-18ms ping across India. We also operate nodes in Singapore (35-50ms), Frankfurt (110-130ms), and Virginia, USA.'
     }
   ];
 
   return (
     <div className="ds-home-wrapper">
 
-      {/* 1. HERO SECTION (MATCHES SCREENSHOT PRECISELY) */}
+      {/* 1. HERO SECTION (MATCHES USER REFERENCE SCREENSHOT) */}
       <section className="ds-hero-section">
         <div className="container ds-hero-grid">
           {/* Left Column: Headlines, Badge & CTA */}
@@ -325,7 +332,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. 6 SERVICE CATEGORIES */}
+      {/* 2. SUPPORTED WORKLOADS / GAMES TICKER STRIP */}
+      <section className="ds-ticker-section">
+        <div className="container">
+          <div className="ds-ticker-bar">
+            {supportedGames.map((item, idx) => (
+              <div key={idx} className="ds-ticker-item">
+                <CheckCircle2 size={14} className="ds-ticker-icon" />
+                <span className="ds-ticker-name">{item.name}</span>
+                <span className="ds-ticker-tag">{item.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CORE SERVICE CATEGORIES */}
       <section className="ds-section">
         <div className="container">
           <div className="ds-section-header-center">
@@ -367,7 +389,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. PRICING & SPECIAL OFFERS */}
+      {/* 4. PRICING & SPECIAL OFFERS */}
       <section className="ds-section">
         <div className="container">
           {/* Promo Callout */}
@@ -478,7 +500,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. GLOBAL SERVER LOCATIONS */}
+      {/* 5. INTERACTIVE CONTROL PANEL SHOWCASE (PTERODACTYL REALISTIC MOCKUP) */}
+      <section className="ds-section ds-panel-showcase-section">
+        <div className="container">
+          <div className="ds-section-header-center">
+            <span className="ds-badge-tag">PTERODACTYL CONTROL PANEL</span>
+            <h2 className="ds-section-heading">Complete Server Control at Your Fingertips</h2>
+            <p className="ds-section-sub">
+              Manage your servers seamlessly via our official Pterodactyl-powered console at <strong className="text-purple">panel.dataserware.com</strong>.
+            </p>
+          </div>
+
+          <div className="ds-mock-panel-window">
+            {/* Window Top Header */}
+            <div className="ds-mock-panel-bar">
+              <div className="ds-mock-window-dots">
+                <span className="dot red" />
+                <span className="dot yellow" />
+                <span className="dot green" />
+              </div>
+              <div className="ds-mock-server-info">
+                <span className="ds-mock-server-status">● ONLINE</span>
+                <span className="ds-mock-server-name">node-bom-01.dataserware.com:25565</span>
+                <span className="ds-mock-server-spec">AMD Ryzen 9 7950X &bull; 8 GB DDR5</span>
+              </div>
+              <div className="ds-mock-power-controls">
+                <button type="button" className="mock-btn-start" title="Start"><Play size={12} /> Start</button>
+                <button type="button" className="mock-btn-restart" title="Restart"><RotateCcw size={12} /> Restart</button>
+                <button type="button" className="mock-btn-stop" title="Stop"><Square size={12} /> Stop</button>
+              </div>
+            </div>
+
+            {/* Window Navigation Tabs */}
+            <div className="ds-mock-tabs">
+              <span className="mock-tab active"><Terminal size={14} /> Console</span>
+              <span className="mock-tab"><FolderGit2 size={14} /> File Manager</span>
+              <span className="mock-tab"><Database size={14} /> Databases</span>
+              <span className="mock-tab"><HardDrive size={14} /> Backups</span>
+              <span className="mock-tab"><KeyRound size={14} /> Users &amp; SFTP</span>
+            </div>
+
+            {/* Simulated Live Console Output */}
+            <div className="ds-mock-console">
+              <p className="log-line info"><span className="log-ts">[12:00:01 INFO]:</span> Loading DataSerware kernel modules and initializing memory registers...</p>
+              <p className="log-line info"><span className="log-ts">[12:00:02 INFO]:</span> Allocated 8192MB DDR5 ECC RAM &bull; 250% Dedicated 5.7GHz CPU thread</p>
+              <p className="log-line success"><span className="log-ts">[12:00:03 SUCCESS]:</span> Corero 1.2 Tbps DDoS shield online &bull; Path.net filter active on port 25565</p>
+              <p className="log-line info"><span className="log-ts">[12:00:05 INFO]:</span> Starting minecraft_server.1.21.1.jar with Java 21 LTS (ZGC low latency GC)</p>
+              <p className="log-line success"><span className="log-ts">[12:00:07 SUCCESS]:</span> [Server thread/INFO]: Done (2.128s)! For help, type "help"</p>
+              <p className="log-line prompt"><span className="log-cursor">&gt;</span> server ready for connections on in-bom.dataserware.com:25565</p>
+            </div>
+
+            {/* Bottom Panel Bar */}
+            <div className="ds-mock-footer-row">
+              <div className="ds-mock-metrics">
+                <span>CPU: <strong className="text-white">14.2%</strong></span>
+                <span>Memory: <strong className="text-white">2.4 GB / 8 GB</strong></span>
+                <span>Storage: <strong className="text-white">18.5 GB / 40 GB NVMe</strong></span>
+                <span>Uptime: <strong className="text-green">99.98%</strong></span>
+              </div>
+              <a
+                href="https://panel.dataserware.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ds-mock-launch-btn"
+              >
+                <span>Open panel.dataserware.com</span>
+                <ExternalLink size={13} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. GLOBAL DATACENTER LOCATIONS */}
       <section className="ds-section" id="locations">
         <div className="container">
           <div className="ds-section-header-center">
@@ -505,32 +599,38 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          <ElectricNodeDiagram />
         </div>
       </section>
 
-      {/* 5. HARDWARE HIGHLIGHTS */}
-      <section className="ds-section" id="features">
+      {/* 7. FREQUENTLY ASKED QUESTIONS (ACCORDION) */}
+      <section className="ds-section ds-faq-section">
         <div className="container">
           <div className="ds-section-header-center">
-            <span className="ds-badge-tag">HARDWARE SPECIFICATIONS</span>
-            <h2 className="ds-section-heading">Built for Performance &amp; Maximum Reliability</h2>
+            <span className="ds-badge-tag">HAVE QUESTIONS?</span>
+            <h2 className="ds-section-heading">Frequently Asked Questions</h2>
             <p className="ds-section-sub">
-              We operate genuine enterprise silicon with strict resource reservations and zero throttling.
+              Everything you need to know about our hosting infrastructure, payments, and automated deployment.
             </p>
           </div>
 
-          <div className="ds-hardware-grid">
-            {hardwareFeatures.map((feat, idx) => {
-              const IconComp = feat.icon;
+          <div className="ds-faq-list">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
               return (
-                <div key={idx} className="ds-hardware-card">
-                  <div className="ds-hardware-icon-box">
-                    <IconComp size={22} />
-                  </div>
-                  <h3 className="ds-hardware-title">{feat.title}</h3>
-                  <p className="ds-hardware-desc">{feat.description}</p>
+                <div key={idx} className={`ds-faq-item ${isOpen ? 'open' : ''}`}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                    className="ds-faq-question-btn"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown size={18} className={`ds-faq-chevron ${isOpen ? 'rotate' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="ds-faq-answer">
+                      <p>{faq.a}</p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -538,7 +638,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. BOTTOM CTA */}
+      {/* 8. BOTTOM CTA BANNER */}
       <section className="ds-section ds-bottom-cta-section">
         <div className="container">
           <div className="ds-bottom-cta-banner">

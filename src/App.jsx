@@ -54,8 +54,6 @@ function ExternalRedirect({ url }) {
 }
 
 export default function App() {
-  const [loadingComplete, setLoadingComplete] = useState(false);
-
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -86,10 +84,7 @@ export default function App() {
       <AuthProvider>
         <CurrencyProvider>
           <OrderProvider>
-            {!loadingComplete && (
-              <Preloader onComplete={() => setLoadingComplete(true)} />
-            )}
-            <div className={`app-shell ${loadingComplete ? 'app-loaded' : ''}`}>
+            <div className="app-shell app-loaded">
               <BackgroundAnimation />
 
               <Navbar />
