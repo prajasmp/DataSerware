@@ -8,6 +8,7 @@ import Preloader from './components/Preloader';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CookieConsent from './components/CookieConsent';
 
 import Home from './pages/Home';
 import Plans from './pages/Plans';
@@ -131,6 +132,7 @@ export default function App() {
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </main>
+              <CookieConsent />
               <Footer />
             </div>
           </OrderProvider>
