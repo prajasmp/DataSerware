@@ -8279,6 +8279,90 @@ textarea:focus {
   font-weight: 600;
 }
 
+.ds-summary-coupon-box {
+  background: #0a0812;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.ds-coupon-field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ds-coupon-text-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 7px 11px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.ds-coupon-text-input:focus {
+  border-color: #a855f7;
+}
+
+.ds-coupon-apply-btn {
+  background: #a855f7;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ds-coupon-apply-btn:hover {
+  background: #9333ea;
+}
+
+.ds-coupon-feedback {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  margin-top: 8px;
+  padding-top: 4px;
+}
+
+.ds-coupon-feedback.success {
+  color: #4ade80;
+}
+
+.ds-coupon-feedback.error {
+  color: #f87171;
+}
+
+.ds-coupon-remove-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.ds-coupon-remove-btn:hover {
+  color: #f87171;
+}
+
+.ds-pricing-discount-row {
+  background: rgba(74, 222, 128, 0.08);
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
 .ds-summary-pricing-list {
   display: flex;
   flex-direction: column;

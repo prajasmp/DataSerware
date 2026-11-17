@@ -149,13 +149,13 @@ export default function TrackOrder() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#94a3b8', marginBottom: '0.4rem' }}>
-                  Order Reference (e.g. ORD-NVX-XXXX)
+                  Order Reference (e.g. ORD-DSW-XXXX)
                 </label>
                 <input
                   type="text"
                   value={orderId}
                   onChange={(e) => setOrderId(e.target.value)}
-                  placeholder="ORD-NVX-..."
+                  placeholder="ORD-DSW-..."
                   style={{ width: '100%', padding: '0.8rem 1rem', background: '#06020e', border: '1px solid rgba(147, 51, 234, 0.3)', borderRadius: '10px', color: '#fff', fontSize: '0.95rem', outline: 'none' }}
                 />
               </div>

@@ -20,9 +20,21 @@ export default function Checkout() {
   const { formatPrice } = useCurrency();
   const { user } = useAuth();
 
-  // Query parameter for preselected billing cycle (e.g. ?cycle=3mo)
+  // Query parameter for preselected billing cycle (e.g. ?cycle=3mo) & coupon
   const queryParams = new URLSearchParams(location.search);
   const initialCycleId = queryParams.get('cycle') || '1mo';
+  const initialCoupon = (queryParams.get('coupon') || '').trim();
+
+  // Coupon promo code states
+  const [couponCode, setCouponCode] = useState(initialCoupon);
+  const [appliedCoupon, setAppliedCoupon] = useState(() => {
+    return initialCoupon.toLowerCase() === 'dataserware10' ? 'dataserware10' : '';
+  });
+  const [couponMsg, setCouponMsg] = useState(() => {
+    return initialCoupon.toLowerCase() === 'dataserware10'
+      ? { type: 'success', text: '10% discount applied with code dataserware10!' }
+      : null;
+  });
 
   // Customer details (Prefill from Google Auth or LocalStorage if available)
   const [fullName, setFullName] = useState(() => {
@@ -72,7 +84,33 @@ export default function Checkout() {
   const isBareMetalVds = plan?.category?.startsWith('vds-') || plan?.type === 'bare-metal';
 
   const currentCycle = BILLING_CYCLES.find(c => c.id === billingCycle) || BILLING_CYCLES[0];
-  const totalAmount = plan ? calculatePriceForCycle(plan.price, currentCycle.months) : 0;
+  const baseCycleAmount = plan ? calculatePriceForCycle(plan.price, currentCycle.months) : 0;
+  const isDiscountActive = appliedCoupon.toLowerCase() === 'dataserware10';
+  const discountAmount = isDiscountActive ? Math.round(baseCycleAmount * 0.10) : 0;
+  const totalAmount = Math.max(1, baseCycleAmount - discountAmount);
+
+  // Apply or Remove discount coupon
+  const handleApplyCoupon = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const clean = couponCode.trim().toLowerCase();
+    if (!clean) {
+      setCouponMsg({ type: 'error', text: 'Please enter a coupon code.' });
+      return;
+    }
+    if (clean === 'dataserware10') {
+      setAppliedCoupon('dataserware10');
+      setCouponMsg({ type: 'success', text: 'Coupon dataserware10 applied! 10% discount deducted.' });
+    } else {
+      setAppliedCoupon('');
+      setCouponMsg({ type: 'error', text: 'Invalid coupon code. Try code "dataserware10".' });
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon('');
+    setCouponCode('');
+    setCouponMsg(null);
+  };
 
   useEffect(() => {
     if (user) {
@@ -147,6 +185,7 @@ export default function Checkout() {
         serverName: serverName.trim() || domainName.trim() || `${plan.name} Node`,
         serverRegion,
         billingCycle: currentCycle.id,
+        couponCode: isDiscountActive ? 'dataserware10' : null,
         domainName: domainName.trim(),
         os: isBareMetalVds ? operatingSystem : null,
         sshKey: isBareMetalVds ? sshKey.trim() : null
@@ -264,6 +303,7 @@ export default function Checkout() {
         serverName: serverName.trim() || domainName.trim() || `${plan.name} Node`,
         serverRegion,
         billingCycle: currentCycle.id,
+        couponCode: isDiscountActive ? 'dataserware10' : null,
         domainName: domainName.trim(),
         os: isBareMetalVds ? operatingSystem : null,
         sshKey: isBareMetalVds ? sshKey.trim() : null
@@ -570,6 +610,38 @@ export default function Checkout() {
                   )}
                 </div>
 
+                {/* Promo Coupon Box */}
+                <div className="ds-summary-coupon-box">
+                  <div className="ds-coupon-field-row">
+                    <input
+                      type="text"
+                      placeholder="Coupon (e.g. dataserware10)"
+                      value={couponCode}
+                      onChange={(e) => {
+                        setCouponCode(e.target.value);
+                        if (couponMsg && couponMsg.type === 'error') setCouponMsg(null);
+                      }}
+                      className="ds-coupon-text-input"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyCoupon}
+                      className="ds-coupon-apply-btn"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                  {couponMsg && (
+                    <div className={`ds-coupon-feedback ${couponMsg.type}`}>
+                      {couponMsg.type === 'success' ? <CheckCircle2 size={13} /> : <AlertCircle size={13} />}
+                      <span>{couponMsg.text}</span>
+                      {appliedCoupon && (
+                        <button type="button" onClick={handleRemoveCoupon} className="ds-coupon-remove-btn" title="Remove coupon">✕</button>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 {/* Price Breakdown */}
                 <div className="ds-summary-pricing-list">
                   <div className="ds-pricing-line">
@@ -580,6 +652,12 @@ export default function Checkout() {
                     <span>Billing Duration:</span>
                     <span>{currentCycle.duration}</span>
                   </div>
+                  {discountAmount > 0 && (
+                    <div className="ds-pricing-line ds-pricing-discount-row">
+                      <span className="ds-text-green font-medium">10% Off ({appliedCoupon}):</span>
+                      <span className="ds-text-green font-bold">- {formatINR(discountAmount)}</span>
+                    </div>
+                  )}
                   <div className="ds-pricing-line">
                     <span>DDoS Protection (1.2 Tbps):</span>
                     <span className="ds-text-green">INCLUDED</span>

@@ -33,6 +33,7 @@ export async function handler(event, context) {
       serverName,
       serverRegion,
       billingCycle,
+      couponCode,
       domainName,
       os,
       sshKey,
@@ -81,12 +82,12 @@ export async function handler(event, context) {
       };
     }
 
-    // Calculate billing cycle pricing (1mo, 3mo, 6mo, 12mo)
-    const pricing = calculateOrderAmount(plan, billingCycle);
+    // Calculate billing cycle pricing (1mo, 3mo, 6mo, 12mo) & coupon discount
+    const pricing = calculateOrderAmount(plan, billingCycle, couponCode);
 
     // Generate unique order ID and unguessable 64-char crypto tracking token
     const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const orderId = `ORD-NVX-${Date.now().toString().slice(-4)}${randomSuffix}`;
+    const orderId = `ORD-DSW-${Date.now().toString().slice(-4)}${randomSuffix}`;
     const trackingToken = crypto.randomBytes(24).toString('hex');
     const nowIso = new Date().toISOString();
 
@@ -98,6 +99,7 @@ export async function handler(event, context) {
         orderId,
         planId: plan.id,
         duration: pricing.duration,
+        couponApplied: pricing.couponApplied || 'NONE',
         customerEmail: email.trim().toLowerCase(),
         customerName: fullName.trim()
       }
@@ -115,6 +117,8 @@ export async function handler(event, context) {
       plan_name: plan.name,
       original_price: Math.round(plan.originalPrice * pricing.multiplier * 100) / 100,
       amount: pricing.totalAmount,
+      coupon_code: pricing.couponApplied || null,
+      discount_amount: pricing.discountAmount || 0,
       currency: 'INR',
       razorpay_order_id: rzpOrder.id,
       razorpay_payment_id: null,

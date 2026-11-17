@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import { ALL_PLANS, CATEGORIES, CATEGORY_GROUPS } from '../data/plans';
 import { useCurrency } from '../context/CurrencyContext';
 import { Search, Check, Sparkles } from 'lucide-react';
@@ -7,6 +7,9 @@ import { Search, Check, Sparkles } from 'lucide-react';
 export default function Plans() {
   const { category: paramCategory } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const coupon = queryParams.get('coupon');
   const routeCategory = paramCategory && paramCategory in CATEGORIES ? paramCategory : 'intel';
 
   const [activeCategory, setActiveCategory] = useState(routeCategory);
@@ -21,7 +24,8 @@ export default function Plans() {
 
   const selectCategory = (category) => {
     setActiveCategory(category);
-    navigate(category === 'intel' ? '/plans' : `/plans/${category}`);
+    const basePath = category === 'intel' ? '/plans' : `/plans/${category}`;
+    navigate(coupon ? `${basePath}?coupon=${encodeURIComponent(coupon)}` : basePath);
   };
 
   const filteredPlans = useMemo(() => {
@@ -156,7 +160,7 @@ export default function Plans() {
           ) : (
             <Link
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              to={`/checkout/${plan.id}`}
+              to={`/checkout/${plan.id}${coupon ? `?coupon=${encodeURIComponent(coupon)}` : ''}`}
             >
               Configure &amp; Deploy &bull; {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
             </Link>

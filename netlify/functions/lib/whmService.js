@@ -87,7 +87,7 @@ export async function createWebHostingAccount({ domain, customerEmail, planId, p
     username = (raw.slice(0, 6) + crypto.randomBytes(2).toString('hex')).slice(0, 8);
   }
 
-  const password = customPassword || `Nvx!${crypto.randomBytes(6).toString('base64url')}9#`;
+  const password = customPassword || `Dsw!${crypto.randomBytes(6).toString('base64url')}9#`;
 
   // Package mapping based on Data Serware plans
   const packageMap = {

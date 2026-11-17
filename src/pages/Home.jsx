@@ -401,12 +401,12 @@ export default function Home() {
               <div>
                 <strong className="ds-promo-heading">Special Offer: Save 10% on Premium Plans!</strong>
                 <span className="ds-promo-sub">
-                  Use coupon code <code className="ds-code-highlight">SKILL26</code> during checkout for an instant discount.
+                  Use coupon code <code className="ds-code-highlight">dataserware10</code> during checkout for an instant discount.
                 </span>
               </div>
             </div>
 
-            <Link to="/plans" className="ds-promo-cta-btn">
+            <Link to="/plans?coupon=dataserware10" className="ds-promo-cta-btn">
               <span>Explore Plans</span>
               <ArrowRight size={14} />
             </Link>

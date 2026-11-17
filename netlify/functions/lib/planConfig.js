@@ -376,13 +376,19 @@ export function getBillingCycleDetails(cycleInput) {
   return { multiplier: 1, duration: '1 Month', durationDays: 30, cycleId: '1mo' };
 }
 
-export function calculateOrderAmount(plan, cycleInput) {
+export function calculateOrderAmount(plan, cycleInput, couponCode = '') {
   const cycle = getBillingCycleDetails(cycleInput);
-  const totalAmount = Math.round(Number(plan.price) * cycle.multiplier * 100) / 100;
+  const rawTotal = Math.round(Number(plan.price) * cycle.multiplier * 100) / 100;
+  const isCouponValid = String(couponCode || '').trim().toLowerCase() === 'dataserware10';
+  const discountAmount = isCouponValid ? Math.round(rawTotal * 0.10) : 0;
+  const totalAmount = Math.max(1, rawTotal - discountAmount);
   const amountInPaise = Math.round(totalAmount * 100);
   return {
     ...cycle,
     monthlyPrice: plan.price,
+    rawAmount: rawTotal,
+    discountAmount,
+    couponApplied: isCouponValid ? 'dataserware10' : null,
     totalAmount,
     amountInPaise
   };

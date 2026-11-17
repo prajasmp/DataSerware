@@ -32,7 +32,7 @@ export default function Navbar() {
 
   // Copy promo code
   const handleCopyCode = () => {
-    navigator.clipboard.writeText('SKILL26');
+    navigator.clipboard.writeText('dataserware10');
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
   };
@@ -65,13 +65,13 @@ export default function Navbar() {
                 className="ds-promo-code-btn"
                 title="Click to copy coupon code"
               >
-                <span>SKILL26</span>
+                <span>dataserware10</span>
                 {copiedCode ? <Check size={12} className="ds-copied-icon" /> : <Copy size={12} />}
               </button>
             </div>
 
             <div className="ds-offer-right">
-              <Link to="/plans" className="ds-claim-btn">
+              <Link to="/plans?coupon=dataserware10" className="ds-claim-btn">
                 <span>Claim Now</span>
                 <ArrowRight size={13} />
               </Link>

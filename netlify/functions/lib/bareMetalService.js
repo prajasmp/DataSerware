@@ -158,7 +158,7 @@ export async function allocatePhysicalMachine({ planId, location, orderId, store
   if (!machine) {
     const randId = crypto.randomBytes(3).toString('hex').toUpperCase();
     machine = {
-      id: `BM-NVX-${randId}`,
+      id: `BM-DSW-${randId}`,
       planId,
       name: `SERWARE-BM-${randId}`,
       rack: 'RACK-EXP-AUTO',
@@ -185,7 +185,7 @@ export async function startBareMetalProvisioning({ machine, os, hostname, sshKey
   const chosenOs = os || 'Ubuntu 24.04 LTS';
   const chosenHost = hostname || `${machine.name.toLowerCase()}.dataserware.net`;
   const assignedIp = (machine.ipPool && machine.ipPool[0]) ? machine.ipPool[0] : '103.195.102.10';
-  const rootPassword = `NvxRoot!${crypto.randomBytes(6).toString('base64url')}#`;
+  const rootPassword = `DswRoot!${crypto.randomBytes(6).toString('base64url')}#`;
 
   console.log(`[Bare-Metal NOC] Commencing automated deployment on ${machine.name} (${machine.rack}) for Order ${orderId}:`);
   console.log(` -> OS Target: ${chosenOs}`);
