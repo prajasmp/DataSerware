@@ -18,8 +18,7 @@ import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Legal from './pages/Legal';
 import TrackOrder from './pages/TrackOrder';
-import WebHosting from './pages/WebHosting';
-import VdsMachines from './pages/VdsMachines';
+import VpsOverview from './pages/VpsOverview';
 
 function ExternalRedirect({ url }) {
   useEffect(() => {
@@ -90,16 +89,19 @@ export default function App() {
               <Navbar />
               <main className="main-content">
                 <Routes>
-                  {/* Main Hosting Solutions (Like skilloraclouds.com) */}
+                  {/* Core Services: Game Servers, Cloud VPS, Bot Hosting */}
                   <Route path="/" element={<Home />} />
-                  <Route path="/web-hosting" element={<WebHosting />} />
-                  <Route path="/vds-machines" element={<VdsMachines />} />
-                  <Route path="/vds-machines/:family" element={<VdsMachines />} />
-                  <Route path="/amd-ryzen-9-machines" element={<VdsMachines />} />
-                  <Route path="/amd-ryzen-7-machines" element={<VdsMachines />} />
-                  <Route path="/intel-xeon-machines" element={<VdsMachines />} />
+                  <Route path="/vps" element={<VpsOverview />} />
                   <Route path="/plans" element={<Plans />} />
                   <Route path="/plans/:category" element={<Plans />} />
+
+                  {/* Legacy URL Redirects */}
+                  <Route path="/web-hosting" element={<Navigate to="/plans" replace />} />
+                  <Route path="/vds-machines" element={<Navigate to="/vps" replace />} />
+                  <Route path="/vds-machines/:family" element={<Navigate to="/vps" replace />} />
+                  <Route path="/amd-ryzen-9-machines" element={<Navigate to="/vps" replace />} />
+                  <Route path="/amd-ryzen-7-machines" element={<Navigate to="/vps" replace />} />
+                  <Route path="/intel-xeon-machines" element={<Navigate to="/vps" replace />} />
 
                   {/* Ordering & Checkout Flow */}
                   <Route path="/checkout/:planId" element={<Checkout />} />

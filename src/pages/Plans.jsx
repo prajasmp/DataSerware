@@ -179,7 +179,7 @@ export default function Plans() {
         <div className="section-heading text-center craft-heading">
           <span className="badge-subtitle">Enterprise Hardware</span>
           <h1 className="craft-main-title">High-Performance Infrastructure by Data Serware</h1>
-          <p className="craft-main-desc">Enterprise Gen4 NVMe game servers, Cloud VPS, bot hosting, and domains with instant automated deployment</p>
+          <p className="craft-main-desc">Enterprise Gen4 NVMe game servers, Cloud VPS, and Discord bot hosting with instant automated deployment</p>
           <div style={{ marginTop: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', background: 'rgba(88, 101, 242, 0.12)', border: '1px solid rgba(88, 101, 242, 0.3)', borderRadius: '999px', color: '#c7d2fe', fontSize: '0.86rem', fontWeight: 600 }}>
             <span>💬 All purchases are handled through Discord. Join Discord &amp; open a ticket to get set up instantly!</span>
           </div>
@@ -190,8 +190,8 @@ export default function Plans() {
                 key={group.id}
                 className={`pill-option ${activeGroup.id === group.id ? 'active' : ''}`}
                 onClick={() => {
-                  if (group.path && (group.id === 'web-hosting' || group.id === 'vds-machines')) {
-                    navigate(group.path);
+                  if (group.id === 'vps') {
+                    navigate('/vps');
                   } else {
                     selectCategory(group.categories[0]);
                   }

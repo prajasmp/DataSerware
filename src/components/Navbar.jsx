@@ -110,7 +110,7 @@ export default function Navbar() {
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links: Keep Only Server, VPS, Bot Hosting */}
           <nav className={`ds-nav-links ${mobileOpen ? 'ds-mobile-open' : ''}`}>
             {/* Home */}
             <NavLink
@@ -123,168 +123,47 @@ export default function Navbar() {
               <span>Home</span>
             </NavLink>
 
-            {/* Services Dropdown */}
-            <div
-              className="ds-dropdown-item"
-              onMouseEnter={() => { clearTimeout(servicesTimer.current); setServicesOpen(true); }}
-              onMouseLeave={() => { servicesTimer.current = setTimeout(() => setServicesOpen(false), 200); }}
-            >
-              <button
-                type="button"
-                className={`ds-nav-btn ${servicesOpen ? 'active' : ''}`}
-                onClick={() => setServicesOpen(!servicesOpen)}
-              >
-                <Package size={15} className="ds-pill-icon" />
-                <span>Services</span>
-                <ChevronDown size={13} className={`ds-chevron ${servicesOpen ? 'rotate' : ''}`} />
-              </button>
-
-              {servicesOpen && (
-                <div className="ds-dropdown-menu">
-                  <Link to="/plans" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon purple">
-                      <Server size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Game Servers</span>
-                      <span className="ds-row-sub">Minecraft, Palworld &amp; Steam games</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/plans/bot" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon blue">
-                      <Bot size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Discord Bot Hosting</span>
-                      <span className="ds-row-sub">24/7 Node.js, Python, Java runtime</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/plans" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon green">
-                      <Globe size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Domain Registration</span>
-                      <span className="ds-row-sub">.com, .in, .xyz instant DNS setup</span>
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* VPS / RDP Dropdown */}
-            <div
-              className="ds-dropdown-item"
-              onMouseEnter={() => { clearTimeout(vpsTimer.current); setVpsOpen(true); }}
-              onMouseLeave={() => { vpsTimer.current = setTimeout(() => setVpsOpen(false), 200); }}
-            >
-              <button
-                type="button"
-                className={`ds-nav-btn ${vpsOpen ? 'active' : ''}`}
-                onClick={() => setVpsOpen(!vpsOpen)}
-              >
-                <Monitor size={15} className="ds-pill-icon" />
-                <span>VPS / RDP</span>
-                <ChevronDown size={13} className={`ds-chevron ${vpsOpen ? 'rotate' : ''}`} />
-              </button>
-
-              {vpsOpen && (
-                <div className="ds-dropdown-menu">
-                  <Link to="/plans" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon purple">
-                      <Cpu size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">AMD Ryzen Ultra VPS</span>
-                      <span className="ds-row-sub">Up to 5.7 GHz single core clock</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/plans" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon blue">
-                      <Server size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Intel Cloud VPS</span>
-                      <span className="ds-row-sub">High compute KVM with dedicated IPv4</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/plans/rdp" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon green">
-                      <Monitor size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Windows RDP Servers</span>
-                      <span className="ds-row-sub">Windows Server 2022/2025 GUI Desktop</span>
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Dedicated Dropdown */}
-            <div
-              className="ds-dropdown-item"
-              onMouseEnter={() => { clearTimeout(dedicatedTimer.current); setDedicatedOpen(true); }}
-              onMouseLeave={() => { dedicatedTimer.current = setTimeout(() => setDedicatedOpen(false), 200); }}
-            >
-              <button
-                type="button"
-                className={`ds-nav-btn ${dedicatedOpen ? 'active' : ''}`}
-                onClick={() => setDedicatedOpen(!dedicatedOpen)}
-              >
-                <Globe size={15} className="ds-pill-icon" />
-                <span>Dedicated</span>
-                <ChevronDown size={13} className={`ds-chevron ${dedicatedOpen ? 'rotate' : ''}`} />
-              </button>
-
-              {dedicatedOpen && (
-                <div className="ds-dropdown-menu">
-                  <Link to="/vds-machines" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon purple">
-                      <Cpu size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">AMD Ryzen 9 9950X</span>
-                      <span className="ds-row-sub">16 Cores / 32 Threads Bare-Metal</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/vds-machines" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon blue">
-                      <Server size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">AMD Ryzen 7 VDS</span>
-                      <span className="ds-row-sub">5700G &amp; 5800X Bare-Metal Nodes</span>
-                    </div>
-                  </Link>
-
-                  <Link to="/vds-machines" onClick={closeAllDropdowns} className="ds-menu-row">
-                    <div className="ds-row-icon green">
-                      <ShieldCheck size={16} />
-                    </div>
-                    <div>
-                      <span className="ds-row-title">Intel Xeon High-Density</span>
-                      <span className="ds-row-sub">Up to 44 Threads with IPMI / KVM</span>
-                    </div>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Web & Bot Hosting direct link */}
+            {/* Game / Cloud Servers */}
             <NavLink
-              to="/web-hosting"
+              to="/plans"
               onClick={closeAllDropdowns}
               className={({ isActive }) => `ds-nav-pill ${isActive ? 'active' : ''}`}
             >
-              <Headphones size={15} className="ds-pill-icon" />
-              <span>Web &amp; Bot Hosting</span>
+              <Server size={15} className="ds-pill-icon" />
+              <span>Servers</span>
             </NavLink>
+
+            {/* Cloud VPS Overview */}
+            <NavLink
+              to="/vps"
+              onClick={closeAllDropdowns}
+              className={({ isActive }) => `ds-nav-pill ${isActive ? 'active' : ''}`}
+            >
+              <Cpu size={15} className="ds-pill-icon" />
+              <span>Cloud VPS</span>
+            </NavLink>
+
+            {/* Bot Hosting */}
+            <NavLink
+              to="/plans/bot-hosting"
+              onClick={closeAllDropdowns}
+              className={({ isActive }) => `ds-nav-pill ${isActive ? 'active' : ''}`}
+            >
+              <Bot size={15} className="ds-pill-icon" />
+              <span>Bot Hosting</span>
+            </NavLink>
+
+            {/* Discord Community */}
+            <a
+              href="https://dsc.gg/dataserware"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeAllDropdowns}
+              className="ds-nav-pill"
+            >
+              <MessageSquare size={15} className="ds-pill-icon" style={{ color: '#5865F2' }} />
+              <span>Discord</span>
+            </a>
           </nav>
 
           {/* Right Action Buttons */}

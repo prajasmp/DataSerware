@@ -27,60 +27,33 @@ export default function Home() {
     { name: 'cPanel Web Hosting', tag: 'LiteSpeed / NVMe' }
   ];
 
-  // 6 Core Service Categories
+  // 3 Core Service Categories: Server, VPS, Bot Hosting
   const serviceCategories = [
     {
       id: 'game-servers',
-      title: 'Game Servers',
+      title: 'Game & Cloud Servers',
       icon: Puzzle,
-      description: 'Ultra-low latency game instances for Minecraft, Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
+      description: 'Ultra-low latency game instances for Minecraft, Palworld, Rust, and ARK with custom Pterodactyl panel and instant Discord deployment.',
       specs: 'AMD Ryzen 9 7950X • Gen4 NVMe • 1.2 Tbps DDoS',
       link: '/plans',
-      badge: 'POPULAR'
+      badge: 'HIGH-FREQUENCY'
     },
     {
       id: 'cloud-vps',
-      title: 'VPS Hosting',
+      title: 'High-Performance Cloud VPS',
       icon: Server,
-      description: 'High-frequency KVM Cloud VPS running Linux (Ubuntu, Debian, AlmaLinux) or Windows with 100% dedicated vCPUs & dedicated IPv4.',
-      specs: 'Dedicated IPv4 • 1 Gbps Port • Root Access',
-      link: '/plans/vps',
-      badge: 'HIGH-CLOCK'
-    },
-    {
-      id: 'rdp-hosting',
-      title: 'RDP Hosting',
-      icon: Monitor,
-      description: 'Dedicated Remote Desktop VPS with Windows Server 2022/2025, low latency, 24/7 background execution, and zero idle timeouts.',
-      specs: 'Windows Server • GUI Desktop • 99.9% Uptime',
-      link: '/plans/rdp',
-      badge: 'WINDOWS'
-    },
-    {
-      id: 'dedicated-vds',
-      title: 'Dedicated Servers',
-      icon: Cpu,
-      description: 'Pure bare-metal physical hardware with exclusive silicon, up to 128 GB DDR5 ECC, 2 TB Gen4 NVMe, and unshared 10 Gbps uplinks.',
-      specs: '100% Bare-Metal • AMD Ryzen 9 9950X • IPMI Access',
-      link: '/vds-machines',
-      badge: 'BARE-METAL'
-    },
-    {
-      id: 'web-hosting',
-      title: 'Web Hosting',
-      icon: Globe,
-      description: 'LiteSpeed / NGINX hybrid web hosting with official cPanel, unlimited free AutoSSL certificates, MariaDB databases, and 1-click WordPress.',
-      specs: 'cPanel 120 • Free SSL • NVMe SSD ~ 7,000 MB/s',
-      link: '/web-hosting',
-      badge: 'CPANEL'
+      description: 'Enterprise KVM Cloud VPS powered by AMD Ryzen, AMD EPYC, and Intel Xeon with 100% dedicated vCPUs, dedicated IPv4 & full root access.',
+      specs: '100% Dedicated vCPU • Dedicated IPv4 • 1 Gbps Port',
+      link: '/vps',
+      badge: 'ENTERPRISE KVM'
     },
     {
       id: 'bot-hosting',
       title: 'Discord Bot Hosting',
       icon: Bot,
-      description: 'Reliable 24/7 background container hosting for Discord bots, API workers, and webhooks in Node.js, Python, Go, and Java.',
-      specs: 'Node.js 20 • Python 3.11 • 0% CPU Throttling',
-      link: '/plans/bot',
+      description: 'Reliable 24/7 background container runtime for Discord bots, API workers, and webhooks in Node.js, Python, Go, and Java.',
+      specs: 'Node.js 20 • Python 3.11 • 24/7 Uptime',
+      link: '/plans/bot-hosting',
       badge: 'ALWAYS-ON'
     }
   ];
@@ -145,53 +118,53 @@ export default function Home() {
     },
     {
       id: 'ryzen-vps-16gb',
-      name: 'Ryzen Ultra VPS 16 GB (RDP)',
-      category: 'High-End / RDP',
+      name: 'Ryzen Ultra VPS 16 GB',
+      category: 'Extreme KVM Compute',
       price: 1748,
-      badge: 'RDP Ready',
-      ram: '16 GB RAM',
+      badge: 'Powerhouse',
+      ram: '16 GB DDR5 RAM',
       cpu: '4 AMD Ryzen vCores',
       storage: '96 GB Gen4 NVMe',
-      features: ['Windows Server 2022/2025 GUI', 'Ultra Low Latency RDP Access', 'Unmetered 1 Gbps Uplink', 'Daily Cloud Snapshots']
+      features: ['Full KVM Root Access', 'Dedicated IPv4 Address', 'Unmetered 1 Gbps Uplink', 'Daily Cloud Backups']
     }
   ];
 
-  const featuredWebPlans = [
+  const featuredBotPlans = [
     {
-      id: 'web-solo',
-      name: 'SERWARE SOLO',
-      category: 'cPanel Web Hosting',
-      price: 24.20,
-      ram: '1 Hosted Website',
-      cpu: '10 GB NVMe Storage',
-      storage: '2 MySQL Databases',
-      features: ['1 Hosted Website', '10 GB NVMe Storage', 'Free AutoSSL Certificate', 'cPanel Control Panel Included']
+      id: 'bot-2gb',
+      name: 'Bot Hosting 2 GB',
+      category: 'Bot Runtime',
+      price: 48,
+      ram: '2 GB RAM',
+      cpu: '1 Dedicated vCore',
+      storage: '10 GB NVMe SSD',
+      features: ['Node.js 20 & Python 3.11', '24/7 Always-On Background Runtime', 'Pterodactyl Container Isolation', 'Automated Crash Restart']
     },
     {
-      id: 'web-premium',
-      name: 'SERWARE PREMIUM',
-      category: 'cPanel Web Hosting',
-      price: 77.00,
-      badge: 'Best Value',
-      ram: '3 Hosted Websites',
-      cpu: '20 GB NVMe Storage',
-      storage: '10 MySQL Databases',
-      features: ['3 Hosted Websites', '20 GB NVMe Storage', 'Free Domain (Annual Plan)', '7 Automated Backup Slots']
+      id: 'bot-4gb',
+      name: 'Bot Hosting 4 GB',
+      category: 'Bot Runtime',
+      price: 97,
+      badge: 'Most Popular',
+      ram: '4 GB RAM',
+      cpu: '2 Dedicated vCores',
+      storage: '20 GB NVMe SSD',
+      features: ['Discord / Telegram Bot Ready', 'Low Latency Network Socket', 'SFTP File Manager & Web Console', 'Daily Automated Backups']
     },
     {
-      id: 'web-business',
-      name: 'SERWARE BUSINESS',
-      category: 'cPanel Web Hosting',
-      price: 220.00,
-      badge: 'Enterprise',
-      ram: '10 Hosted Websites',
-      cpu: '50 GB NVMe Storage',
-      storage: '100 MySQL Databases',
-      features: ['10 Hosted Websites', '50 GB NVMe Storage', 'SSH Terminal Access & Git', 'Free Domain & Dedicated IP']
+      id: 'bot-8gb',
+      name: 'Bot Hosting 8 GB',
+      category: 'High-Traffic Cluster',
+      price: 194,
+      badge: 'Shard Ready',
+      ram: '8 GB RAM',
+      cpu: '4 Dedicated vCores',
+      storage: '40 GB NVMe SSD',
+      features: ['Multi-Bot Discord Sharding', 'Java 21, Golang & Rust Support', 'Unmetered 1 Gbps Bandwidth', '24/7 Priority Discord Support']
     }
   ];
 
-  const activePlans = pricingCategory === 'game' ? featuredGamePlans : pricingCategory === 'vps' ? featuredVpsPlans : featuredWebPlans;
+  const activePlans = pricingCategory === 'game' ? featuredGamePlans : pricingCategory === 'vps' ? featuredVpsPlans : featuredBotPlans;
 
   // Real, practical FAQs
   const faqs = [
@@ -245,7 +218,7 @@ export default function Home() {
             </h1>
 
             <p className="ds-hero-desc">
-              Instant deployment for Game Servers, VPS, RDP, Dedicated Servers, Web Hosting and Discord Bot Hosting on AMD Ryzen &amp; EPYC with NVMe SSD, 500 Tbps+ DDoS protection.
+              Instant 24/7 deployment for Game Servers, High-Frequency Cloud VPS, and Discord Bot Hosting on AMD Ryzen™ &amp; EPYC with Gen4 NVMe and 1.2 Tbps DDoS protection.
             </p>
 
             <div className="ds-hero-cta-group">
@@ -435,21 +408,21 @@ export default function Home() {
                 onClick={() => setPricingCategory('game')}
                 className={`ds-tab-btn ${pricingCategory === 'game' ? 'active' : ''}`}
               >
-                🎮 Minecraft &amp; Game
+                🎮 Game Servers
               </button>
               <button
                 type="button"
                 onClick={() => setPricingCategory('vps')}
                 className={`ds-tab-btn ${pricingCategory === 'vps' ? 'active' : ''}`}
               >
-                🚀 Cloud VPS &amp; RDP
+                🚀 Cloud VPS
               </button>
               <button
                 type="button"
-                onClick={() => setPricingCategory('web')}
-                className={`ds-tab-btn ${pricingCategory === 'web' ? 'active' : ''}`}
+                onClick={() => setPricingCategory('bot')}
+                className={`ds-tab-btn ${pricingCategory === 'bot' ? 'active' : ''}`}
               >
-                🌐 cPanel Web
+                🤖 Bot Hosting
               </button>
             </div>
           </div>

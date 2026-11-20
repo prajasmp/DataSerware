@@ -26,12 +26,10 @@ export default function Footer() {
 
         <div className="footer-col">
           <h4>Hosting Solutions</h4>
-          <Link to="/web-hosting" style={{ color: '#c084fc', fontWeight: 600 }}>cPanel Web Hosting</Link>
-          <Link to="/vds-machines" style={{ color: '#c084fc', fontWeight: 600 }}>VDS Bare-Metal Machines</Link>
-          <Link to="/plans">Minecraft Game Servers</Link>
-          <Link to="/plans">AMD Ryzen Ultra VPS</Link>
-          <Link to="/plans">Discord Bot Hosting</Link>
-          <Link to="/plans">Dedicated RDP Servers</Link>
+          <Link to="/plans">Game &amp; Cloud Servers</Link>
+          <Link to="/vps">High-Performance Cloud VPS</Link>
+          <Link to="/plans/bot-hosting">Discord Bot Hosting</Link>
+          <a href="https://dsc.gg/dataserware" target="_blank" rel="noopener noreferrer">Instant Discord Orders</a>
         </div>
 
         <div className="footer-col">

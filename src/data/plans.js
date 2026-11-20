@@ -12,20 +12,12 @@ export const CATEGORIES = {
   "intel-vps": "Intel Cloud VPS",
   "amd-vps": "AMD Cloud VPS",
   "ryzen-vps": "Ryzen Ultra VPS",
-  "web-hosting": "cPanel Web Hosting",
-  "vds-ryzen9": "AMD Ryzen 9 VDS Machines",
-  "vds-ryzen7": "AMD Ryzen 7 VDS Machines",
-  "vds-xeon": "Intel Xeon VDS Machines",
-  domains: "Top-Level Domains",
   "bot-hosting": "Discord / App Bot Hosting"
 };
 
 export const CATEGORY_GROUPS = [
-  { id: "web-hosting", label: "Web Hosting", categories: ["web-hosting"], path: "/web-hosting" },
-  { id: "vds-machines", label: "VDS Machines", categories: ["vds-ryzen9", "vds-ryzen7", "vds-xeon"], path: "/vds-machines" },
   { id: "plans", label: "Game Servers", categories: ["intel", "amd", "ryzen"], path: "/plans" },
-  { id: "vps", label: "Cloud VPS", categories: ["intel-vps", "amd-vps", "ryzen-vps"], path: "/plans/intel-vps" },
-  { id: "domains", label: "Domains", categories: ["domains"], path: "/plans/domains" },
+  { id: "vps", label: "Cloud VPS", categories: ["ryzen-vps", "amd-vps", "intel-vps"], path: "/vps" },
   { id: "bot-hosting", label: "Bot Hosting", categories: ["bot-hosting"], path: "/plans/bot-hosting" }
 ];
 
@@ -472,18 +464,15 @@ export const SUPPORTED_VDS_OS = [
 export const ALL_PLANS = [
   ...GAME_PLANS,
   ...VPS_PLANS,
-  ...DOMAIN_PLANS,
-  ...BOT_PLANS,
-  ...WEB_HOSTING_PLANS,
-  ...VDS_PLANS
+  ...BOT_PLANS
 ];
 
 export const ALL_GAME_PLANS = GAME_PLANS;
 export const ALL_VPS_PLANS = VPS_PLANS;
 export const BOT_HOSTING_PLANS = BOT_PLANS;
-export const VDS_RYZEN9_PLANS = VDS_PLANS.filter(p => p.category === 'vds-ryzen9');
-export const VDS_RYZEN7_PLANS = VDS_PLANS.filter(p => p.category === 'vds-ryzen7');
-export const VDS_XEON_PLANS = VDS_PLANS.filter(p => p.category === 'vds-xeon');
+export const VDS_RYZEN9_PLANS = [];
+export const VDS_RYZEN7_PLANS = [];
+export const VDS_XEON_PLANS = [];
 
 export const getPlanById = (id) => ALL_PLANS.find(p => p.id === id);
 
