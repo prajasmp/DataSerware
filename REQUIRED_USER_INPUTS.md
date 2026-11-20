@@ -17,26 +17,11 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 
 ## 2. API Credentials You Must Obtain
 
-### A. Razorpay Live Payment Gateway
-*Required to collect real payments from customers. Never commit secrets to Git.*
+### A. Discord Community & Orders
+*All customer purchases, billing, and server setups are handled directly through Discord tickets.*
 
-1. **`RAZORPAY_KEY_ID`**:
-   - **Where to Obtain**: [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys).
-   - **Instructions**: Switch the top toggle to **Live Mode**. Click **Generate Key**. Copy the **Key Id** (`rzp_live_...`).
-   - **Where to Enter**: Cloudflare Pages / Netlify Dashboard Environment Variables.
-   - **Secret?**: Public key ID (used in checkout modal).
-
-2. **`RAZORPAY_KEY_SECRET`**:
-   - **Where to Obtain**: [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys).
-   - **Instructions**: Generated alongside Key ID. Copy immediately.
-   - **Where to Enter**: Netlify Dashboard > Site configuration > Environment variables (Server-side Secret).
-   - **Secret?**: **STRICT SECRET**.
-
-3. **`RAZORPAY_WEBHOOK_SECRET`**:
-   - **Where to Obtain**: [Razorpay Dashboard > Settings > Webhooks](https://dashboard.razorpay.com/app/webhooks).
-   - **Instructions**: Click **Add New Webhook**. Set Webhook URL to `https://<your-domain>/api/payments/webhook`. Set a secure Secret string. Check active events: `payment.captured`, `order.paid`, `payment.failed`. Save and copy the secret string.
-   - **Where to Enter**: Netlify Secrets Dashboard.
-   - **Secret?**: **STRICT SECRET**.
+1. **`DISCORD_INVITE_URL`**: `https://dsc.gg/dataserware`
+2. **`DISCORD_PROMO_CODE`**: `dataserware10` (10% OFF on all plans)
 
 ---
 

@@ -128,7 +128,7 @@ export function updateOrderInStore(orderId, updates) {
 
 export function getOrderByIdFromStore(orderId) {
   if (!orderId) return null;
-  return ordersStore.find(o => o.id === orderId || o.tracking_token === orderId || o.razorpay_order_id === orderId) || null;
+  return ordersStore.find(o => o.id === orderId || o.tracking_token === orderId || o.payment_reference === orderId) || null;
 }
 
 export function getOrderByTokenFromStore(token) {

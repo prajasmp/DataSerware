@@ -20,9 +20,9 @@ export default function Legal() {
         <p>
           At Data Serware, we are committed to providing world-class game servers and Cloud VPS hosting. If your server is not automatically deployed or experiences prolonged downtime due to an infrastructure outage on our side within the first 24 hours of purchase, you are eligible for a full refund.
         </p>
-        <h3>2. Razorpay &amp; Payment Refund Processing</h3>
+        <h3>2. Payment &amp; Refund Processing</h3>
         <p>
-          All eligible refunds are processed directly back to your original payment method (UPI, Debit Card, Credit Card, or NetBanking) through our payment gateway integration. Typically refunds are credited within 2 to 5 banking business days.
+          All eligible refunds are processed directly back to your payment method through our official Discord support tickets. Typically refunds are credited within 2 to 5 banking business days.
         </p>
         <h3>3. Non-Refundable Items</h3>
         <p>

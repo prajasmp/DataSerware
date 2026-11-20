@@ -79,7 +79,7 @@ export default function OrderSuccess() {
               ? 'Your high-performance node has been provisioned on our cluster. You can connect right away using the IP below.'
               : isFailed
               ? 'Your payment was successfully received and is 100% safe. Our automated cluster is waiting for node allocation. The administrator has been notified to retry deployment.'
-              : 'Our automated system has verified your Razorpay payment and is currently assigning ports, memory limits, and SSD allocations.'}
+              : 'Our automated system has verified your order and is currently assigning ports, memory limits, and SSD allocations.'}
           </p>
 
           {/* Order Details Card */}
@@ -108,7 +108,7 @@ export default function OrderSuccess() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.9rem' }}>
               <span style={{ color: '#94a3b8' }}>Payment Status:</span>
-              <span style={{ color: '#34d399', fontWeight: 700 }}>PAID (Razorpay Verified)</span>
+              <span style={{ color: '#34d399', fontWeight: 700 }}>VERIFIED &amp; CONFIRMED</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>

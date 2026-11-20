@@ -1,5 +1,4 @@
 import { verifyFirebaseToken, isAuthorizedAdmin } from './lib/firebaseAdmin.js';
-import { isRazorpayConfigured, getRazorpayKeyId } from './lib/razorpayClient.js';
 import { validateEnvironment } from './lib/envValidator.js';
 
 export async function handler(event, context) {
@@ -30,10 +29,6 @@ export async function handler(event, context) {
       };
     }
 
-    const razorpayKeyId = getRazorpayKeyId();
-    const hasRazorpaySecret = Boolean(process.env.RAZORPAY_KEY_SECRET && !process.env.RAZORPAY_KEY_SECRET.includes('your_'));
-    const hasWebhookSecret = Boolean(process.env.RAZORPAY_WEBHOOK_SECRET && !process.env.RAZORPAY_WEBHOOK_SECRET.includes('your_'));
-
     const panelUrl = process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com';
     const hasPteroAppKey = Boolean(process.env.PTERODACTYL_APPLICATION_API_KEY && !process.env.PTERODACTYL_APPLICATION_API_KEY.includes('your_'));
     const hasPteroClientKey = Boolean(process.env.PTERODACTYL_CLIENT_API_KEY && !process.env.PTERODACTYL_CLIENT_API_KEY.includes('your_'));
@@ -58,13 +53,11 @@ export async function handler(event, context) {
             website: 'https://dataserware.com',
             theme: 'Aqua Cyber UI'
           },
-          razorpay: {
-            isConfigured: isRazorpayConfigured(),
-            keyId: razorpayKeyId ? `${razorpayKeyId.slice(0, 8)}...${razorpayKeyId.slice(-4)}` : 'Not Set',
-            hasSecret: hasRazorpaySecret,
-            hasWebhookSecret,
-            currency: 'INR',
-            webhookEndpoint: '/api/payments/webhook'
+          discord: {
+            inviteUrl: 'https://dsc.gg/dataserware',
+            ticketChannel: '#tickets',
+            promoCode: 'dataserware10',
+            discountPercent: 10
           },
           pterodactyl: {
             panelUrl,

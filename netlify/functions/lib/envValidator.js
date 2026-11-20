@@ -23,29 +23,6 @@ export function validateEnvironment() {
       description: 'Runtime environment (development, production, test)'
     },
 
-    // --- Razorpay Payment Gateway ---
-    {
-      key: 'RAZORPAY_KEY_ID',
-      category: 'Payment Gateway',
-      required: isProd,
-      present: Boolean(process.env.RAZORPAY_KEY_ID && !process.env.RAZORPAY_KEY_ID.includes('placeholder') && !process.env.RAZORPAY_KEY_ID.includes('your_')),
-      description: 'Razorpay API Key ID (rzp_test_... or rzp_live_...)'
-    },
-    {
-      key: 'RAZORPAY_KEY_SECRET',
-      category: 'Payment Gateway',
-      required: isProd,
-      present: Boolean(process.env.RAZORPAY_KEY_SECRET && !process.env.RAZORPAY_KEY_SECRET.includes('your_')),
-      description: 'Razorpay API Secret Key used for HMAC payment signature validation'
-    },
-    {
-      key: 'RAZORPAY_WEBHOOK_SECRET',
-      category: 'Payment Gateway',
-      required: false,
-      present: Boolean(process.env.RAZORPAY_WEBHOOK_SECRET && !process.env.RAZORPAY_WEBHOOK_SECRET.includes('your_')),
-      description: 'Webhook verification secret for Razorpay asynchronous payment events'
-    },
-
     // --- Pterodactyl Provisioning (Game Servers & VPS) ---
     {
       key: 'PTERODACTYL_PANEL_URL',

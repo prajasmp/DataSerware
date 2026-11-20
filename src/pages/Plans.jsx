@@ -158,12 +158,14 @@ export default function Plans() {
               Order Domain via Support
             </a>
           ) : (
-            <Link
+            <a
               className={`craft-action-btn ${isPopular ? 'popular-cta-btn' : 'standard-cta-btn'}`}
-              to={`/checkout/${plan.id}${coupon ? `?coupon=${encodeURIComponent(coupon)}` : ''}`}
+              href="https://dsc.gg/dataserware"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Configure &amp; Deploy &bull; {priceVal !== undefined ? formatPrice(priceVal, periodStr) : 'Free'}
-            </Link>
+              Join Discord &amp; Get Instantly
+            </a>
           )}
         </div>
       </article>
@@ -178,6 +180,9 @@ export default function Plans() {
           <span className="badge-subtitle">Enterprise Hardware</span>
           <h1 className="craft-main-title">High-Performance Infrastructure by Data Serware</h1>
           <p className="craft-main-desc">Enterprise Gen4 NVMe game servers, Cloud VPS, bot hosting, and domains with instant automated deployment</p>
+          <div style={{ marginTop: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', background: 'rgba(88, 101, 242, 0.12)', border: '1px solid rgba(88, 101, 242, 0.3)', borderRadius: '999px', color: '#c7d2fe', fontSize: '0.86rem', fontWeight: 600 }}>
+            <span>💬 All purchases are handled through Discord. Join Discord &amp; open a ticket to get set up instantly!</span>
+          </div>
 
           <div className="billing-pill-container plan-section-tabs" aria-label="Plan categories">
             {CATEGORY_GROUPS.map(group => (

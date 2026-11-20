@@ -15,8 +15,6 @@ function netlifyFunctionsDevPlugin() {
 
         // Map routes to function file names
         if (funcName === 'payments/create' || funcName === 'payments/create-order') funcName = 'create-payment';
-        if (funcName === 'payments/verify') funcName = 'verify-payment';
-        if (funcName === 'payments/webhook' || funcName === 'famgateway-webhook') funcName = 'razorpay-webhook';
         if (funcName === 'payments/status') funcName = 'payment-status';
         if (funcName === 'orders/track') funcName = 'track-order';
         if (funcName === 'admin/retry-deployment') funcName = 'admin-retry-deployment';

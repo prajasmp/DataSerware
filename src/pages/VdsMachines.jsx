@@ -206,13 +206,15 @@ export default function VdsMachines() {
                 </div>
 
                 {/* Order Button */}
-                <Link
-                  to={`/checkout/${plan.id}?cycle=${currentCycle.id}`}
+                <a
+                  href="https://dsc.gg/dataserware"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`ds-card-btn ${isFlagship ? 'flagship-btn' : ''}`}
                 >
-                  <span>Deploy {plan.name}</span>
+                  <span>Join Discord &amp; Get Instantly</span>
                   <ArrowRight size={16} />
-                </Link>
+                </a>
               </div>
             );
           })}
@@ -275,7 +277,7 @@ export default function VdsMachines() {
             <div className="ds-feature-box">
               <div className="ds-feature-icon-wrap"><Zap size={22} /></div>
               <h4>Instant NOC Provisioning</h4>
-              <p>Automated network orchestration configures and tests your physical machine immediately upon checkout.</p>
+              <p>Automated network orchestration configures and tests your physical machine immediately upon Discord ticket order.</p>
             </div>
           </div>
         </div>

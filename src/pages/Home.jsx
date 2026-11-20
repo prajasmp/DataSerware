@@ -35,7 +35,7 @@ export default function Home() {
       icon: Puzzle,
       description: 'Ultra-low latency game instances for Minecraft, Palworld, Rust, ARK, and GTA V with automated instant provisioning.',
       specs: 'AMD Ryzen 9 7950X • Gen4 NVMe • 1.2 Tbps DDoS',
-      link: '/checkout/ryzen-8gb',
+      link: '/plans',
       badge: 'POPULAR'
     },
     {
@@ -44,7 +44,7 @@ export default function Home() {
       icon: Server,
       description: 'High-frequency KVM Cloud VPS running Linux (Ubuntu, Debian, AlmaLinux) or Windows with 100% dedicated vCPUs & dedicated IPv4.',
       specs: 'Dedicated IPv4 • 1 Gbps Port • Root Access',
-      link: '/checkout/ryzen-vps-8gb',
+      link: '/plans/vps',
       badge: 'HIGH-CLOCK'
     },
     {
@@ -53,7 +53,7 @@ export default function Home() {
       icon: Monitor,
       description: 'Dedicated Remote Desktop VPS with Windows Server 2022/2025, low latency, 24/7 background execution, and zero idle timeouts.',
       specs: 'Windows Server • GUI Desktop • 99.9% Uptime',
-      link: '/checkout/ryzen-vps-16gb',
+      link: '/plans/rdp',
       badge: 'WINDOWS'
     },
     {
@@ -80,7 +80,7 @@ export default function Home() {
       icon: Bot,
       description: 'Reliable 24/7 background container hosting for Discord bots, API workers, and webhooks in Node.js, Python, Go, and Java.',
       specs: 'Node.js 20 • Python 3.11 • 0% CPU Throttling',
-      link: '/checkout/bot-2gb',
+      link: '/plans/bot',
       badge: 'ALWAYS-ON'
     }
   ];
@@ -196,16 +196,20 @@ export default function Home() {
   // Real, practical FAQs
   const faqs = [
     {
-      q: 'How fast is my server deployed after completing payment?',
-      a: 'Deployment is 100% automated! Within 60 seconds of Razorpay payment verification, our API provisions your Pterodactyl container or KVM hypervisor and delivers credentials to your email and dashboard.'
+      q: 'How do I purchase a server or service?',
+      a: 'All purchases and server provisioning are handled directly through our official Discord community (https://dsc.gg/dataserware). Simply join our Discord, open an instant purchase ticket in #tickets, specify your desired plan, and our team will configure and deliver your server immediately.'
     },
     {
-      q: 'What payment methods are supported on DataSerware?',
-      a: 'We accept all major Indian and international payment methods via Razorpay: UPI (Google Pay, PhonePe, Paytm, BHIM), NetBanking from 50+ banks, Debit & Credit Cards (Visa, MasterCard, RuPay), and QR Code scan.'
+      q: 'How fast is my server deployed after joining Discord?',
+      a: 'Deployment is instant! Once you create your order ticket on Discord, our staff and automated bot scripts provision your Pterodactyl container or KVM hypervisor within minutes, delivering credentials and panel links directly to you.'
+    },
+    {
+      q: 'How do I get the 10% discount with code dataserware10?',
+      a: 'Simply mention the promo code "dataserware10" when opening your ticket on our Discord server. Our staff will instantly apply the 10% discount to your invoice.'
     },
     {
       q: 'Can I upgrade my RAM, CPU, or storage later without losing data?',
-      a: 'Yes, absolutely. You can scale your plan directly from the client area at any time. Upgrades take effect instantly with zero data loss or re-configuration required.'
+      a: 'Yes, absolutely. You can scale your plan directly by opening a support ticket on our Discord at any time. Upgrades take effect instantly with zero data loss or re-configuration required.'
     },
     {
       q: 'Is 1.2 Tbps DDoS protection included with all servers?',
@@ -213,7 +217,7 @@ export default function Home() {
     },
     {
       q: 'How do I access the game server control panel?',
-      a: 'You can access our custom Pterodactyl control panel directly at panel.dataserware.com. Your login credentials will be emailed to you immediately upon order completion.'
+      a: 'You can access our custom Pterodactyl control panel directly at panel.dataserware.com. Your login credentials will be provided in your Discord ticket immediately upon setup.'
     },
     {
       q: 'Where are the server locations and what is the ping in India?',
@@ -401,22 +405,27 @@ export default function Home() {
               <div>
                 <strong className="ds-promo-heading">Special Offer: Save 10% on Premium Plans!</strong>
                 <span className="ds-promo-sub">
-                  Use coupon code <code className="ds-code-highlight">dataserware10</code> during checkout for an instant discount.
+                  Use coupon code <code className="ds-code-highlight">dataserware10</code> on Discord for an instant discount. All purchases are handled through Discord.
                 </span>
               </div>
             </div>
 
-            <Link to="/plans?coupon=dataserware10" className="ds-promo-cta-btn">
-              <span>Explore Plans</span>
+            <a
+              href="https://dsc.gg/dataserware"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ds-promo-cta-btn"
+            >
+              <span>Join Discord &amp; Get Instantly</span>
               <ArrowRight size={14} />
-            </Link>
+            </a>
           </div>
 
           <div className="ds-section-header-center">
             <span className="ds-badge-tag">TRANSPARENT PRICING</span>
             <h2 className="ds-section-heading">Featured Plans &amp; Instant Provisioning</h2>
             <p className="ds-section-sub">
-              Select any tier below to pass the plan details directly into the high-speed 1-click Razorpay checkout.
+              Select any plan below and join our Discord community for instant order setup and automated deployment.
             </p>
 
             {/* Category Switcher Tabs */}
@@ -489,11 +498,16 @@ export default function Home() {
                   </div>
                 </div>
 
-                <Link to={`/checkout/${plan.id}`} className="ds-plan-deploy-btn">
+                <a
+                  href="https://dsc.gg/dataserware"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ds-plan-deploy-btn"
+                >
                   <Zap size={16} />
-                  <span>Deploy Now &bull; Instant Setup</span>
+                  <span>Join Discord &amp; Get Instantly</span>
                   <ArrowRight size={16} />
-                </Link>
+                </a>
               </div>
             ))}
           </div>

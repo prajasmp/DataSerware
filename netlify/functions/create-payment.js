@@ -2,7 +2,6 @@ import crypto from 'crypto';
 import { getTrustedPlan, calculateOrderAmount } from './lib/planConfig.js';
 import { addOrderToStore } from './lib/devStore.js';
 import { supabaseAdmin, isSupabaseAdminConfigured } from './lib/supabaseAdmin.js';
-import { createRazorpayOrder, getRazorpayKeyId } from './lib/razorpayClient.js';
 import { sendOrderConfirmationEmail } from './lib/emailService.js';
 
 export async function handler(event, context) {
@@ -91,20 +90,6 @@ export async function handler(event, context) {
     const trackingToken = crypto.randomBytes(24).toString('hex');
     const nowIso = new Date().toISOString();
 
-    // Create Razorpay backend order with precise total amount
-    const rzpOrder = await createRazorpayOrder({
-      amountInInr: pricing.totalAmount,
-      receipt: orderId,
-      notes: {
-        orderId,
-        planId: plan.id,
-        duration: pricing.duration,
-        couponApplied: pricing.couponApplied || 'NONE',
-        customerEmail: email.trim().toLowerCase(),
-        customerName: fullName.trim()
-      }
-    });
-
     const orderRecord = {
       id: orderId,
       tracking_token: trackingToken,
@@ -120,10 +105,10 @@ export async function handler(event, context) {
       coupon_code: pricing.couponApplied || null,
       discount_amount: pricing.discountAmount || 0,
       currency: 'INR',
-      razorpay_order_id: rzpOrder.id,
-      razorpay_payment_id: null,
-      payment_status: 'PENDING',
-      provisioning_status: 'waiting_payment',
+      payment_method: 'Discord Ticket',
+      payment_status: 'DISCORD_TICKET',
+      provisioning_status: 'waiting_discord_confirmation',
+      discord_url: 'https://dsc.gg/dataserware',
       server_name: (serverName && serverName.trim()) ? serverName.trim() : (domainName || `${plan.name} Node`),
       domain_name: domainName ? domainName.trim().toLowerCase() : null,
       server_region: serverRegion || 'Mumbai, India',
@@ -165,11 +150,9 @@ export async function handler(event, context) {
         success: true,
         orderId,
         trackingToken,
-        razorpayOrderId: rzpOrder.id,
         amount: pricing.totalAmount,
-        amountInPaise: rzpOrder.amount,
         currency: 'INR',
-        razorpayKeyId: getRazorpayKeyId(),
+        discordUrl: 'https://dsc.gg/dataserware',
         planName: plan.name,
         duration: pricing.duration,
         customer: {

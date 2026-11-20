@@ -275,7 +275,7 @@ export default function Admin({ mode }) {
 
   // Filter orders
   const filteredOrders = orders.filter(o => {
-    const s = `${o.id} ${o.user_name} ${o.user_email} ${o.plan_name} ${o.razorpay_payment_id || ''}`.toLowerCase();
+    const s = `${o.id} ${o.user_name} ${o.user_email} ${o.plan_name} ${o.payment_reference || o.razorpay_payment_id || ''}`.toLowerCase();
     const matchesSearch = s.includes(orderSearchQuery.toLowerCase());
     const matchesStatus = orderStatusFilter === 'all' || 
       (orderStatusFilter === 'paid' && (o.payment_status === 'PAID' || o.payment_status === 'APPROVED')) ||
@@ -340,7 +340,7 @@ export default function Admin({ mode }) {
             { id: 'vds', label: `VDS Machines (${vdsMachines.length})`, icon: Cpu },
             { id: 'products', label: 'Product Pricing', icon: Zap },
             { id: 'servers', label: `Active Servers (${servers.length})`, icon: Server },
-            { id: 'payments', label: 'Razorpay Payments', icon: CreditCard },
+            { id: 'payments', label: 'Order Transactions', icon: CreditCard },
             { id: 'settings', label: 'Settings', icon: Settings },
             { id: 'admins', label: 'Admin Team', icon: Users }
           ].map(tab => {
@@ -399,7 +399,7 @@ export default function Admin({ mode }) {
                 <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#34d399', fontFamily: 'Outfit, sans-serif', marginTop: '6px' }}>
                   {metrics?.successfulPayments || 0}
                 </div>
-                <span style={{ fontSize: '0.8rem', color: '#34d399', marginTop: '4px', display: 'block' }}>Captured via Razorpay</span>
+                <span style={{ fontSize: '0.8rem', color: '#34d399', marginTop: '4px', display: 'block' }}>Verified &amp; Active</span>
               </div>
 
               <div style={{ background: '#081426', border: '1px solid rgba(234, 179, 8, 0.25)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
@@ -538,7 +538,7 @@ export default function Admin({ mode }) {
                       <th style={{ padding: '12px 14px' }}>Customer Contact</th>
                       <th style={{ padding: '12px 14px' }}>Plan</th>
                       <th style={{ padding: '12px 14px' }}>Amount</th>
-                      <th style={{ padding: '12px 14px' }}>Razorpay Payment</th>
+                      <th style={{ padding: '12px 14px' }}>Transaction Ref</th>
                       <th style={{ padding: '12px 14px' }}>Deployment Status</th>
                       <th style={{ padding: '12px 14px', textAlign: 'right' }}>Actions</th>
                     </tr>
@@ -583,9 +583,9 @@ export default function Admin({ mode }) {
                             <span style={{ fontSize: '0.78rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: order.payment_status === 'PAID' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: order.payment_status === 'PAID' ? '#34d399' : '#facc15' }}>
                               {order.payment_status}
                             </span>
-                            {order.razorpay_payment_id && (
+                            {(order.payment_reference || order.razorpay_payment_id) && (
                               <span style={{ display: 'block', fontSize: '0.75rem', color: '#64748b', fontFamily: 'monospace', marginTop: '2px' }}>
-                                {order.razorpay_payment_id}
+                                {order.payment_reference || order.razorpay_payment_id}
                               </span>
                             )}
                           </td>
@@ -1107,10 +1107,10 @@ export default function Admin({ mode }) {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
-                Razorpay Payment Records &amp; Webhooks
+                Order Transactions &amp; Billing Records
               </h3>
               <span style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-                Currency: INR &bull; Signature Verified
+                Currency: INR &bull; Verified Tickets
               </span>
             </div>
 
@@ -1119,7 +1119,7 @@ export default function Admin({ mode }) {
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                   <thead>
                     <tr style={{ background: '#050c18', borderBottom: '1px solid rgba(147, 51, 234, 0.2)', color: '#94a3b8' }}>
-                      <th style={{ padding: '12px 14px' }}>Razorpay Payment ID</th>
+                      <th style={{ padding: '12px 14px' }}>Transaction Ref</th>
                       <th style={{ padding: '12px 14px' }}>Order Reference</th>
                       <th style={{ padding: '12px 14px' }}>Customer</th>
                       <th style={{ padding: '12px 14px' }}>Amount</th>
@@ -1128,19 +1128,19 @@ export default function Admin({ mode }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.filter(o => o.payment_status === 'PAID' || o.razorpay_payment_id).length === 0 ? (
+                    {orders.filter(o => o.payment_status === 'PAID' || o.payment_reference || o.razorpay_payment_id).length === 0 ? (
                       <tr>
                         <td colSpan="6" style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
-                          No Razorpay transactions recorded yet.
+                          No order transactions recorded yet.
                         </td>
                       </tr>
                     ) : (
                       orders
-                        .filter(o => o.payment_status === 'PAID' || o.razorpay_payment_id)
+                        .filter(o => o.payment_status === 'PAID' || o.payment_reference || o.razorpay_payment_id)
                         .map(o => (
                           <tr key={o.id} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
                             <td style={{ padding: '14px', fontFamily: 'monospace', color: '#c084fc' }}>
-                              {o.razorpay_payment_id || 'Captured'}
+                              {o.payment_reference || o.razorpay_payment_id || 'Discord Verified'}
                             </td>
                             <td style={{ padding: '14px', fontFamily: 'monospace', color: '#fff' }}>
                               {o.id}
@@ -1178,21 +1178,21 @@ export default function Admin({ mode }) {
             </h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
-              {/* Razorpay Integration Health */}
+              {/* Discord Ticket Integration Health */}
               <div style={{ background: '#081426', border: '1px solid rgba(147, 51, 234, 0.25)', borderRadius: '16px', padding: '1.75rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
                   <h4 style={{ color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CreditCard size={18} style={{ color: '#c084fc' }} /> Razorpay Gateway
+                    <CreditCard size={18} style={{ color: '#5865F2' }} /> Discord Ticket Orders
                   </h4>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: settings?.razorpay?.isConfigured ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: settings?.razorpay?.isConfigured ? '#34d399' : '#facc15' }}>
-                    {settings?.razorpay?.isConfigured ? 'LIVE CONFIGURED' : 'TEST / SANDBOX'}
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: 'rgba(88, 101, 242, 0.2)', color: '#818cf8' }}>
+                    DISCORD EXCLUSIVE
                   </span>
                 </div>
                 <div style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-                  <div><strong>Key ID:</strong> <code style={{ color: '#c084fc' }}>{settings?.razorpay?.keyId || 'rzp_test_placeholder'}</code></div>
-                  <div><strong>Key Secret:</strong> <span style={{ color: settings?.razorpay?.hasSecret ? '#34d399' : '#ef4444' }}>{settings?.razorpay?.hasSecret ? 'Protected & Verified' : 'Missing'}</span></div>
-                  <div><strong>Webhook Secret:</strong> <span style={{ color: settings?.razorpay?.hasWebhookSecret ? '#34d399' : '#facc15' }}>{settings?.razorpay?.hasWebhookSecret ? 'Active' : 'Optional in Dev'}</span></div>
-                  <div><strong>Webhook URL:</strong> <code style={{ color: '#94a3b8' }}>/api/payments/webhook</code></div>
+                  <div><strong>Community Server:</strong> <code style={{ color: '#c084fc' }}>https://dsc.gg/dataserware</code></div>
+                  <div><strong>Order Mode:</strong> <span style={{ color: '#34d399' }}>Discord Ticket Direct Fulfillment</span></div>
+                  <div><strong>Promo Code:</strong> <code style={{ color: '#34d399' }}>dataserware10 (10% OFF)</code></div>
+                  <div><strong>Ticket Desk:</strong> <code style={{ color: '#94a3b8' }}>#tickets • #order</code></div>
                 </div>
               </div>
 

@@ -71,10 +71,15 @@ export default function Navbar() {
             </div>
 
             <div className="ds-offer-right">
-              <Link to="/plans?coupon=dataserware10" className="ds-claim-btn">
-                <span>Claim Now</span>
+              <a
+                href="https://dsc.gg/dataserware"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ds-claim-btn"
+              >
+                <span>Join Discord &amp; Get Instantly</span>
                 <ArrowRight size={13} />
-              </Link>
+              </a>
               <button
                 type="button"
                 className="ds-offer-close-btn"
@@ -146,7 +151,7 @@ export default function Navbar() {
                     </div>
                   </Link>
 
-                  <Link to="/checkout/bot-2gb" onClick={closeAllDropdowns} className="ds-menu-row">
+                  <Link to="/plans/bot" onClick={closeAllDropdowns} className="ds-menu-row">
                     <div className="ds-row-icon blue">
                       <Bot size={16} />
                     </div>
@@ -207,7 +212,7 @@ export default function Navbar() {
                     </div>
                   </Link>
 
-                  <Link to="/checkout/ryzen-vps-16gb" onClick={closeAllDropdowns} className="ds-menu-row">
+                  <Link to="/plans/rdp" onClick={closeAllDropdowns} className="ds-menu-row">
                     <div className="ds-row-icon green">
                       <Monitor size={16} />
                     </div>

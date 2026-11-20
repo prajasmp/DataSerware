@@ -107,7 +107,7 @@ export async function sendOrderConfirmationEmail(order) {
       <div class="stat-row"><span class="stat-label">Server Name</span><span class="stat-value">${order.server_name || 'Standard Node'}</span></div>
       <div class="stat-row"><span class="stat-label">Payment Status</span><span class="stat-value" style="color: #fbbf24;">${order.payment_status?.toUpperCase()}</span></div>
     </div>
-    <p>Your server will be automatically provisioned within seconds of completing payment through Razorpay.</p>
+    <p>Your server will be automatically provisioned within seconds of completing payment through our verified billing desk.</p>
     <div style="text-align: center;">
       <a href="${trackingUrl}" class="btn">View Order &amp; Track Status &rarr;</a>
     </div>
@@ -121,10 +121,10 @@ export async function sendPaymentConfirmationEmail(order) {
   const html = getAquaEmailWrapper('Payment Verified Successfully', `
     <h2 style="color: #ffffff; margin-top: 0;">Payment Confirmed! &check;</h2>
     <p>Hello <strong>${order.user_name || 'Customer'}</strong>,</p>
-    <p>We have successfully received your payment of <strong>₹${order.amount} INR</strong> via Razorpay.</p>
+    <p>We have successfully received your payment of <strong>₹${order.amount} INR</strong>.</p>
     <div class="highlight-card">
       <div class="stat-row"><span class="stat-label">Order Reference</span><span class="stat-value">${order.id}</span></div>
-      <div class="stat-row"><span class="stat-label">Razorpay Payment ID</span><span class="stat-value" style="color: #00f2fe;">${order.razorpay_payment_id || 'Captured'}</span></div>
+      <div class="stat-row"><span class="stat-label">Payment Ref</span><span class="stat-value" style="color: #00f2fe;">${order.razorpay_payment_id || order.id || 'Verified'}</span></div>
       <div class="stat-row"><span class="stat-label">Plan</span><span class="stat-value">${order.plan_name}</span></div>
       <div class="stat-row"><span class="stat-label">Amount Paid</span><span class="stat-value">₹${order.amount} INR</span></div>
       <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value" style="color: #34d399;">PAID</span></div>
@@ -254,7 +254,7 @@ export async function sendRefundUpdateEmail(order, refundDetails) {
   const html = getAquaEmailWrapper('Refund Processed', `
     <h2 style="color: #ffffff; margin-top: 0;">Refund Status Update</h2>
     <p>Hello <strong>${order.user_name || 'Customer'}</strong>,</p>
-    <p>A refund has been initiated for your order <strong>${order.id}</strong> through Razorpay.</p>
+    <p>A refund has been initiated for your order <strong>${order.id}</strong> through our billing team.</p>
     <div class="highlight-card">
       <div class="stat-row"><span class="stat-label">Refund Amount</span><span class="stat-value" style="color: #00f2fe;">₹${refundDetails.amount || order.amount} INR</span></div>
       <div class="stat-row"><span class="stat-label">Refund Reference</span><span class="stat-value">${refundDetails.refundId || 'Standard Refund'}</span></div>

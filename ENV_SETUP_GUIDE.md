@@ -26,9 +26,7 @@ This document is the verified reference for all environment variables, security 
 
 | Exact Variable Name | Req/Opt | Public / Secret | Providing Service | Where to Obtain | Environment | Dependent Application Feature | Safe Placeholder? | How to Verify It Works |
 |---|---|---|---|---|---|---|---|---|
-| `RAZORPAY_KEY_ID` | **Required** (Live) | Public | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Checkout modal initialization and backend order creation | Yes in dev (`rzp_test_...`) | Run test order checkout on `/checkout` |
-| `RAZORPAY_KEY_SECRET` | **Required** (Live) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > API Keys](https://dashboard.razorpay.com/app/keys) | Both | Cryptographic HMAC-SHA256 signature verification | No in prod (must be real secret) | `node scratch/test_env_and_security.js` |
-| `RAZORPAY_WEBHOOK_SECRET` | **Required** (Prod) | **STRICT SECRET** | Razorpay | [Razorpay Dashboard > Settings > Webhooks](https://dashboard.razorpay.com/app/webhooks) | Both | Asynchronous payment capture and timing-safe webhook verification | Allowed only in dev mode | Trigger simulated webhook in test suite |
+| `DISCORD_INVITE_URL` | Optional | Public | Discord | Discord Server Invite | Both | Customer purchasing & community support | Yes (`https://dsc.gg/dataserware`) | Visit invite URL |
 | `PTERODACTYL_PANEL_URL` | Optional | Public | Pterodactyl | Pterodactyl Web Domain | Both | Game server & Cloud VPS provisioning API endpoint | Yes (`https://panel.dataserware.com`) | View nodes list in `/admin` |
 | `PTERODACTYL_APPLICATION_API_KEY` | **Required** (Auto-Ptero) | **STRICT SECRET** | Pterodactyl | Pterodactyl Admin > Application API | Both | Automated Minecraft & VPS server creation and user provisioning | Safe dev fallback to sandbox queue | Order a game server on `/checkout` |
 | `PTERODACTYL_CLIENT_API_KEY` | Optional | **STRICT SECRET** | Pterodactyl | Pterodactyl Account > API Credentials | Both | Console websockets and server power actions | Safe fallback to App Key | Test server power actions in admin |
@@ -73,10 +71,8 @@ This document is the verified reference for all environment variables, security 
 - **Zero Login Purchasing**: Customer registration is completely unauthenticated (zero login friction). Customers provide only server name, region/domain, customer name, email, and mobile number.
 - **`PUBLIC_URL`**: Required in production to ensure tracking URLs sent to customers point to `https://dataserware.com/track-order?id=...&token=...` instead of localhost.
 
-### C. Required for Razorpay Live Payments
-- **`RAZORPAY_KEY_ID`**: Public key for checkout modal.
-- **`RAZORPAY_KEY_SECRET`**: Private secret for backend order creation and HMAC verification.
-- **`RAZORPAY_WEBHOOK_SECRET`**: Required for verifying asynchronous webhooks from Razorpay.
+### C. Required for Discord Purchases
+- **`DISCORD_INVITE_URL`**: Public invite link to our Discord community (`https://dsc.gg/dataserware`). All customer orders and server setups are handled via Discord tickets.
 
 ### D. Required for Automated Pterodactyl Provisioning (Minecraft, Game Servers, VPS)
 - **`PTERODACTYL_PANEL_URL`**: Base URL of your Pterodactyl panel.

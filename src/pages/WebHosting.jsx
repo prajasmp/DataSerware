@@ -38,7 +38,7 @@ export default function WebHosting() {
   const faqs = [
     {
       q: "What is Data Serware cPanel Web Hosting and how fast is activation?",
-      a: "Data Serware Web Hosting is an enterprise-grade hosting solution powered by official cPanel and ultra-fast NVMe Gen4 storage. Activation is 100% automated—upon checkout verification, your cPanel account and login credentials are automatically provisioned and delivered to you within 60 seconds."
+      a: "Data Serware Web Hosting is an enterprise-grade hosting solution powered by official cPanel and ultra-fast NVMe Gen4 storage. Activation is instant—simply join our Discord at https://dsc.gg/dataserware and open a ticket, and your cPanel account and credentials are created and delivered within minutes."
     },
     {
       q: "Does my Web Hosting plan come with a Free SSL Certificate?",
@@ -192,13 +192,15 @@ export default function WebHosting() {
                 </div>
 
                 {/* Order Button */}
-                <Link
-                  to={`/checkout/${plan.id}?cycle=${currentCycle.id}`}
+                <a
+                  href="https://dsc.gg/dataserware"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`ds-card-btn ${isPopular ? 'popular-btn' : ''}`}
                 >
-                  <span>Deploy {plan.name}</span>
+                  <span>Join Discord &amp; Get Instantly</span>
                   <ArrowRight size={16} />
-                </Link>
+                </a>
               </div>
             );
           })}

@@ -109,7 +109,7 @@ export async function handler(event, context) {
         amount: o.amount,
         paymentStatus: o.payment_status,
         provisioningStatus: o.provisioning_status,
-        razorpayPaymentId: o.razorpay_payment_id || null,
+        paymentId: o.razorpay_payment_id || o.id || null,
         createdAt: o.created_at
       }))
     };

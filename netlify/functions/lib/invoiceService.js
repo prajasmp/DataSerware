@@ -21,8 +21,8 @@ export function generateInvoiceForOrder(order) {
     currency: order.currency || 'INR',
     tax_amount: 0,
     total_amount: order.amount,
-    payment_method: 'Razorpay (UPI / Card / NetBanking)',
-    razorpay_payment_id: order.razorpay_payment_id || '',
+    payment_method: 'Discord Verified Billing',
+    payment_reference: order.payment_reference || order.id,
     status: 'paid',
     issued_at: nowIso,
     created_at: nowIso

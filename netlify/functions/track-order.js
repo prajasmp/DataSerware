@@ -92,7 +92,7 @@ export async function handler(event, context) {
 
       const orderMatches = cleanOrderId ? (
         o.id?.toLowerCase() === cleanOrderId ||
-        o.razorpay_order_id?.toLowerCase() === cleanOrderId
+        o.payment_reference?.toLowerCase() === cleanOrderId
       ) : true;
 
       if (cleanEmail && cleanOrderId) {
