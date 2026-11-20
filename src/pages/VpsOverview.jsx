@@ -75,20 +75,20 @@ export default function VpsOverview() {
   ];
 
   return (
-    <div className="ds-vds-page">
+    <div className="ds-vps-page">
       {/* 1. HERO SECTION */}
-      <section className="ds-vds-hero">
+      <section className="ds-vps-hero">
         <div className="container">
           <div className="ds-hero-pill">
             <Sparkles size={14} className="ds-sparkle-icon" />
             <span>HIGH-FREQUENCY KVM INFRASTRUCTURE</span>
           </div>
 
-          <h1 className="ds-vds-title">
+          <h1 className="ds-vps-title">
             Enterprise <span className="ds-gradient-text">Cloud VPS</span> Solutions
           </h1>
 
-          <p className="ds-vds-subtitle">
+          <p className="ds-vps-subtitle">
             Engineered for high performance, reliability, and security. Powered by AMD Ryzen™ 9 7950X, AMD EPYC, and Intel Xeon processors with 100% dedicated vCPU allocations, enterprise Gen4 NVMe, and dedicated IPv4.
           </p>
 
@@ -235,7 +235,7 @@ export default function VpsOverview() {
         </div>
 
         {/* VPS Cards Grid */}
-        <div className="ds-vds-cards-grid">
+        <div className="ds-vps-cards-grid">
           {filteredPlans.map((plan) => {
             const cyclePrice = calculatePriceForCycle(plan.price, currentCycle.months);
             const isRyzen = plan.category === 'ryzen-vps';
@@ -243,7 +243,7 @@ export default function VpsOverview() {
             return (
               <div
                 key={plan.id}
-                className={`ds-vds-card ${isRyzen ? 'flagship' : ''}`}
+                className={`ds-vps-card ${isRyzen ? 'flagship' : ''}`}
               >
                 {/* Header Tag */}
                 <div className="ds-card-top-tag">

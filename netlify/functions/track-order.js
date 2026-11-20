@@ -174,49 +174,19 @@ export async function handler(event, context) {
 }
 
 function formatOrderForTracking(order, server) {
-  const isWebHosting = order.plan_id?.startsWith('web-');
-  const isBareMetalVds = order.plan_id?.startsWith('vds-');
-
   let formattedServerDetails = null;
 
   if (order.provisioning_status === 'active' || server || order.server_details) {
     const details = order.server_details || {};
-
-    if (isWebHosting) {
-      formattedServerDetails = {
-        type: 'web',
-        domain: order.domain_name || details.domain || order.server_name,
-        username: details.username,
-        cpanelUrl: details.cpanelUrl || 'https://cpanel.dataserware.com:2083',
-        nameservers: details.nameservers || ['ns1.dataserware.com', 'ns2.dataserware.com'],
-        status: 'active'
-      };
-    } else if (isBareMetalVds) {
-      formattedServerDetails = {
-        type: 'bare-metal',
-        machineId: details.machineId || order.machine_id,
-        machineName: details.machineName || order.server_name,
-        ip: details.ip || '103.195.102.10',
-        sshPort: details.sshPort || 22,
-        rootUser: details.rootUser || 'root',
-        os: details.os || order.os || 'Ubuntu 24.04 LTS',
-        hostname: details.hostname || order.server_name,
-        datacenter: details.datacenter || order.server_region || 'Mumbai DC-1',
-        processor: details.processor || 'Enterprise Bare-Metal Processor',
-        ram: details.ram || '128 GB DDR4',
-        status: 'active'
-      };
-    } else {
-      formattedServerDetails = {
-        type: 'game',
-        ip: server?.ip || details.ip || '103.195.100.42',
-        port: server?.port || details.port || 25565,
-        nodeId: server?.node_id || 1,
-        status: server?.status || 'active',
-        memoryMb: server?.memory_mb || 2048,
-        panelUrl: process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com'
-      };
-    }
+    formattedServerDetails = {
+      type: 'server',
+      ip: server?.ip || details.ip || '103.195.100.42',
+      port: server?.port || details.port || 25565,
+      nodeId: server?.node_id || 1,
+      status: server?.status || 'active',
+      memoryMb: server?.memory_mb || 2048,
+      panelUrl: process.env.PTERODACTYL_PANEL_URL || 'https://panel.dataserware.com'
+    };
   }
 
   return {

@@ -34,12 +34,6 @@ This document is the verified reference for all environment variables, security 
 | `PTERODACTYL_LOCATION_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Locations | Both | Target datacenter location | Yes (defaults to `1`) | Node allocation in provisioning |
 | `PTERODACTYL_NEST_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nests | Both | Server nest category | Yes (defaults to `1`) | Egg allocation in provisioning |
 | `PTERODACTYL_MINECRAFT_EGG_ID` | Optional | Public | Pterodactyl | Pterodactyl Admin > Nests > Egg | Both | Minecraft egg ID | Yes (defaults to `3`) | Server startup parameters |
-| `WHM_HOST` | **Required** (Auto-cPanel) | Public | cPanel/WHM | Dedicated WHM server IP/FQDN | Both | Linux shared hosting account creation (`createacct`) | Safe dev fallback to staging queue | Check account in WHM List Accounts |
-| `WHM_USERNAME` | Optional | Public | cPanel/WHM | WHM administrative login | Both | WHM API authentication user | Yes (defaults to `root`) | Account ownership in WHM |
-| `WHM_API_TOKEN` | **Required** (Auto-cPanel) | **STRICT SECRET** | cPanel/WHM | WHM > Manage API Tokens | Both | WHM Remote API v1 authentication header | Safe dev fallback to staging queue | Order cPanel hosting on `/checkout` |
-| `WHM_PORT` | Optional | Public | cPanel/WHM | WHM SSL port configuration | Both | Remote port for WHM SSL API | Yes (defaults to `2087`) | WHM ping connectivity |
-| `BARE_METAL_AUTO_PROVISION` | Optional | Public | Internal NOC | Set to `'false'` until datacenter hardware is verified | Both | Physical Bare-Metal VDS netboot deployment | **Must remain `false`** until verified | Staged in hardware allocation queue |
-| `DEFAULT_DATACENTER` | Optional | Public | Internal NOC | Datacenter NOC agreement | Both | Physical location label on VDS cards | Yes (`"Equinix Mumbai (BOM1)"`) | Visible in customer tracking card |
 | `SMTP_HOST` | Optional | Public | Email Provider | SendGrid, Postmark, Google Workspace | Both | Outgoing transactional email delivery | Safe (logs to console if unset) | Purchase server and check delivery |
 | `SMTP_PORT` | Optional | Public | Email Provider | Email provider documentation | Both | SMTP submission port | Yes (defaults to `587`) | Nodemailer handshake |
 | `SMTP_USER` | Optional | Public | Email Provider | Mail account username | Both | SMTP authentication user | Safe (logs to console if unset) | Outgoing mail authentication |
@@ -78,17 +72,10 @@ This document is the verified reference for all environment variables, security 
 - **`PTERODACTYL_PANEL_URL`**: Base URL of your Pterodactyl panel.
 - **`PTERODACTYL_APPLICATION_API_KEY`**: Application API key (`ptla_...`) with write permissions for Users, Nodes, Allocations, and Servers.
 
-### E. Required for Automated cPanel / WHM Web Hosting
-- **`WHM_HOST`**: WHM server hostname or IP.
-- **`WHM_API_TOKEN`**: API token generated in WHM > Manage API Tokens with `createacct`, `suspendacct`, `unsuspendacct` permissions.
-
-### F. Required for Transactional Email (Receipts, Credentials)
+### E. Required for Transactional Email (Receipts, Credentials)
 - **`SMTP_HOST`**, **`SMTP_USER`**, **`SMTP_PASS`**: SMTP credentials for outgoing mail. In local dev, emails are safely logged to console.
 
-### G. Required for VDS Machines / Bare-Metal Physical Provisioning
-- **`BARE_METAL_AUTO_PROVISION`**: Must remain `false` until physical chassis, IPMI controllers, and network drops are verified in the datacenter. Orders are safely held in the `hardware_allocation` NOC staging queue.
-
-### H. Variables Confirmed Obsolete / Unused
+### F. Variables Confirmed Obsolete / Unused
 - `DATABASE_URL`: Not used. Persistence utilizes REST API via `@supabase/supabase-js` or in-memory `devStore.js`.
 - `PORT` / `HOST`: Vite dev server manages port 3000 locally; production uses serverless functions.
 - `JWT_SECRET` / `SESSION_SECRET`: Not used. Ordering requires zero customer login; admin auth uses Firebase tokens.

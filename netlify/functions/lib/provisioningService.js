@@ -1,14 +1,12 @@
 import { getTrustedPlan } from './planConfig.js';
 import { getOrCreateUser, createMinecraftServer } from './pterodactylService.js';
-import { createWebHostingAccount } from './whmService.js';
-import { allocatePhysicalMachine, startBareMetalProvisioning } from './bareMetalService.js';
-import { updateOrderInStore, addServerToStore, getOrderByIdFromStore, addWebHostingAccount, addVdsRecord, getAllPhysicalMachines } from './devStore.js';
+import { updateOrderInStore, addServerToStore, getOrderByIdFromStore } from './devStore.js';
 import { supabaseAdmin, isSupabaseAdminConfigured } from './supabaseAdmin.js';
 import { sendDeploymentStartedEmail, sendServerReadyEmail, sendDeploymentFailureEmail } from './emailService.js';
 
 /**
  * Automates server provisioning after payment verification.
- * Safe, idempotent, logs all steps, supports Game Servers, cPanel Web Hosting, and Bare-Metal VDS.
+ * Safe, idempotent, logs all steps, supports Game Servers, Cloud VPS, and Discord Bot Hosting.
  */
 export async function executeServerDeployment(orderId) {
   let order = getOrderByIdFromStore(orderId);
@@ -69,142 +67,7 @@ export async function executeServerDeployment(orderId) {
     const customerName = order.user_name || 'SERWARE Customer';
 
     // ----------------------------------------------------
-    // BRANCH A: cPanel WEB HOSTING PROVISIONING
-    // ----------------------------------------------------
-    if (plan.type === 'web' || order.plan_id.startsWith('web-')) {
-      const domain = order.domain_name || order.server_name || `${customerName.replace(/[^a-z0-9]/gi, '').toLowerCase()}.dataserware.site`;
-      console.log(`[Provisioning Web Hosting] Creating cPanel account for domain: ${domain}...`);
-
-      const webAccount = await createWebHostingAccount({
-        domain,
-        customerEmail,
-        planId: plan.id,
-        planName: plan.name
-      });
-
-      const hostingRecord = {
-        id: `WEB-${order.id.replace('ORD-', '')}`,
-        order_id: order.id,
-        domain: webAccount.domain,
-        username: webAccount.username,
-        cpanel_url: webAccount.cpanelUrl,
-        package: webAccount.package,
-        nameservers: webAccount.nameservers,
-        customer_email: customerEmail,
-        customer_name: customerName,
-        status: 'active',
-        created_at: nowIso,
-        updated_at: nowIso
-      };
-
-      addWebHostingAccount(hostingRecord);
-
-      const orderUpdates = {
-        status: 'active',
-        provisioning_status: 'active',
-        domain_name: webAccount.domain,
-        provisioned_at: nowIso,
-        updated_at: nowIso,
-        server_details: {
-          domain: webAccount.domain,
-          username: webAccount.username,
-          cpanelUrl: webAccount.cpanelUrl,
-          nameservers: webAccount.nameservers,
-          temporaryPassword: webAccount.credentials.password
-        }
-      };
-
-      updateOrderInStore(orderId, orderUpdates);
-      sendServerReadyEmail(order, orderUpdates.server_details).catch(e => console.warn('[Email Warning]:', e.message));
-
-      console.log(`[Provisioning Completed] Successfully activated Web Hosting account for ${webAccount.domain} (Order ${orderId})!`);
-      return {
-        success: true,
-        type: 'web',
-        ...orderUpdates.server_details
-      };
-    }
-
-    // ----------------------------------------------------
-    // BRANCH B: BARE-METAL VDS MACHINE PROVISIONING
-    // ----------------------------------------------------
-    if (plan.type === 'bare-metal' || order.plan_id.startsWith('vds-')) {
-      console.log(`[Provisioning Bare-Metal] Allocating physical machine for ${plan.name} (${order.server_region || 'Mumbai'})...`);
-
-      const storeMachines = getAllPhysicalMachines();
-      const machine = await allocatePhysicalMachine({
-        planId: plan.id,
-        location: order.server_region,
-        orderId: order.id,
-        storeMachines
-      });
-
-      const bareMetalResult = await startBareMetalProvisioning({
-        machine,
-        os: order.os || 'Ubuntu 24.04 LTS',
-        hostname: order.server_name || `${machine.name.toLowerCase()}.dataserware.net`,
-        sshKey: order.ssh_key,
-        customerEmail,
-        orderId: order.id
-      });
-
-      const vdsRecord = {
-        id: `VDS-${order.id.replace('ORD-', '')}`,
-        order_id: order.id,
-        machine_id: machine.id,
-        machine_name: machine.name,
-        rack: machine.rack,
-        datacenter: machine.datacenter,
-        ip: bareMetalResult.ip,
-        ssh_port: bareMetalResult.sshPort,
-        root_user: bareMetalResult.rootUser,
-        os: bareMetalResult.os,
-        processor: machine.processor || plan.processor,
-        ram: plan.ram || '128 GB DDR4',
-        storage: plan.storage || '1 TB NVMe SSD',
-        status: 'active',
-        customer_email: customerEmail,
-        created_at: nowIso,
-        updated_at: nowIso
-      };
-
-      addVdsRecord(vdsRecord);
-
-      const orderUpdates = {
-        status: 'active',
-        provisioning_status: 'active',
-        machine_id: machine.id,
-        provisioned_at: nowIso,
-        updated_at: nowIso,
-        server_details: {
-          machineId: machine.id,
-          machineName: machine.name,
-          rack: machine.rack,
-          datacenter: machine.datacenter,
-          ip: bareMetalResult.ip,
-          sshPort: bareMetalResult.sshPort,
-          rootUser: bareMetalResult.rootUser,
-          rootPassword: bareMetalResult.rootPassword,
-          os: bareMetalResult.os,
-          hostname: bareMetalResult.hostname,
-          processor: machine.processor || plan.processor,
-          ram: plan.ram || '128 GB DDR4'
-        }
-      };
-
-      updateOrderInStore(orderId, orderUpdates);
-      sendServerReadyEmail(order, orderUpdates.server_details).catch(e => console.warn('[Email Warning]:', e.message));
-
-      console.log(`[Provisioning Completed] Successfully activated Bare-Metal VDS Machine ${machine.name} on IP ${bareMetalResult.ip}!`);
-      return {
-        success: true,
-        type: 'bare-metal',
-        ...orderUpdates.server_details
-      };
-    }
-
-    // ----------------------------------------------------
-    // BRANCH C: STANDARD GAME & VPS SERVER (Pterodactyl API)
+    // SERVER & VPS PROVISIONING (Pterodactyl API)
     // ----------------------------------------------------
     const serverName = order.server_name || `${plan.name} Node`;
 

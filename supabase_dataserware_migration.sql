@@ -63,46 +63,7 @@ CREATE TABLE IF NOT EXISTS public.invoices (
 CREATE INDEX IF NOT EXISTS idx_invoices_order_id ON public.invoices(order_id);
 CREATE INDEX IF NOT EXISTS idx_invoices_number ON public.invoices(invoice_number);
 
--- 3. Web Hosting Accounts Table (cPanel provisioned)
-CREATE TABLE IF NOT EXISTS public.web_hosting_accounts (
-    id TEXT PRIMARY KEY,
-    order_id TEXT REFERENCES public.orders(id) ON DELETE SET NULL,
-    customer_email TEXT NOT NULL,
-    domain TEXT NOT NULL,
-    username TEXT NOT NULL UNIQUE,
-    package TEXT NOT NULL,
-    cpanel_url TEXT NOT NULL,
-    nameservers JSONB NOT NULL,
-    status TEXT NOT NULL DEFAULT 'active',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_web_hosting_username ON public.web_hosting_accounts(username);
-CREATE INDEX IF NOT EXISTS idx_web_hosting_email ON public.web_hosting_accounts(customer_email);
-
--- 4. VDS Bare-Metal Deployments Table
-CREATE TABLE IF NOT EXISTS public.vds_deployments (
-    id TEXT PRIMARY KEY,
-    order_id TEXT REFERENCES public.orders(id) ON DELETE SET NULL,
-    customer_email TEXT NOT NULL,
-    machine_id TEXT NOT NULL,
-    machine_name TEXT NOT NULL,
-    location TEXT NOT NULL,
-    ip_address TEXT,
-    root_password TEXT,
-    ssh_key TEXT,
-    os TEXT NOT NULL,
-    datacenter TEXT DEFAULT 'Equinix Mumbai (BOM1)',
-    provision_type TEXT DEFAULT 'manual_noc',
-    status TEXT NOT NULL DEFAULT 'pending',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_vds_email ON public.vds_deployments(customer_email);
-
--- 5. Admin Whitelist & Role Management
+-- 3. Admin Whitelist & Role Management
 CREATE TABLE IF NOT EXISTS public.admin_users (
     email TEXT PRIMARY KEY,
     role TEXT NOT NULL DEFAULT 'admin',

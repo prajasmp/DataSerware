@@ -43,21 +43,7 @@ This document provides a clean, easy-to-follow checklist of every value, credent
    - `PTERODACTYL_NEST_ID`: ID of the nest (Pterodactyl Admin > Nests).
    - `PTERODACTYL_MINECRAFT_EGG_ID`: ID of the Minecraft egg (defaults to `3`).
 
-### B. cPanel / WHM (Web Hosting Provisioning)
-*Required for automatic cPanel account creation for SERWARE SOLO, PREMIUM, and BUSINESS plans.*
-
-1. **`WHM_HOST`**:
-   - **Where to Obtain**: Your cPanel/WHM server domain or IP (e.g. `https://cpanel.dataserware.com`).
-2. **`WHM_USERNAME`**:
-   - **Where to Obtain**: WHM root or reseller username (defaults to `root`).
-3. **`WHM_API_TOKEN`**:
-   - **Where to Obtain**: Log in to WHM (`https://your-server-ip:2087`) > In search box, type **Manage API Tokens** > Click **Generate Token**.
-   - **Instructions**: Name it `Data Serware-Billing`. Under Privileges, enable `createacct`, `suspendacct`, `unsuspendacct`, and Package Management. Copy the token.
-   - **Where to Enter**: Netlify Secrets Dashboard.
-   - **Secret?**: **STRICT SECRET**.
-4. **`WHM_PORT`**: Port for WHM SSL (defaults to `2087`).
-
-### C. SMTP Transactional Mail Server
+### B. SMTP Transactional Mail Server
 *Required for customer order receipts, invoices, and server credential delivery.*
 
 1. **`SMTP_HOST`**: Outgoing mail server (e.g. `smtp.gmail.com` or `mail.dataserware.com`).
@@ -93,7 +79,7 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 ## 5. Optional Integrations
 
 ### A. Supabase (Remote PostgreSQL Persistence)
-*When omitted, internal cluster storage (`devStore.js`) stores all active orders, machines, and web accounts locally.*
+*When omitted, internal cluster storage (`devStore.js`) stores all active orders and servers locally.*
 - **`SUPABASE_URL`**: [Supabase Dashboard > Settings > API](https://supabase.com/dashboard).
 - **`SUPABASE_SERVICE_ROLE_KEY`**: Master key (Server-side Secret).
 - **`VITE_SUPABASE_ANON_KEY`**: Public client key.
@@ -103,16 +89,3 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 *When omitted, client and server fallbacks allow Google OAuth login using existing configuration.*
 - **`VITE_FIREBASE_*`**: Web client configuration from [Firebase Console > Project Settings](https://console.firebase.google.com/).
 - **`FIREBASE_CLIENT_EMAIL` & `FIREBASE_PRIVATE_KEY`**: Service account private key for server-side token validation.
-
----
-
-## 6. Hardware & Bare-Metal VDS Information
-
-*CRITICAL: Automatic bare-metal provisioning is intentionally kept **DISABLED** (`BARE_METAL_AUTO_PROVISION=false`) by default to prevent failed netboot attempts on non-existent hardware.*
-
-- **Hardware Racking**: Racking physical bare-metal chassis (AMD Ryzen 9 9950X, Ryzen 7 5700G/5800X, Intel Xeon E5-2699/2680/2670 v4).
-- **Network & IPMI Access**: Datacenter technicians must provide:
-  1. Dedicated Out-of-Band IPMI/BMC controller IP addresses and login credentials.
-  2. Public dedicated IPv4 blocks and gateway MAC addresses.
-  3. PXE netboot operating system images (Ubuntu 24.04/22.04 LTS, Debian 12, Rocky Linux 9, Windows Server).
-- Once physical hardware is verified, you can toggle `BARE_METAL_AUTO_PROVISION=true` in `.env` / Admin Console.

@@ -1,6 +1,6 @@
 # Data Serware — Multi-Portal Cloud & Game Hosting Architecture
 
-**Data Serware** is an enterprise-grade cloud and game server hosting ecosystem delivering high-performance AMD Ryzen™ 9 7950X / EPYC™ bare metal, Cloud VPS, remote desktop (RDP), and cPanel Web Hosting with 1.2 Tbps DDoS protection and automated 60-second provisioning.
+**Data Serware** is an enterprise-grade cloud and game server hosting ecosystem delivering high-performance AMD Ryzen™ 9 7950X / EPYC™ Cloud VPS, Game Servers, and Discord Bot Hosting with 1.2 Tbps DDoS protection and instant provisioning.
 
 The platform is architected into three distinct, interconnected portals modeled after the SkilloraClouds ecosystem:
 1. 🌐 **Portal A: Main Marketing Website** (`dataserware.com` / `/`)
@@ -33,7 +33,7 @@ The platform is architected into three distinct, interconnected portals modeled 
 
 ### 1. Portal A: Main Marketing Website (`/`)
 - **Headline & Badges**: 1.2 Tbps DDoS protection, 99.9% uptime SLA, sub-12ms ping, 24/7 technical support.
-- **Service Categories**: Game Servers (Minecraft, Palworld, Rust, GTA V), Cloud VPS (Linux & Windows), Dedicated RDP, Bare-Metal Dedicated Servers (AMD Ryzen 9 9950X / EPYC), cPanel Web Hosting, Discord Bot Hosting.
+- **Service Categories**: Game Servers (Minecraft, Palworld, Rust, GTA V), Cloud VPS (AMD Ryzen 9 7950X / EPYC & Intel Xeon), Discord Bot Hosting.
 - **Pricing & Discounts**: Monthly plans with promotional discounts (e.g. `SERWARE20` for 20% off). Clicking "Order Now" on any plan passes the plan parameters and redirects directly to Portal B (`/billing?plan=...`).
 - **Global Nodes Showcase**: Interactive latency cards for Mumbai (8-18ms), Singapore (35-50ms), Frankfurt (110-130ms), Virginia, and London.
 

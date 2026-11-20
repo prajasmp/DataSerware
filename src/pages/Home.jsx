@@ -23,8 +23,8 @@ export default function Home() {
     { name: 'ARK: Survival Ascended', tag: 'Unreal Engine 5 Ready' },
     { name: 'GTA V / FiveM', tag: 'Low Latency Mumbai' },
     { name: 'Discord Bots', tag: 'Node.js / Python / Java' },
-    { name: 'Cloud VPS (KVM)', tag: 'Ubuntu / Debian / Windows' },
-    { name: 'cPanel Web Hosting', tag: 'LiteSpeed / NVMe' }
+    { name: 'Cloud VPS (KVM)', tag: 'Ubuntu / Debian / AlmaLinux' },
+    { name: 'Docker & Microservices', tag: 'Gen4 NVMe / Dedicated IPv4' }
   ];
 
   // 3 Core Service Categories: Server, VPS, Bot Hosting
@@ -186,7 +186,7 @@ export default function Home() {
     },
     {
       q: 'Is 1.2 Tbps DDoS protection included with all servers?',
-      a: 'Yes! Every game server, VPS, and web hosting container is protected by our automated Corero & Path.net layer-3, layer-4, and layer-7 DDoS mitigation at no extra charge.'
+      a: 'Yes! Every game server, Cloud VPS, and bot hosting container is protected by our automated Corero & Path.net layer-3, layer-4, and layer-7 DDoS mitigation at no extra charge.'
     },
     {
       q: 'How do I access the game server control panel?',

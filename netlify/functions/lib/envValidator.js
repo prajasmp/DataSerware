@@ -39,29 +39,6 @@ export function validateEnvironment() {
       description: 'Application API token (ptla_...) for creating users, servers, and allocations'
     },
 
-    // --- cPanel / WHM Provisioning (Web Hosting) ---
-    {
-      key: 'WHM_HOST',
-      category: 'Web Hosting (WHM)',
-      required: false,
-      present: Boolean(process.env.WHM_HOST),
-      description: 'WHM host domain or IP (e.g. https://cpanel.dataserware.com)'
-    },
-    {
-      key: 'WHM_USERNAME',
-      category: 'Web Hosting (WHM)',
-      required: false,
-      present: Boolean(process.env.WHM_USERNAME),
-      description: 'WHM root or reseller administrative username'
-    },
-    {
-      key: 'WHM_API_TOKEN',
-      category: 'Web Hosting (WHM)',
-      required: false,
-      present: Boolean(process.env.WHM_API_TOKEN && !process.env.WHM_API_TOKEN.includes('your_')),
-      description: 'WHM API token generated in WHM > Manage API Tokens'
-    },
-
     // --- SMTP Email Delivery ---
     {
       key: 'SMTP_HOST',
