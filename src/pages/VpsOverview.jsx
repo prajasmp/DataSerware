@@ -50,7 +50,7 @@ export default function VpsOverview() {
   const faqs = [
     {
       q: 'What is a Data Serware Cloud VPS and how is it virtualized?',
-      a: 'Data Serware Cloud VPS instances utilize KVM (Kernel-based Virtual Machine) hardware virtualization. Every instance is allocated 100% dedicated CPU slices, unshared DDR4/DDR5 RAM, high-speed Gen4 NVMe storage, and a dedicated public IPv4 address with zero hypervisor contention.'
+      a: 'Data Serware Cloud VPS instances utilize KVM (Kernel-based Virtual Machine) hardware virtualization. Every instance is allocated high-frequency CPU slices, unshared DDR4/DDR5 RAM, high-speed Gen4 NVMe storage, and a static public IPv4 address with zero hypervisor contention.'
     },
     {
       q: 'How does purchasing via Discord work?',
@@ -89,7 +89,7 @@ export default function VpsOverview() {
           </h1>
 
           <p className="ds-vps-subtitle">
-            Engineered for high performance, reliability, and security. Powered by AMD Ryzen™ 9 7950X, AMD EPYC, and Intel Xeon processors with 100% dedicated vCPU allocations, enterprise Gen4 NVMe, and dedicated IPv4.
+            Engineered for high performance, reliability, and security. Powered by AMD Ryzen™ 9 7950X, AMD EPYC, and Intel Xeon processors with isolated high-frequency vCPU allocations, enterprise Gen4 NVMe, and static IPv4.
           </p>
 
           <div style={{ marginTop: '1.25rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -126,12 +126,12 @@ export default function VpsOverview() {
             <div className="ds-stat-divider" />
             <div className="ds-stat-item">
               <span className="stat-number">1 Gbps</span>
-              <span className="stat-label">Dedicated Uplink</span>
+              <span className="stat-label">Gigabit Uplink</span>
             </div>
             <div className="ds-stat-divider" />
             <div className="ds-stat-item">
               <span className="stat-number">100%</span>
-              <span className="stat-label">Dedicated vCPU (KVM)</span>
+              <span className="stat-label">KVM Hardware Virtualized</span>
             </div>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function VpsOverview() {
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(74, 222, 128, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ade80', marginBottom: '1rem' }}>
               <Globe size={20} />
             </div>
-            <h3 style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>Dedicated Clean IPv4</h3>
+            <h3 style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>Static Clean IPv4</h3>
             <p style={{ color: '#94a3b8', fontSize: '0.85rem', lineHeight: 1.5, margin: 0 }}>
               Every VPS includes a static public IPv4 with clean reputation. Reverse DNS (PTR) configuration is available upon ticket request.
             </p>
@@ -288,7 +288,7 @@ export default function VpsOverview() {
                   </div>
                   <div className="ds-spec-item">
                     <Globe size={15} className="ds-spec-icon" />
-                    <span>1 Dedicated IPv4</span>
+                    <span>1 Static IPv4</span>
                   </div>
                   <div className="ds-spec-item bonus">
                     <Zap size={15} className="ds-spec-icon bonus" />

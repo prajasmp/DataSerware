@@ -18,13 +18,13 @@ export default function Home() {
   // Supported games & runtimes strip
   const supportedGames = [
     { name: 'Minecraft Java & Bedrock', tag: 'Paper / Fabric / Forge' },
-    { name: 'Palworld', tag: 'High-Ram Dedicated' },
+    { name: 'Palworld', tag: 'High-RAM Instance' },
     { name: 'Rust', tag: 'Anti-DDoS Protected' },
     { name: 'ARK: Survival Ascended', tag: 'Unreal Engine 5 Ready' },
     { name: 'GTA V / FiveM', tag: 'Low Latency Mumbai' },
     { name: 'Discord Bots', tag: 'Node.js / Python / Java' },
     { name: 'Cloud VPS (KVM)', tag: 'Ubuntu / Debian / AlmaLinux' },
-    { name: 'Docker & Microservices', tag: 'Gen4 NVMe / Dedicated IPv4' }
+    { name: 'Docker & Microservices', tag: 'Gen4 NVMe / Static IPv4' }
   ];
 
   // 3 Core Service Categories: Server, VPS, Bot Hosting
@@ -42,8 +42,8 @@ export default function Home() {
       id: 'cloud-vps',
       title: 'High-Performance Cloud VPS',
       icon: Server,
-      description: 'Enterprise KVM Cloud VPS powered by AMD Ryzen, AMD EPYC, and Intel Xeon with 100% dedicated vCPUs, dedicated IPv4 & full root access.',
-      specs: '100% Dedicated vCPU • Dedicated IPv4 • 1 Gbps Port',
+      description: 'Enterprise KVM Cloud VPS powered by AMD Ryzen, AMD EPYC, and Intel Xeon with high-frequency vCPUs, static IPv4 & full root access.',
+      specs: 'High-Frequency vCPU • Static IPv4 • 1 Gbps Port',
       link: '/vps',
       badge: 'ENTERPRISE KVM'
     },
@@ -66,7 +66,7 @@ export default function Home() {
       category: 'Game Server',
       price: 176,
       ram: '4 GB DDR4/DDR5 RAM',
-      cpu: '150% Dedicated CPU',
+      cpu: '150% CPU Slice',
       storage: '20 GB NVMe SSD',
       features: ['DDoS Protection (1.2 Tbps)', 'Pterodactyl Control Panel', 'Instant 60s Setup', 'Daily Automated Backups']
     },
@@ -77,7 +77,7 @@ export default function Home() {
       price: 968,
       badge: 'Most Popular',
       ram: '8 GB DDR5 High-Clock RAM',
-      cpu: '250% Dedicated 5.7GHz CPU',
+      cpu: '250% 5.7GHz CPU Slice',
       storage: '40 GB Gen4 NVMe SSD',
       features: ['1.2 Tbps Corero DDoS Shield', 'Custom Control Panel & Console', 'Unmetered 1 Gbps Bandwidth', 'Free Subdomain Included']
     },
@@ -88,7 +88,7 @@ export default function Home() {
       price: 1936,
       badge: 'Extreme Power',
       ram: '16 GB DDR5 RAM',
-      cpu: '350% Dedicated CPU',
+      cpu: '350% High-Clock CPU',
       storage: '80 GB Gen4 NVMe SSD',
       features: ['Unlimited Player Slots', 'Full SFTP & Database Access', 'Multi-Port Allocation (3 Ports)', 'Priority 24/7 Engineer Support']
     }
@@ -103,7 +103,7 @@ export default function Home() {
       ram: '8 GB RAM',
       cpu: '2 Intel vCores',
       storage: '60 GB Gen4 NVMe',
-      features: ['Full KVM Root Access', 'Dedicated IPv4 Address', 'Ubuntu, Debian, AlmaLinux', 'Enterprise DDoS Filter']
+      features: ['Full KVM Root Access', 'Static IPv4 Address', 'Ubuntu, Debian, AlmaLinux', 'Enterprise DDoS Filter']
     },
     {
       id: 'ryzen-vps-8gb',
@@ -114,7 +114,7 @@ export default function Home() {
       ram: '8 GB DDR5 RAM',
       cpu: '2 AMD Ryzen vCores (5.7GHz)',
       storage: '60 GB NVMe Storage',
-      features: ['Full Root / Administrator Access', '1 Gbps Dedicated Port', 'Windows / Linux OS Switcher', 'Instant Automated Deployment']
+      features: ['Full Root / Administrator Access', '1 Gbps High-Speed Port', 'Windows / Linux OS Switcher', 'Instant Automated Deployment']
     },
     {
       id: 'ryzen-vps-16gb',
@@ -125,7 +125,7 @@ export default function Home() {
       ram: '16 GB DDR5 RAM',
       cpu: '4 AMD Ryzen vCores',
       storage: '96 GB Gen4 NVMe',
-      features: ['Full KVM Root Access', 'Dedicated IPv4 Address', 'Unmetered 1 Gbps Uplink', 'Daily Cloud Backups']
+      features: ['Full KVM Root Access', 'Static IPv4 Address', 'Unmetered 1 Gbps Uplink', 'Daily Cloud Backups']
     }
   ];
 
@@ -136,7 +136,7 @@ export default function Home() {
       category: 'Bot Runtime',
       price: 48,
       ram: '2 GB RAM',
-      cpu: '1 Dedicated vCore',
+      cpu: '1 High-Frequency vCore',
       storage: '10 GB NVMe SSD',
       features: ['Node.js 20 & Python 3.11', '24/7 Always-On Background Runtime', 'Pterodactyl Container Isolation', 'Automated Crash Restart']
     },
@@ -147,7 +147,7 @@ export default function Home() {
       price: 97,
       badge: 'Most Popular',
       ram: '4 GB RAM',
-      cpu: '2 Dedicated vCores',
+      cpu: '2 High-Frequency vCores',
       storage: '20 GB NVMe SSD',
       features: ['Discord / Telegram Bot Ready', 'Low Latency Network Socket', 'SFTP File Manager & Web Console', 'Daily Automated Backups']
     },
@@ -158,7 +158,7 @@ export default function Home() {
       price: 194,
       badge: 'Shard Ready',
       ram: '8 GB RAM',
-      cpu: '4 Dedicated vCores',
+      cpu: '4 High-Frequency vCores',
       storage: '40 GB NVMe SSD',
       features: ['Multi-Bot Discord Sharding', 'Java 21, Golang & Rust Support', 'Unmetered 1 Gbps Bandwidth', '24/7 Priority Discord Support']
     }
@@ -530,7 +530,7 @@ export default function Home() {
             {/* Simulated Live Console Output */}
             <div className="ds-mock-console">
               <p className="log-line info"><span className="log-ts">[12:00:01 INFO]:</span> Loading DataSerware kernel modules and initializing memory registers...</p>
-              <p className="log-line info"><span className="log-ts">[12:00:02 INFO]:</span> Allocated 8192MB DDR5 ECC RAM &bull; 250% Dedicated 5.7GHz CPU thread</p>
+              <p className="log-line info"><span className="log-ts">[12:00:02 INFO]:</span> Allocated 8192MB DDR5 ECC RAM &bull; 250% 5.7GHz CPU thread</p>
               <p className="log-line success"><span className="log-ts">[12:00:03 SUCCESS]:</span> Corero 1.2 Tbps DDoS shield online &bull; Path.net filter active on port 25565</p>
               <p className="log-line info"><span className="log-ts">[12:00:05 INFO]:</span> Starting minecraft_server.1.21.1.jar with Java 21 LTS (ZGC low latency GC)</p>
               <p className="log-line success"><span className="log-ts">[12:00:07 SUCCESS]:</span> [Server thread/INFO]: Done (2.128s)! For help, type "help"</p>

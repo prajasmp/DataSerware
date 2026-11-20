@@ -7,7 +7,7 @@ import {
   Menu, X, Home, Package, Server, Globe, Headphones,
   ChevronDown, LayoutGrid, CreditCard, Terminal, ExternalLink,
   ShieldCheck, LogOut, Copy, Check, Sparkles, Flame, ArrowRight,
-  Monitor, Bot, Cpu, User, Shield
+  Monitor, Bot, Cpu, User, Shield, MessageSquare
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -16,14 +16,7 @@ export default function Navbar() {
   const [copiedCode, setCopiedCode] = useState(false);
 
   // Dropdown states
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [vpsOpen, setVpsOpen] = useState(false);
-  const [dedicatedOpen, setDedicatedOpen] = useState(false);
   const [panelsOpen, setPanelsOpen] = useState(false);
-
-  const servicesTimer = useRef(null);
-  const vpsTimer = useRef(null);
-  const dedicatedTimer = useRef(null);
   const panelsTimer = useRef(null);
 
   const { user, loginWithGoogle, logout, isAdmin, authLoading } = useAuth();
@@ -38,9 +31,6 @@ export default function Navbar() {
   };
 
   const closeAllDropdowns = () => {
-    setServicesOpen(false);
-    setVpsOpen(false);
-    setDedicatedOpen(false);
     setPanelsOpen(false);
     setMobileOpen(false);
   };

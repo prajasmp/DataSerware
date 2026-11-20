@@ -97,8 +97,13 @@ export default function App() {
 
                   {/* Legacy URL Redirects */}
                   <Route path="/web-hosting" element={<Navigate to="/plans" replace />} />
+                  <Route path="/vds" element={<Navigate to="/vps" replace />} />
                   <Route path="/vds-machines" element={<Navigate to="/vps" replace />} />
                   <Route path="/vds-machines/:family" element={<Navigate to="/vps" replace />} />
+                  <Route path="/rdp" element={<Navigate to="/vps" replace />} />
+                  <Route path="/rdp-servers" element={<Navigate to="/vps" replace />} />
+                  <Route path="/dedicated" element={<Navigate to="/vps" replace />} />
+                  <Route path="/dedicated-servers" element={<Navigate to="/vps" replace />} />
                   <Route path="/amd-ryzen-9-machines" element={<Navigate to="/vps" replace />} />
                   <Route path="/amd-ryzen-7-machines" element={<Navigate to="/vps" replace />} />
                   <Route path="/intel-xeon-machines" element={<Navigate to="/vps" replace />} />

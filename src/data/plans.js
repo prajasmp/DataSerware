@@ -52,7 +52,7 @@ const gamePlan = (category, ram, originalPrice, cpu, storage, badge) => ({
   category,
   name: `${GAME_PLAN_LABELS[category]} ${ram} GB`,
   ram: `${ram} GB DDR4/DDR5 RAM`,
-  cpu: `${cpu}% Dedicated CPU`,
+  cpu: `${cpu}% CPU Slice`,
   storage: `${storage} GB NVMe SSD`,
   location: DEFAULT_LOCATION,
   originalPrice,
@@ -76,7 +76,7 @@ const vpsPlan = (category, processor, ram, originalPrice, cores, storage, badge)
   ...(badge ? { badge } : {}),
   features: [
     "Full KVM Root Access",
-    "Dedicated IPv4 Address Included",
+    "Static IPv4 Address Included",
     "1 Gbps Port Speed with Unmetered Bandwidth",
     "Enterprise DDoS Shield",
     "Custom OS (Ubuntu, Debian, AlmaLinux, Windows)",

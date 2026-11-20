@@ -11,7 +11,6 @@ This document provides a clean, easy-to-follow checklist of every value, credent
 | **Public Base URL** | Your production website URL (e.g. `https://dataserware.com`). Used to construct customer tracking links in emails. | `PUBLIC_URL` in `.env` / Hosting env | `http://localhost:3000` |
 | **Admin Email Whitelist** | Comma-separated email addresses authorized to access the `/admin` dashboard. | `ADMIN_EMAILS` in `.env` / Hosting env | `admin@dataserware.com` |
 | **Primary Owner Email** | The primary administrator designated with full owner privileges. | `PRIMARY_ADMIN_EMAIL` in `.env` | `r26377269@gmail.com` |
-| **Default Datacenter Label** | Physical facility name shown on VDS machine cards. | `DEFAULT_DATACENTER` in `.env` | `"Equinix Mumbai (BOM1)"` |
 
 ---
 
